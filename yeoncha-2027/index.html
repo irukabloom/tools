@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2027 연차 꿀조합 계산기 | 남은 연차로 가장 길게 쉬는 날짜</title>
+<meta name="description" content="남은 연차 개수만 넣으면 2027년 공휴일·대체공휴일·주말을 이어 가장 길게 쉬는 연휴 조합을 찾아 드려요. 노동절·제헌절 공휴일 반영. 결과는 인스타 스토리용 이미지로 저장할 수 있어요.">
+<link rel="canonical" href="https://tools.irukabloom.com/yeoncha-2027/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="2027 연차 꿀조합 계산기">
+<meta property="og:description" content="남은 연차로 2027년에 가장 길게 쉬는 날짜를 찾아 드려요">
+<meta property="og:url" content="https://tools.irukabloom.com/yeoncha-2027/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+:root{font-family:"Gowun Dodum","Apple SD Gothic Neo",sans-serif;color:#252321;background:#fff9ee}
+*{box-sizing:border-box}
+body{margin:0;min-width:320px;min-height:100vh;background:#fff9ee}
+button{cursor:pointer;font-family:inherit}
+[hidden]{display:none!important}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-8px) rotate(3deg)}}
+
+.input-page{position:relative;overflow:hidden;display:flex;justify-content:center;padding:40px 18px;background:radial-gradient(circle at 15% 12%,rgba(255,203,80,.34),transparent 22%),radial-gradient(circle at 92% 30%,rgba(122,92,255,.14),transparent 24%),#fff9ee}
+.input-card{position:relative;z-index:1;width:min(100%,430px);margin:auto;padding:32px 26px 24px;border:2px solid rgba(37,35,33,.08);border-radius:38px;background:rgba(255,255,255,.92);box-shadow:0 24px 70px rgba(75,57,17,.12);text-align:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:#252321;color:#fff;font-size:12px;font-weight:700;letter-spacing:.03em}
+.eyebrow-dot{width:7px;height:7px;border-radius:50%;background:#ffcf4a;box-shadow:0 0 0 4px rgba(255,207,74,.2)}
+.hero-illustration{position:relative;width:136px;height:122px;margin:25px auto 10px}
+.calendar-face{position:absolute;inset:7px 11px 0;animation:float 4s ease-in-out infinite;border:4px solid #252321;border-radius:24px;background:#ffcf4a;box-shadow:7px 8px 0 #252321;overflow:hidden}
+.calendar-face::before{content:"";display:block;height:30px;border-bottom:4px solid #252321;background:#ff8399}
+.calendar-rings{position:absolute;top:-9px;left:24px;right:24px;display:flex;justify-content:space-between}
+.calendar-rings span{width:9px;height:26px;border:3px solid #252321;border-radius:99px;background:#fff}
+.calendar-face strong{display:block;margin-top:9px;font-family:"Black Han Sans",sans-serif;font-size:24px;line-height:1;font-weight:400}
+.face{position:relative;width:54px;height:22px;margin:6px auto 0}
+.face i{position:absolute;top:2px;width:5px;height:7px;border-radius:50%;background:#252321}
+.face i:first-child{left:7px}.face i:nth-child(2){right:7px}
+.face b{position:absolute;bottom:0;left:20px;width:14px;height:7px;border:3px solid #252321;border-top:0;border-radius:0 0 14px 14px}
+.hero-spark{position:absolute;color:#7357ff;font-size:24px}
+.hero-spark-one{top:2px;right:0}.hero-spark-two{bottom:12px;left:-2px;color:#ff6f87;font-size:17px}
+.input-card h1{margin:0;font-family:"Black Han Sans","Apple SD Gothic Neo",sans-serif;font-weight:400;font-size:clamp(42px,12vw,58px);line-height:1.05;letter-spacing:-.03em}
+.input-card h1 span{color:#7357ff}
+.intro{max-width:330px;margin:15px auto 28px;color:#746f69;font-size:14px;font-weight:700;line-height:1.65;word-break:keep-all}
+.form-section{margin-top:22px;text-align:left}
+.section-label{display:flex;align-items:center;gap:9px;margin-bottom:11px;font-size:14px;font-weight:700}
+.section-label>span{display:grid;width:24px;height:24px;place-items:center;border-radius:50%;background:#eee9ff;color:#6146e7;font-size:12px;font-weight:900}
+.counter{display:grid;grid-template-columns:58px 1fr 58px;align-items:center;height:66px;padding:6px;border:2px solid #eae6df;border-radius:21px;background:#fffdf8}
+.counter button{width:50px;height:50px;border:0;border-radius:16px;background:#f0ecff;color:#6549ec;font-size:28px;font-weight:700;transition:transform .15s,background .15s}
+.counter button:active{transform:scale(.92);background:#e1d9ff}
+.counter label{display:flex;align-items:baseline;justify-content:center;gap:4px;font-weight:700}
+.counter input{width:62px;appearance:textfield;-moz-appearance:textfield;border:0;outline:0;background:transparent;color:#252321;font-family:"Black Han Sans",sans-serif;font-size:30px;text-align:right}
+.counter input::-webkit-inner-spin-button,.counter input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.counter label span{font-size:15px}
+.segment{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;padding:6px;border-radius:19px;background:#f2efe9}
+.segment button{min-height:48px;border:0;border-radius:14px;background:transparent;color:#7d7871;font-size:14px;font-weight:700;transition:all .18s}
+.segment button.active{background:#fff;color:#5d42df;box-shadow:0 4px 14px rgba(70,51,20,.1)}
+.primary-button{border:0;border-radius:20px;background:#7357ff;color:#fff;font-size:18px;font-weight:900;box-shadow:0 8px 0 #4d36c6;transition:transform .15s,box-shadow .15s}
+.primary-button:active{transform:translateY(5px);box-shadow:0 3px 0 #4d36c6}
+.find-button{display:flex;width:100%;height:65px;align-items:center;justify-content:center;gap:12px;margin-top:30px}
+.find-button span{font-size:24px}
+.helper-text{margin:16px 0 0;color:#aaa49c;font-size:11px;font-weight:700}
+.decor{position:absolute;border:3px solid #252321}
+.decor-one{top:12%;left:-26px;width:70px;height:70px;transform:rotate(18deg);border-radius:18px;background:#ff8399}
+.decor-two{right:-30px;bottom:18%;width:86px;height:86px;border-radius:50%;background:#b9ebd6}
+.decor-three{top:5%;right:7%;width:26px;height:26px;transform:rotate(45deg);border:0;background:#7357ff}
+
+.result-page{padding-bottom:40px;background:#eeeae4}
+.result-nav{position:sticky;z-index:3;top:0;display:flex;width:100%;height:64px;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid rgba(37,35,33,.08);background:rgba(255,249,238,.94);backdrop-filter:blur(12px)}
+.result-nav p{font-size:15px;font-weight:900;margin:0}
+.back-button,.nav-spacer{width:38px;height:38px}
+.back-button{display:grid;place-items:center;border:0;border-radius:13px;background:#fff;color:#252321;font-size:22px;box-shadow:0 3px 12px rgba(36,30,20,.08)}
+.story-wrap{width:min(100% - 28px,540px);margin:24px auto;overflow:hidden;border-radius:25px;box-shadow:0 25px 70px rgba(54,45,31,.18)}
+.story-wrap svg{display:block;width:100%;height:auto;background:#fff9ee}
+.save-area{width:min(100% - 36px,430px);margin:0 auto;text-align:center}
+.save-buttons{display:flex;gap:10px}
+.save-button{display:flex;flex:1;height:64px;align-items:center;justify-content:center;gap:11px}
+.share-button{background:#252321;box-shadow:0 8px 0 #000}
+.share-button:active{box-shadow:0 3px 0 #000}
+.download-icon{display:grid;width:29px;height:29px;place-items:center;border:2px solid rgba(255,255,255,.8);border-radius:50%;font-size:18px}
+.save-area>p{margin-top:16px;color:#8c867f;font-size:12px;font-weight:700}
+.leave-detail{width:min(100% - 36px,430px);margin:28px auto 0;padding:22px;border-radius:24px;background:#fff;text-align:left}
+.leave-detail h2{margin:0 0 12px;font-size:17px}
+.leave-detail ul{margin:0;padding:0;list-style:none}
+.leave-detail li{padding:12px 0;border-top:1px solid #f0ece5;font-size:14px;line-height:1.6;word-break:keep-all}
+.leave-detail li:first-child{border-top:0}
+.leave-detail b{display:block;font-size:15px}
+.leave-detail .dates{color:#5d42df;font-weight:700}
+
+.info{width:min(100% - 36px,640px);margin:0 auto;padding:48px 0 64px;line-height:1.75;font-size:15px;word-break:keep-all}
+.info h2{font-family:"Black Han Sans",sans-serif;font-weight:400;font-size:24px;margin:40px 0 12px}
+.info h3{font-size:16px;margin:22px 0 6px}
+.info p{margin:8px 0}
+.info table{width:100%;border-collapse:collapse;background:#fff;border-radius:16px;overflow:hidden;font-size:14px}
+.info th,.info td{padding:10px 12px;border-bottom:1px solid #f0ece5;text-align:left}
+.info th{background:#eee9ff;color:#4d3aba}
+.info .sub{color:#ff5f73;font-weight:700}
+.info .note{color:#8c867f;font-size:13px}
+.info a{color:#5d42df;font-weight:700}
+.cta-link{display:block;margin:24px 0;padding:18px;border-radius:20px;background:#fff;text-align:center;text-decoration:none;box-shadow:0 6px 20px rgba(75,57,17,.08)}
+footer{padding:24px 18px 40px;text-align:center;color:#aaa49c;font-size:12px}
+footer a{color:#8c867f}
+
+@media (max-width:380px){.input-page{padding:22px 12px}.input-card{padding:26px 20px 22px;border-radius:30px}.hero-illustration{margin-top:18px}}
+@media (min-width:700px){.input-page{padding-block:65px}.input-card{padding:38px 38px 30px}}
+</style>
+</head>
+<body>
+
+<main id="inputPage" class="input-page">
+  <div class="decor decor-one"></div><div class="decor decor-two"></div><div class="decor decor-three"></div>
+  <section class="input-card">
+    <div class="eyebrow"><span class="eyebrow-dot"></span>2027 직장인 필수템</div>
+    <div class="hero-illustration" aria-hidden="true">
+      <div class="calendar-face">
+        <div class="calendar-rings"><span></span><span></span></div>
+        <strong>2027</strong>
+        <div class="face"><i></i><i></i><b></b></div>
+      </div>
+      <span class="hero-spark hero-spark-one">✦</span>
+      <span class="hero-spark hero-spark-two">✦</span>
+    </div>
+    <h1>2027 연차<br><span>꿀조합 계산기</span></h1>
+    <p class="intro">남은 연차로 2027년에 가장 길게 쉬는 날짜를 찾아 드려요</p>
+
+    <div class="form-section">
+      <div class="section-label"><span>1</span>남은 연차가 몇 개예요?</div>
+      <div class="counter">
+        <button type="button" id="minus" aria-label="연차 한 개 줄이기">−</button>
+        <label><input id="leaveInput" type="number" inputmode="numeric" min="0" max="30" value="15" aria-label="남은 연차 개수"><span>개</span></label>
+        <button type="button" id="plus" aria-label="연차 한 개 늘리기">+</button>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="section-label"><span>2</span>최소 며칠은 쉬고 싶어요?</div>
+      <div class="segment" role="radiogroup" aria-label="최소 연휴 길이" id="segment">
+        <button type="button" role="radio" data-min="3" aria-checked="false">3일</button>
+        <button type="button" role="radio" data-min="5" aria-checked="true" class="active">5일</button>
+        <button type="button" role="radio" data-min="7" aria-checked="false">7일 이상</button>
+      </div>
+    </div>
+
+    <button type="button" class="primary-button find-button" id="findBtn">꿀조합 찾기<span aria-hidden="true">→</span></button>
+    <p class="helper-text">공휴일과 주말을 똑똑하게 이어 드릴게요</p>
+  </section>
+</main>
+
+<main id="resultPage" class="result-page" hidden>
+  <header class="result-nav">
+    <button type="button" class="back-button" id="backBtn" aria-label="입력 화면으로 돌아가기"><span aria-hidden="true">←</span></button>
+    <p>나의 2027 연차 플랜</p>
+    <span class="nav-spacer"></span>
+  </header>
+  <section class="story-wrap" id="storyWrap"></section>
+  <div class="save-area">
+    <div class="save-buttons">
+      <button type="button" class="primary-button save-button" id="saveBtn"><span class="download-icon" aria-hidden="true">↓</span>이미지로 저장</button>
+      <button type="button" class="primary-button save-button share-button" id="shareBtn" hidden>공유하기</button>
+    </div>
+    <p id="saveMsg">1080 × 1920 · 인스타 스토리에 딱 맞아요</p>
+  </div>
+  <section class="leave-detail" id="leaveDetail"></section>
+</main>
+
+<article class="info">
+  <h2>이렇게 계산해요</h2>
+  <p>토요일, 일요일, 2027년 공휴일과 대체공휴일을 쉬는 날로 놓고, 그 사이에 끼어 있는 평일에 연차를 넣었을 때 며칠을 이어서 쉴 수 있는지 1년 전체를 하나씩 확인해요.</p>
+  <p>연차를 여러 번 나눠 쓰는 경우에는 겹치지 않는 연휴를 골라서, 연차를 넣은 연휴의 날짜를 모두 더한 값이 가장 큰 조합을 보여 드려요. 날짜가 같으면 연차를 덜 쓰는 조합을 골라요. "최소 며칠"을 5일로 고르면 5일보다 짧은 연휴는 빼고 계산해요.</p>
+  <p>예를 들어 연차 2개를 9월 13일(월)과 9월 17일(금)에 쓰면 추석 연휴와 주말이 이어져 9월 11일부터 19일까지 9일을 쉴 수 있어요.</p>
+
+  <h2>2027년 공휴일</h2>
+  <p>2026년부터 노동절(5월 1일)과 제헌절(7월 17일)이 공휴일이 됐어요. 2027년에는 둘 다 토요일이라 5월 3일(월), 7월 19일(월)이 대체공휴일이에요.</p>
+  <div id="holidayTable"></div>
+  <p>달력으로 한눈에 보고 싶다면 <a href="../2027-holidays/">2027 공휴일 달력</a>에서 확인하세요.</p>
+
+  <h2>자주 묻는 질문</h2>
+  <h3>토요일에 근무하거나 교대 근무를 하면요?</h3>
+  <p>이 계산기는 토요일·일요일 휴무, 공휴일 휴무를 기준으로 해요. 근무 형태가 다르면 결과가 맞지 않을 수 있어요.</p>
+  <h3>노동절은 모든 회사가 쉬나요?</h3>
+  <p>노동절은 근로자의 유급휴일이고, 2026년부터는 관공서 공휴일이기도 해요. 계산기는 쉬는 날로 계산해요.</p>
+  <h3>회사 창립기념일이나 여름휴가는요?</h3>
+  <p>회사마다 달라서 넣지 않았어요. 그런 날이 있으면 실제로는 연차를 더 아낄 수 있어요.</p>
+  <h3>연차를 꼭 이 날짜에 써야 하나요?</h3>
+  <p>아니요. 회사 상황에 맞춰 참고만 하세요. 결과 화면 아래에 연차 쓸 날짜를 따로 적어 드려요.</p>
+
+  <p class="note">참고용 계산이에요. 기준일 2026-11-20, 2027년 월력요항(우주항공청 발표) 보도 기준이에요. 공휴일이 새로 지정되거나 바뀌면 결과가 달라질 수 있어요.</p>
+  <a class="cta-link" href="../2027-holidays/">2027 공휴일 달력 보러 가기 →</a>
+</article>
+<footer><a href="../">다른 계산기 보기</a></footer>
+
+<script>
+const HOLIDAYS = [
+  ["2027-01-01","신정"],["2027-02-06","설 연휴"],["2027-02-07","설날"],["2027-02-08","설 연휴"],["2027-02-09","대체공휴일(설날)"],
+  ["2027-03-01","3·1절"],["2027-05-01","노동절"],["2027-05-03","대체공휴일(노동절)"],["2027-05-05","어린이날"],["2027-05-13","부처님오신날"],
+  ["2027-06-06","현충일"],["2027-07-17","제헌절"],["2027-07-19","대체공휴일(제헌절)"],["2027-08-15","광복절"],["2027-08-16","대체공휴일(광복절)"],
+  ["2027-09-14","추석 연휴"],["2027-09-15","추석"],["2027-09-16","추석 연휴"],["2027-10-03","개천절"],["2027-10-04","대체공휴일(개천절)"],
+  ["2027-10-09","한글날"],["2027-10-11","대체공휴일(한글날)"],["2027-12-25","성탄절"],["2027-12-27","대체공휴일(성탄절)"],["2028-01-01","신정"]
+];
+const HMAP = new Map(HOLIDAYS);
+const WD = ["일","월","화","수","목","금","토"];
+const SITE = "tools.irukabloom.com/yeoncha-2027";
+
+// ---------- 계산 ----------
+function buildDays(){
+  const days=[]; const d=new Date(Date.UTC(2027,0,1)); const end=new Date(Date.UTC(2028,0,2));
+  for(;d<=end;d.setUTCDate(d.getUTCDate()+1)){
+    const iso=d.toISOString().slice(0,10), dow=d.getUTCDay(), holiday=HMAP.get(iso)||null;
+    days.push({iso,dow,holiday,off:!!holiday||dow===0||dow===6});
+  }
+  return days;
+}
+const DAYS = buildDays();
+
+function findWindows(maxLeave){
+  const n=DAYS.length, out=[];
+  for(let i=0;i<n;i++){
+    if(i>0&&DAYS[i-1].off) continue;
+    let work=0;
+    for(let j=i;j<n;j++){
+      if(!DAYS[j].off) work++;
+      if(work>maxLeave) break;
+      if(j+1<n&&DAYS[j+1].off) continue;
+      const span=DAYS.slice(i,j+1);
+      out.push({start:DAYS[i].iso,end:DAYS[j].iso,s:i,e:j,length:j-i+1,leave:work,
+        leaveDates:span.filter(x=>!x.off).map(x=>x.iso),
+        holidays:[...new Set(span.filter(x=>x.holiday).map(x=>x.holiday))]});
+    }
+  }
+  return out;
+}
+
+function bestCombo(n,minLength){
+  const ws=findWindows(n).filter(w=>w.leave>=1&&w.length>=minLength).sort((a,b)=>a.e-b.e);
+  const m=ws.length, ends=ws.map(w=>w.e);
+  const prev=ws.map(w=>{let lo=0,hi=m;while(lo<hi){const mid=(lo+hi)>>1;if(ends[mid]<w.s)lo=mid+1;else hi=mid;}return lo;});
+  const dp=Array.from({length:m+1},()=>new Array(n+1).fill(0));
+  for(let k=1;k<=m;k++){const w=ws[k-1];for(let b=0;b<=n;b++){let v=dp[k-1][b];if(w.leave<=b){const t=dp[prev[k-1]][b-w.leave]+w.length;if(t>v)v=t;}dp[k][b]=v;}}
+  const best=dp[m][n]; let b=0; while(b<n&&dp[m][b]<best) b++;
+  const picked=[]; let k=m;
+  while(k>0){ if(dp[k][b]===dp[k-1][b]){k--;continue;} const w=ws[k-1]; picked.push(w); b-=w.leave; k=prev[k-1]; }
+  return picked.reverse();
+}
+function minLeaveFor(minLength){
+  const ws=findWindows(30).filter(w=>w.leave>=1&&w.length>=minLength);
+  return ws.length?Math.min(...ws.map(w=>w.leave)):null;
+}
+
+// ---------- 표시용 ----------
+const md=iso=>{const [,m,d]=iso.split("-");return `${+m}/${+d}`;};
+const dow=iso=>WD[new Date(iso+"T00:00:00Z").getUTCDay()];
+function baseName(h){const m=h.match(/^대체공휴일\((.+)\)$/);let s=m?m[1]:h;if(s.startsWith("설"))return"설";if(s.startsWith("추석"))return"추석";return s;}
+function titleOf(w){
+  const names=[...new Set(w.holidays.map(baseName))];
+  if(names.includes("설"))return"설";
+  if(names.includes("추석"))return"추석";
+  if(names.includes("성탄절")&&names.includes("신정"))return"연말연시";
+  if(names.length===1)return names[0];
+  const month=+w.start.split("-")[1];
+  return names.length?`${month}월`:`${month}월 주말`;
+}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function calendarSVG(month,ranges,leaveSet,x,y){
+  const first=new Date(Date.UTC(2027,month-1,1)).getUTCDay();
+  const nDays=new Date(Date.UTC(2027,month,0)).getUTCDate();
+  const rows=Math.ceil((first+nDays)/7), cw=38, ch=rows===6?30:36, top=rows===6?96:98, hh=rows===6?27:31;
+  let s=`<g transform="translate(${x} ${y})"><rect width="294" height="260" rx="28" fill="#fff" stroke="#efece7" stroke-width="2"/>`;
+  s+=`<text x="24" y="40" class="calendar-month">${month}월</text>`;
+  WD.forEach((d,i)=>{s+=`<text x="${32+i*cw}" y="72" text-anchor="middle" class="weekday${i===0?" sunday":i===6?" saturday":""}">${d}</text>`;});
+  for(let day=1;day<=nDays;day++){
+    const slot=first+day-1,col=slot%7,row=Math.floor(slot/7);
+    const key=`2027-${String(month).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+    const inRange=ranges.some(r=>key>=r.start&&key<=r.end), isLeave=leaveSet.has(key);
+    const cls=isLeave?"day leave":(HMAP.has(key)||col===0)?"day holiday":col===6?"day sat":"day";
+    const cx=32+col*cw, cy=top+row*ch;
+    if(inRange) s+=`<rect x="${cx-17}" y="${cy-(hh-13)}" width="34" height="${hh}" rx="10" fill="${isLeave?"#7a5cff":"#fff1a8"}"/>`;
+    s+=`<text x="${cx}" y="${cy+4}" text-anchor="middle" class="${cls}">${day}</text>`;
+  }
+  return s+"</g>";
+}
+function sparkle(x,y,c){return `<path d="M${x} ${y-18} C${x+3} ${y-5}, ${x+5} ${y-3}, ${x+18} ${y} C${x+5} ${y+3}, ${x+3} ${y+5}, ${x} ${y+18} C${x-3} ${y+5}, ${x-5} ${y+3}, ${x-18} ${y} C${x-5} ${y-3}, ${x-3} ${y-5}, ${x} ${y-18}Z" fill="${c}"/>`;}
+
+const FONT_STYLE=`text{font-family:"Gowun Dodum","Apple SD Gothic Neo",sans-serif}
+.display{font-family:"Black Han Sans","Apple SD Gothic Neo",sans-serif;fill:#252321}
+.calendar-month{font-size:26px;font-weight:800;fill:#252321}
+.weekday{font-size:15px;font-weight:700;fill:#9c9891}
+.sunday,.holiday{fill:#ff5f73}.saturday,.sat{fill:#5b8def}
+.day{font-size:17px;font-weight:700;fill:#4b4844}
+.day.holiday{fill:#ff5f73}.day.sat{fill:#5b8def}
+.leave{fill:#fff;font-weight:900}`;
+
+function resultSVG(picked,leaveCount,minimum,extraCss=""){
+  const total=picked.reduce((a,w)=>a+w.length,0), used=picked.reduce((a,w)=>a+w.leave,0);
+  const ranges=picked.map(w=>({start:w.start,end:w.end})), leaveSet=new Set(picked.flatMap(w=>w.leaveDates));
+  let s=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920" aria-label="2027 연차 꿀조합 결과 카드"><style>${extraCss}${FONT_STYLE}</style>`;
+  s+=`<rect width="1080" height="1920" fill="#fff9ee"/><circle cx="94" cy="105" r="48" fill="#ffcf5a"/><circle cx="1012" cy="238" r="84" fill="#dcd2ff"/><circle cx="42" cy="1710" r="116" fill="#c9f0df"/><path d="M892 65l96 20-51 83z" fill="#ff889d"/>`;
+  s+=sparkle(101,243,"#ff7c92")+sparkle(1030,1360,"#7357ff");
+  s+=`<g transform="translate(70 70)"><rect width="225" height="52" rx="26" fill="#252321"/><text x="112.5" y="35" text-anchor="middle" font-size="22" font-weight="800" fill="#fff">2027 연차 꿀조합</text></g>`;
+  if(picked.length){
+    s+=`<text x="540" y="188" text-anchor="middle" class="display" font-size="76">연차 ${used}개로</text>`;
+    s+=`<text x="540" y="276" text-anchor="middle" class="display" font-size="92" style="fill:#7357ff">${total}일 쉰다</text>`;
+  }else{
+    s+=`<text x="540" y="188" text-anchor="middle" class="display" font-size="76">연차 ${leaveCount}개로는</text>`;
+    s+=`<text x="540" y="276" text-anchor="middle" class="display" font-size="92" style="fill:#7357ff">조금 부족해요</text>`;
+  }
+  const pill=`${minimum}일 이상 연휴만 쏙쏙 모았어요`, pw=Math.max(334,pill.length*21+40);
+  s+=`<g transform="translate(${540-pw/2} 302)"><rect width="${pw}" height="50" rx="25" fill="#e8e1ff"/><text x="${pw/2}" y="33" text-anchor="middle" font-size="21" font-weight="800" fill="#5a40d9">${pill}</text></g>`;
+  for(let i=0;i<12;i++) s+=calendarSVG(i+1,ranges,leaveSet,72+(i%3)*318,382+Math.floor(i/3)*282);
+
+  if(picked.length){
+    const shown=[...picked].sort((a,b)=>b.length-a.length||a.s-b.s).slice(0,6).sort((a,b)=>a.s-b.s);
+    const rest=picked.filter(w=>!shown.includes(w));
+    s+=`<g transform="translate(72 1544)"><text x="0" y="0" class="display" font-size="36">이렇게 쉬면 돼요</text>`;
+    if(rest.length){const rd=rest.reduce((a,w)=>a+w.length,0),rl=rest.reduce((a,w)=>a+w.leave,0);
+      s+=`<text x="936" y="0" text-anchor="end" font-size="19" font-weight="700" fill="#716c65">외 연휴 ${rest.length}번 · ${rd}일 (연차 ${rl})</text>`;}
+    s+=`<g transform="translate(0 20)">`;
+    shown.forEach((w,i)=>{const r=Math.floor(i/2),c=i%2,alt=i%2;
+      s+=`<g transform="translate(${c*490} ${r*100})"><rect width="446" height="86" rx="25" fill="${alt?"#e7f7ef":"#eee9ff"}"/>`;
+      s+=`<text x="24" y="37" font-size="25" font-weight="900" fill="#252321">${esc(titleOf(w))} ${w.length}일</text>`;
+      s+=`<text x="24" y="66" font-size="18" font-weight="700" fill="#716c65">${md(w.start)}~${md(w.end)}</text>`;
+      s+=`<g transform="translate(328 22)"><rect width="94" height="42" rx="21" fill="${alt?"#58b78c":"#7357ff"}"/><text x="47" y="28" text-anchor="middle" font-size="17" font-weight="900" fill="#fff">연차 ${w.leave}</text></g></g>`;
+    });
+    s+=`</g></g>`;
+  }else{
+    const k=minLeaveFor(minimum);
+    s+=`<g transform="translate(72 1582)"><rect width="936" height="150" rx="32" fill="#eee9ff"/><text x="468" y="68" text-anchor="middle" font-size="28" font-weight="900" fill="#4d3aba">연차를 조금 더 모으면 긴 연휴를 만들 수 있어요</text>`;
+    s+=`<text x="468" y="108" text-anchor="middle" font-size="21" fill="#716c65">${k?`${minimum}일 이상 연휴는 연차 ${k}개부터 만들 수 있어요`:""}</text></g>`;
+  }
+  s+=`<text x="540" y="1878" text-anchor="middle" font-size="20" font-weight="700" fill="#8f8981">${SITE} · 나만의 연차 조합도 만들어 보세요</text></svg>`;
+  return s;
+}
+
+// ---------- 화면 ----------
+let leaveCount=15, minimum=5, picked=[];
+const $=id=>document.getElementById(id);
+const input=$("leaveInput");
+function setLeave(v){leaveCount=Math.max(0,Math.min(30,Math.round(Number(v)||0)));input.value=leaveCount;}
+$("minus").onclick=()=>setLeave(leaveCount-1);
+$("plus").onclick=()=>setLeave(leaveCount+1);
+input.addEventListener("change",()=>setLeave(input.value));
+$("segment").querySelectorAll("button").forEach(b=>b.onclick=()=>{
+  minimum=+b.dataset.min;
+  $("segment").querySelectorAll("button").forEach(x=>{const on=x===b;x.classList.toggle("active",on);x.setAttribute("aria-checked",on);});
+});
+
+function showResult(){
+  setLeave(input.value);
+  picked=bestCombo(leaveCount,minimum);
+  $("storyWrap").innerHTML=resultSVG(picked,leaveCount,minimum);
+  let h=`<h2>연차 쓸 날짜</h2><ul>`;
+  if(!picked.length) h+=`<li>지금 연차로는 ${minimum}일 이상 연휴를 만들 수 없어요. 최소 연휴 길이를 줄여 보세요.</li>`;
+  picked.forEach(w=>{h+=`<li><b>${esc(titleOf(w))} ${w.length}일 · ${md(w.start)}(${dow(w.start)}) ~ ${md(w.end)}(${dow(w.end)})</b><span class="dates">연차 ${w.leave}개: ${w.leaveDates.map(d=>`${md(d)}(${dow(d)})`).join(", ")}</span></li>`;});
+  $("leaveDetail").innerHTML=h+"</ul>";
+  $("inputPage").hidden=true; $("resultPage").hidden=false; $("saveMsg").textContent="1080 × 1920 · 인스타 스토리에 딱 맞아요";
+  window.scrollTo(0,0); prepareShare();
+}
+$("findBtn").onclick=showResult;
+$("backBtn").onclick=()=>{$("resultPage").hidden=true;$("inputPage").hidden=false;window.scrollTo(0,0);};
+
+// ---------- 이미지 저장 (폰트까지 넣어서) ----------
+const fontCache={};
+async function fontCss(family,text){
+  const key=family+"|"+text; if(fontCache[key]) return fontCache[key];
+  const css=await (await fetch(`https://fonts.googleapis.com/css2?family=${family}&text=${encodeURIComponent(text)}`)).text();
+  let out=css;
+  for(const m of css.matchAll(/url\((https:[^)]+)\)/g)){
+    const blob=await (await fetch(m[1])).blob();
+    const data=await new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(blob);});
+    out=out.replace(m[1],data);
+  }
+  return fontCache[key]=out;
+}
+async function renderPng(){
+  const plain=resultSVG(picked,leaveCount,minimum);
+  const chars=[...new Set((plain.replace(/<style>[\s\S]*?<\/style>/,"").replace(/<[^>]+>/g,"")+"0123456789").replace(/\s/g,""))].join("");
+  let css="";
+  try{ css=(await fontCss("Black+Han+Sans",chars))+(await fontCss("Gowun+Dodum",chars)); }catch(e){ css=""; }
+  const svg=resultSVG(picked,leaveCount,minimum,css);
+  const img=new Image();
+  await new Promise((res,rej)=>{img.onload=res;img.onerror=rej;img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg);});
+  const c=document.createElement("canvas");c.width=1080;c.height=1920;const ctx=c.getContext("2d");
+  ctx.drawImage(img,0,0,1080,1920);
+  await new Promise(r=>setTimeout(r,150)); // 사파리가 폰트를 늦게 그리는 경우 대비
+  ctx.clearRect(0,0,1080,1920); ctx.drawImage(img,0,0,1080,1920);
+  return await new Promise(r=>c.toBlob(r,"image/png"));
+}
+const FILE_NAME="2027-연차-꿀조합.png";
+let shareFile=null;
+async function prepareShare(){
+  shareFile=null; $("shareBtn").hidden=true;
+  if(!navigator.canShare) return;
+  try{
+    const blob=await renderPng(); const f=new File([blob],FILE_NAME,{type:"image/png"});
+    if(navigator.canShare({files:[f]})){shareFile=f;$("shareBtn").hidden=false;}
+  }catch(e){}
+}
+$("saveBtn").onclick=async()=>{
+  $("saveMsg").textContent="이미지를 만드는 중이에요…";
+  try{
+    const blob=await renderPng(); const url=URL.createObjectURL(blob);
+    const a=document.createElement("a");a.href=url;a.download=FILE_NAME;document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),3000);
+    $("saveMsg").textContent="저장했어요. 사진 앱이나 다운로드 폴더를 확인하세요";
+  }catch(e){ $("saveMsg").textContent="저장에 실패했어요. 화면을 길게 눌러 캡처해 주세요"; }
+};
+$("shareBtn").onclick=async()=>{
+  if(!shareFile) return;
+  try{ await navigator.share({files:[shareFile],title:"2027 연차 꿀조합"}); }catch(e){}
+};
+
+// ---------- 설명 글의 공휴일 표 ----------
+(function(){
+  let t=`<table><thead><tr><th>날짜</th><th>공휴일</th></tr></thead><tbody>`;
+  HOLIDAYS.filter(([d])=>d.startsWith("2027")).forEach(([d,n])=>{t+=`<tr><td>${md(d)}(${dow(d)})</td><td${n.startsWith("대체")?' class="sub"':""}>${esc(n)}</td></tr>`;});
+  $("holidayTable").innerHTML=t+"</tbody></table>";
+})();
+</script>
+<!-- 블로그 글 안에 끼워 넣을 때(?embed=1): 높이를 글에 알려 줌 -->
+<style>.is-embed footer{display:none}</style>
+<script>(function(){if(!/[?&]embed=1/.test(location.search)||window.parent===window)return;document.documentElement.classList.add("is-embed");function s(){parent.postMessage({type:"iruka-tool-height",height:Math.ceil(document.documentElement.scrollHeight)},"*")}addEventListener("load",s);if(window.ResizeObserver)new ResizeObserver(s).observe(document.body);setTimeout(s,300)})();</script>
+</body>
+</html>

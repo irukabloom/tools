@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>일본 알바 연봉의 벽 계산기 (2026년) | 130만 · 136만 · 178만 엔</title>
+<meta name="description" content="시급과 근무시간만 넣으면 일본 알바 연봉의 벽(130만 · 136만 · 178만 엔)까지 얼마나 남았는지 바로 계산합니다. 구 103만 엔의 벽이 2026년(令和8年)에 어떻게 바뀌었는지, 유학생 주 28시간 기준까지 한 번에 확인하세요.">
+<meta name="theme-color" content="#FBF4DE">
+<link rel="canonical" href="https://tools.irukabloom.com/arubaito-kabe/">
+<meta property="og:url" content="https://tools.irukabloom.com/arubaito-kabe/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="일본 알바 연봉의 벽 계산기 (2026년)">
+<meta property="og:description" content="시급과 근무시간만 넣으면 130만 · 136만 · 178만 엔의 벽까지 남은 금액과 일할 수 있는 시간을 바로 계산합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF4DE;
+  --card:#FFFFFF;
+  --tint:#FFFDF7;
+  --navy:#23486A;
+  --navy-deep:#1B3B5A;
+  --sky:#6DB3E8;
+  --sky-soft:#E4F1FB;
+  --butter:#F7E39C;
+  --amber:#E6B93A;
+  --red:#C8453B;
+  --red-soft:#FBE5E2;
+  --stitch:#A9C6DE;
+  --line:#C9D8E6;
+  --track:#E8EFF5;
+  --muted:#4F6B85;
+  --ease-out:cubic-bezier(0.23,1,0.32,1);
+  --r-card:18px;
+  --r-field:12px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--navy);
+  font-family:"Noto Sans KR","Noto Sans JP",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Hiragino Sans","Malgun Gothic","Yu Gothic",sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  caret-color:var(--navy);
+  -webkit-font-smoothing:antialiased;
+}
+html[lang="ko"] body{word-break:keep-all;overflow-wrap:anywhere}
+html[lang="ja"] body{line-break:strict;font-family:"Noto Sans JP","Noto Sans KR",-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif}
+::selection{background:var(--butter);color:var(--navy-deep)}
+:focus-visible{outline:2px solid var(--navy);outline-offset:2px;border-radius:6px}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+h1,h2,h3,p{margin:0}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+
+.wrap{max-width:1080px;margin:0 auto;padding:20px 16px 56px}
+
+/* ---------- 머리 ---------- */
+.top{display:flex;flex-direction:column-reverse;align-items:stretch;gap:14px;margin-bottom:20px}
+.top .seg{align-self:flex-end}
+.top h1{font-size:1.5rem;line-height:1.3;font-weight:700;letter-spacing:-0.01em;text-wrap:balance}
+.top p{margin-top:8px;font-size:.9375rem;color:var(--muted);max-width:60ch}
+.top p strong{color:var(--navy);font-weight:700}
+
+.seg{display:inline-flex;flex:none;padding:3px;background:var(--card);border:1px dashed var(--navy);border-radius:999px}
+.seg button{
+  min-height:38px;padding:0 14px;border:0;border-radius:999px;background:transparent;
+  font-size:.875rem;font-weight:500;white-space:nowrap;
+  transition:background-color 160ms ease,color 160ms ease,transform 140ms var(--ease-out);
+}
+.seg button[aria-pressed="true"]{background:var(--navy);color:#fff;font-weight:700}
+.seg button:active{transform:scale(.97)}
+.seg.wide{display:flex;width:100%;border-style:solid;border-color:var(--line);border-radius:var(--r-field);background:var(--tint)}
+.seg.wide button{flex:1;min-height:44px;border-radius:9px}
+
+/* ---------- 틀 ---------- */
+.layout{display:grid;gap:16px}
+.card{
+  background:var(--card);
+  border:1.5px dashed var(--stitch);
+  border-radius:var(--r-card);
+  padding:20px 16px;
+  box-shadow:0 2px 12px rgba(35,72,106,.06);
+}
+.card h2{font-size:1.125rem;font-weight:700;line-height:1.4}
+
+/* ---------- 입력 ---------- */
+.field{margin-top:22px}
+.field:first-of-type{margin-top:16px}
+.label{display:block;font-size:.9375rem;font-weight:700;margin-bottom:8px}
+.hint{margin-top:8px;font-size:.8125rem;color:var(--muted)}
+.inbox{position:relative}
+.inbox input{
+  width:100%;height:54px;padding:0 52px 0 16px;
+  background:var(--card);border:1.5px solid var(--line);border-radius:var(--r-field);
+  font-size:1.375rem;font-weight:700;letter-spacing:-0.01em;
+  transition:border-color 160ms ease,box-shadow 160ms ease;
+}
+.inbox input::placeholder{color:#8496A8;font-weight:500}
+.inbox input:hover{border-color:var(--stitch)}
+.inbox input:focus{outline:0;border-color:var(--navy);box-shadow:0 0 0 3px rgba(109,179,232,.35)}
+.inbox .unit{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:.9375rem;font-weight:500;color:var(--muted);pointer-events:none}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{
+  min-height:44px;padding:0 14px;border-radius:999px;
+  background:var(--butter);border:1px dashed var(--navy);
+  font-size:.875rem;font-weight:700;
+  transition:background-color 160ms ease,transform 140ms var(--ease-out);
+}
+.chip small{font-size:.75rem;font-weight:500;margin-right:4px}
+.chip:active{transform:scale(.97)}
+.chip[aria-pressed="true"]{background:var(--navy);color:#fff;border-style:solid}
+
+.pair{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}
+.pair .x{font-weight:700;color:var(--muted)}
+.sum-line{margin-top:10px;font-size:.875rem;color:var(--muted)}
+.sum-line b{color:var(--navy);font-size:1rem}
+[hidden]{display:none !important}
+
+.check{display:flex;align-items:center;gap:10px;min-height:44px;font-size:.9375rem;font-weight:700;cursor:pointer}
+.check input{
+  appearance:none;-webkit-appearance:none;flex:none;width:22px;height:22px;margin:0;
+  border:1.5px solid var(--navy);border-radius:6px;background:var(--card);
+  display:grid;place-content:center;cursor:pointer;
+  transition:background-color 140ms ease;
+}
+.check input::after{content:"";width:11px;height:6px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:translateY(-1px) rotate(-45deg) scale(.6);opacity:0;transition:opacity 120ms ease,transform 140ms var(--ease-out)}
+.check input:checked{background:var(--navy)}
+.check input:checked::after{opacity:1;transform:translateY(-1px) rotate(-45deg) scale(1)}
+.reveal{margin-top:6px}
+
+.stepper{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;padding:8px 8px 8px 14px;background:var(--tint);border:1.5px solid var(--line);border-radius:var(--r-field)}
+.stepper span{font-size:.875rem;font-weight:500}
+.stepper .ctl{display:flex;align-items:center;gap:4px;flex:none}
+.stepper button{width:44px;height:44px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);font-size:1.25rem;font-weight:700;line-height:1;transition:transform 140ms var(--ease-out),border-color 160ms ease}
+.stepper button:active{transform:scale(.95)}
+.stepper button:disabled{opacity:.4;cursor:default}
+.stepper output{min-width:44px;text-align:center;font-size:1.25rem;font-weight:700}
+
+.notes{display:grid;gap:8px;margin-top:20px}
+.note{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:14px;border:1px dashed var(--navy);font-size:.875rem;line-height:1.55}
+.note svg{flex:none;margin-top:2px}
+.note b{display:block;font-size:.9375rem}
+.note.warn{background:var(--red-soft);border-color:var(--red);color:#7E231C}
+.note.info{background:var(--butter)}
+
+/* ---------- 결과 ---------- */
+.results{display:grid;gap:16px;align-content:start}
+.total{background:var(--navy);color:#fff;border:1.5px dashed #8FB4D4;border-radius:var(--r-card);padding:20px 16px;box-shadow:0 6px 20px rgba(35,72,106,.18)}
+.total-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.total h2{font-size:1rem;font-weight:700}
+.basis{font-size:.8125rem;color:#D5E4F1;margin-top:2px}
+.total-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.total-grid dt{font-size:.8125rem;color:#D5E4F1}
+.total-grid dd{margin:2px 0 0;font-size:1.5rem;font-weight:700;line-height:1.25;letter-spacing:-0.02em;overflow-wrap:anywhere}
+.total-grid dd small{font-size:.875rem;font-weight:500;margin-left:2px;letter-spacing:0}
+.krw{display:block;margin-top:2px;font-size:.8125rem;color:#F7E39C;font-weight:500;letter-spacing:0}
+
+.switch{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0;border:0;background:transparent;color:#fff;font-size:.8125rem;font-weight:500}
+.switch i{position:relative;width:38px;height:22px;border-radius:999px;background:#48698A;transition:background-color 180ms ease}
+.switch i::after{content:"";position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform 200ms var(--ease-out)}
+.switch[aria-pressed="true"] i{background:var(--sky)}
+.switch[aria-pressed="true"] i::after{transform:translateX(16px)}
+.switch:focus-visible{outline-color:#fff}
+.rate{display:flex;align-items:center;gap:8px;margin-top:14px;padding-top:14px;border-top:1px dashed #6F8FAD;font-size:.8125rem;color:#D5E4F1}
+.rate input{width:76px;height:36px;padding:0 8px;text-align:right;border-radius:8px;border:1px solid #6F8FAD;background:var(--navy-deep);color:#fff;font-weight:700;caret-color:#fff}
+.rate input:focus{outline:2px solid #fff;outline-offset:1px}
+
+.walls{display:grid;gap:16px}
+.wall-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.wall h3{font-size:1.1875rem;font-weight:700;line-height:1.3}
+.wall .role{font-size:.8125rem;color:var(--muted);margin-top:2px}
+.badge{flex:none;display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:999px;border:1px dashed var(--navy);font-size:.8125rem;font-weight:700;white-space:nowrap}
+.badge::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--sky)}
+.wall[data-state="safe"] .badge{background:var(--sky-soft)}
+.wall[data-state="near"] .badge{background:var(--butter)}
+.wall[data-state="near"] .badge::before{background:#B98900}
+.wall[data-state="over"] .badge{background:var(--red-soft);border-color:var(--red);color:#7E231C}
+.wall[data-state="over"] .badge::before{background:var(--red)}
+
+.meter{display:flex;align-items:center;gap:12px;margin-top:16px}
+.bar{flex:1;height:14px;border-radius:999px;background:var(--track);overflow:hidden}
+.bar i{display:block;height:100%;width:100%;border-radius:999px;background:var(--sky);transform-origin:left center;transform:scaleX(0);transition:transform 320ms var(--ease-out),background-color 200ms ease}
+.wall[data-state="near"] .bar i{background:var(--amber)}
+.wall[data-state="over"] .bar i{background:var(--red)}
+.pct{flex:none;min-width:52px;text-align:right;font-size:1rem;font-weight:700}
+
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px;padding:14px;background:var(--tint);border-radius:14px}
+.stats dt{font-size:.8125rem;color:var(--muted)}
+.stats dd{margin:2px 0 0;font-size:1.25rem;font-weight:700;line-height:1.3;letter-spacing:-0.01em;overflow-wrap:anywhere}
+.stats dd small{display:block;margin-top:2px;font-size:.8125rem;font-weight:500;color:var(--muted);letter-spacing:0}
+.wall[data-state="over"] .stats .room{color:#A5322A}
+.wall .desc{margin-top:12px;font-size:.875rem;color:var(--muted)}
+
+/* ---------- FAQ ---------- */
+.faq{margin-top:32px}
+.faq h2{font-size:1.25rem;font-weight:700;margin-bottom:12px}
+.faq-list{background:var(--card);border:1.5px dashed var(--stitch);border-radius:var(--r-card);padding:4px 16px;box-shadow:0 2px 12px rgba(35,72,106,.06)}
+.faq details{border-bottom:1px solid var(--track)}
+.faq details:last-child{border-bottom:0}
+.faq summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px;padding:10px 0;font-weight:700;font-size:1rem;line-height:1.45;cursor:pointer;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary svg{flex:none;transition:transform 200ms var(--ease-out)}
+.faq details[open] summary svg{transform:rotate(180deg)}
+.faq .a{padding:0 0 18px;font-size:.9375rem;line-height:1.75;max-width:70ch}
+.faq .a p+p{margin-top:8px}
+.faq .a strong{font-weight:700;background:linear-gradient(transparent 62%,var(--butter) 62%)}
+.foot{margin-top:20px;font-size:.8125rem;color:var(--muted);line-height:1.7;max-width:75ch}
+
+@media (hover:hover) and (pointer:fine){
+  .chip:hover{background:#F2D873}
+  .chip[aria-pressed="true"]:hover{background:var(--navy-deep)}
+  .seg button[aria-pressed="false"]:hover{background:var(--sky-soft)}
+  .stepper button:not(:disabled):hover{border-color:var(--navy)}
+  .faq summary:hover{color:var(--navy-deep)}
+  .faq summary:hover span{text-decoration:underline;text-decoration-style:dashed;text-underline-offset:5px;text-decoration-thickness:1px}
+}
+
+@media (min-width:600px){
+  .wrap{padding:32px 24px 72px}
+  .card,.total{padding:24px}
+  .faq-list{padding:6px 24px}
+  .top{flex-direction:row;align-items:flex-start;justify-content:space-between;gap:24px}
+  .top .seg{align-self:flex-start}
+  .top h1{font-size:1.875rem}
+  .total-grid dd{font-size:1.875rem}
+}
+@media (min-width:920px){
+  .layout{grid-template-columns:minmax(0,392px) minmax(0,1fr);gap:24px;align-items:start}
+  .inputs{position:sticky;top:16px}
+  .top{margin-bottom:28px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:0.01ms !important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div>
+      <h1 data-i18n="title">일본 알바 연봉의 벽 계산기</h1>
+      <p data-i18n-html="lead">시급과 근무시간을 넣으면 <strong>130만 · 136만 · 178만 엔</strong>의 벽까지 얼마나 남았는지 바로 보여 줘요. 구 103만 엔의 벽이 바뀐 2026년(令和8年) 기준입니다.</p>
+    </div>
+    <div class="seg" role="group" aria-label="언어 / 言語">
+      <button type="button" data-lang="ko" aria-pressed="true" lang="ko">한국어</button>
+      <button type="button" data-lang="ja" aria-pressed="false" lang="ja">日本語</button>
+    </div>
+  </header>
+
+  <main class="layout">
+
+    <!-- 입력 -->
+    <section class="card inputs" aria-labelledby="in-h">
+      <h2 id="in-h" data-i18n="inTitle">내 알바 조건</h2>
+
+      <div class="field">
+        <label class="label" for="wage" data-i18n="wage">시급</label>
+        <div class="inbox">
+          <input id="wage" class="num" type="text" inputmode="numeric" autocomplete="off" value="1,280" placeholder="1,250">
+          <span class="unit" data-i18n="yen">엔</span>
+        </div>
+        <div class="chips" role="group" aria-label="시급 빠른 선택" data-i18n-aria="wagePreset">
+          <button type="button" class="chip num" data-wage="1280"><small data-i18n="tokyoMin">도쿄 최저</small>1,280</button>
+          <button type="button" class="chip num" data-wage="1500">1,500</button>
+          <button type="button" class="chip num" data-wage="1800">1,800</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="label" id="hours-l" data-i18n="hours">근무시간</span>
+        <div class="seg wide" role="group" aria-labelledby="hours-l">
+          <button type="button" data-mode="week" aria-pressed="true" data-i18n="modeWeek">주당 시간</button>
+          <button type="button" data-mode="day" aria-pressed="false" data-i18n="modeDay">하루 × 주 횟수</button>
+        </div>
+        <div id="mode-week" style="margin-top:10px">
+          <div class="inbox">
+            <input id="wh" class="num" type="text" inputmode="decimal" autocomplete="off" value="20" aria-labelledby="hours-l">
+            <span class="unit" data-i18n="hPerWeek">시간/주</span>
+          </div>
+        </div>
+        <div id="mode-day" hidden style="margin-top:10px">
+          <div class="pair">
+            <div class="inbox">
+              <input id="dh" class="num" type="text" inputmode="decimal" autocomplete="off" value="5" aria-label="하루 근무시간" data-i18n-aria="dayHours">
+              <span class="unit" data-i18n="hPerDay">시간</span>
+            </div>
+            <span class="x" aria-hidden="true">×</span>
+            <div class="inbox">
+              <input id="dd" class="num" type="text" inputmode="numeric" autocomplete="off" value="4" aria-label="주 근무 횟수" data-i18n-aria="daysWeek">
+              <span class="unit" data-i18n="dPerWeek">회/주</span>
+            </div>
+          </div>
+          <p class="sum-line" id="day-sum"></p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="check"><input type="checkbox" id="night-on"><span data-i18n="nightOn">심야 근무(22시~5시)가 있어요</span></label>
+        <div class="reveal" id="night-box" hidden>
+          <div class="inbox">
+            <input id="nh" class="num" type="text" inputmode="decimal" autocomplete="off" value="0" aria-label="주당 심야 근무시간" data-i18n-aria="nightAria">
+            <span class="unit" data-i18n="hPerWeek">시간/주</span>
+          </div>
+          <p class="hint" data-i18n="nightHint">위 근무시간 중 심야에 해당하는 시간이에요. 이 시간은 시급의 25%를 더해 계산합니다.</p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="ytd" data-i18n="ytd">올해 이미 받은 급여</label>
+        <div class="inbox">
+          <input id="ytd" class="num" type="text" inputmode="numeric" autocomplete="off" value="0">
+          <span class="unit" data-i18n="yen">엔</span>
+        </div>
+        <p class="hint" id="ytd-hint" data-i18n="ytdHint">0이면 1년(12개월) 내내 이 조건으로 일한다고 보고 계산해요.</p>
+        <div class="stepper" id="rem-box" hidden>
+          <span data-i18n="remLabel">올해 남은 급여 개월 수</span>
+          <div class="ctl">
+            <button type="button" id="rem-minus" aria-label="한 달 줄이기" data-i18n-aria="remMinus">−</button>
+            <output id="rem" class="num" aria-live="polite">2</output>
+            <button type="button" id="rem-plus" aria-label="한 달 늘리기" data-i18n-aria="remPlus">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="notes" id="notes" aria-live="polite">
+        <div class="note warn" id="note28" hidden>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4"/><path d="M12 17.2v.3"/></svg>
+          <div><b data-i18n="n28t">주 28시간 초과</b><span data-i18n="n28d">유학생(자격외활동허가)은 모든 알바를 합쳐 주 28시간까지만 일할 수 있어요.</span></div>
+        </div>
+        <div class="note info" id="note20" hidden>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 7.6v.3"/></svg>
+          <div><b data-i18n="n20t">주 20시간 이상</b><span data-i18n="n20d">2026년 10월부터 106만 엔 임금 요건이 없어져, 직원 51명 이상인 곳에서는 수입과 상관없이 회사 사회보험 가입 대상이 될 수 있어요. (학생은 제외)</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 결과 -->
+    <div class="results">
+      <section class="total" aria-labelledby="tot-h">
+        <div class="total-head">
+          <div>
+            <h2 id="tot-h" data-i18n="totTitle">예상 수입</h2>
+            <p class="basis" id="basis"></p>
+          </div>
+          <button type="button" class="switch" id="krw-on" aria-pressed="false"><span data-i18n="krwToggle">원화로도 보기</span><i aria-hidden="true"></i></button>
+        </div>
+        <dl class="total-grid" aria-live="polite">
+          <div>
+            <dt data-i18n="monthly">월 예상 급여</dt>
+            <dd class="num"><span id="m-yen">0</span><small data-i18n="yen">엔</small><span class="krw" id="m-krw" hidden></span></dd>
+          </div>
+          <div>
+            <dt data-i18n="annual">올해 예상 총수입</dt>
+            <dd class="num"><span id="a-yen">0</span><small data-i18n="yen">엔</small><span class="krw" id="a-krw" hidden></span></dd>
+          </div>
+        </dl>
+        <div class="rate" id="rate-box" hidden>
+          <label for="rate" data-i18n="rateL">참고 환율: 100엔 =</label>
+          <input id="rate" class="num" type="text" inputmode="decimal" autocomplete="off" value="940">
+          <span data-i18n="won">원</span>
+        </div>
+      </section>
+
+      <div class="walls" id="walls">
+        <section class="card wall" data-wall="130" data-state="safe" aria-labelledby="w130">
+          <div class="wall-head">
+            <div><h3 id="w130" data-i18n="w130t">130만 엔의 벽</h3><p class="role" data-i18n="w130r">사회보험 피부양자 한도</p></div>
+            <span class="badge"></span>
+          </div>
+          <div class="meter"><div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"><i></i></div><span class="pct num"></span></div>
+          <dl class="stats">
+            <div><dt class="room-l"></dt><dd class="room num"></dd></div>
+            <div><dt class="max-l"></dt><dd class="max num"></dd></div>
+          </dl>
+          <p class="desc" data-i18n="w130d">넘으면 가족의 건강보험 부양에서 빠져, 국민건강보험과 국민연금을 직접 내야 해요.</p>
+        </section>
+
+        <section class="card wall" data-wall="136" data-state="safe" aria-labelledby="w136">
+          <div class="wall-head">
+            <div><h3 id="w136" data-i18n="w136t">136만 엔의 벽</h3><p class="role" data-i18n="w136r">부양공제 · 배우자공제 한도 (구 103만 엔)</p></div>
+            <span class="badge"></span>
+          </div>
+          <div class="meter"><div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"><i></i></div><span class="pct num"></span></div>
+          <dl class="stats">
+            <div><dt class="room-l"></dt><dd class="room num"></dd></div>
+            <div><dt class="max-l"></dt><dd class="max num"></dd></div>
+          </dl>
+          <p class="desc" data-i18n="w136d">넘으면 나를 부양하는 부모님이나 배우자가 받는 세금 공제가 줄어들어요.</p>
+        </section>
+
+        <section class="card wall" data-wall="178" data-state="safe" aria-labelledby="w178">
+          <div class="wall-head">
+            <div><h3 id="w178" data-i18n="w178t">178만 엔의 벽</h3><p class="role" data-i18n="w178r">본인 소득세 비과세 한도 (구 103만 엔)</p></div>
+            <span class="badge"></span>
+          </div>
+          <div class="meter"><div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"><i></i></div><span class="pct num"></span></div>
+          <dl class="stats">
+            <div><dt class="room-l"></dt><dd class="room num"></dd></div>
+            <div><dt class="max-l"></dt><dd class="max num"></dd></div>
+          </dl>
+          <p class="desc" data-i18n="w178d">넘으면 넘은 금액에 대해서만 본인 소득세가 붙기 시작해요.</p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <section class="faq" aria-labelledby="faq-h">
+    <h2 id="faq-h" data-i18n="faqTitle">자주 묻는 질문 · 2026년에 바뀐 점</h2>
+    <div class="faq-list" id="faq-list">
+      <details open>
+        <summary><span data-i18n="q1">구 103만 엔의 벽은 2026년에 어떻게 바뀌었나요?</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="a" data-i18n-html="a1"><p>예전에는 연 103만 엔이 「세금이 붙기 시작하는 선」이자 「부양에서 빠지는 선」이었어요. 지금은 이 선이 둘로 나뉘어 올라갔습니다.</p><p><strong>본인 소득세는 178만 엔</strong>(급여소득공제 74만 엔 + 기초공제 최대 104만 엔)까지 0엔이고, <strong>부양공제·배우자공제는 136만 엔</strong>(소득 62만 엔 + 급여소득공제 74만 엔)까지 받을 수 있어요. 2025년에는 각각 160만 엔, 123만 엔이었습니다.</p></div>
+      </details>
+      <details>
+        <summary><span data-i18n="q2">130만 엔의 벽은 무엇인가요?</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="a" data-i18n-html="a2"><p>가족(부모님·배우자)의 회사 건강보험에 피부양자로 들어 있을 수 있는 수입 한도예요. 연 수입이 <strong>130만 엔 이상</strong>으로 예상되면 부양에서 빠지고 국민건강보험과 국민연금을 직접 내야 합니다.</p><p>세금과 달리 「앞으로 1년 예상 수입」으로 보기 때문에 월 약 108,333엔이 기준이 되고, 교통비도 수입에 들어가요. 19~22세는 2025년 10월부터 이 한도가 150만 엔입니다.</p></div>
+      </details>
+      <details>
+        <summary><span data-i18n="q3">2026년 10월에 106만 엔의 벽이 없어졌다는데, 뭐가 달라지나요?</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="a" data-i18n-html="a3"><p>회사 사회보험에 가입하는 조건 가운데 「월급 8.8만 엔(연 약 106만 엔) 이상」이 없어졌어요. 그래서 직원 51명 이상인 곳에서 <strong>주 20시간 이상</strong> 일하고 2개월 넘게 고용될 예정이면, 수입이 적어도 본인이 사회보험에 가입하게 됩니다.</p><p>학생은 지금도 이 대상에서 빠져요. 보험료가 급여에서 빠지지만 그만큼 연금과 보장이 늘어납니다.</p></div>
+      </details>
+      <details>
+        <summary><span data-i18n="q4">178만 엔을 넘으면 손해인가요?</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="a" data-i18n-html="a4"><p>아니요. 넘은 금액에만 소득세(5%부터)가 붙기 때문에, 더 일하면 손에 남는 돈은 계속 늘어요. 손에 쥐는 돈이 한 번에 줄어드는 것은 사회보험 쪽(130만 엔, 주 20시간)입니다.</p><p>다만 <strong>주민세</strong>는 기준이 따로 있어서 178만 엔보다 적게 벌어도 나올 수 있어요. 매달 급여에서 미리 빠진 소득세는 연말정산이나 확정신고로 돌려받습니다.</p></div>
+      </details>
+      <details>
+        <summary><span data-i18n="q5">유학생은 왜 주 28시간을 지켜야 하나요?</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="a" data-i18n-html="a5"><p>유학 비자의 자격외활동허가는 <strong>모든 알바를 합쳐 주 28시간</strong>까지만 허용해요. 학교가 정한 긴 방학 중에는 하루 8시간까지 일할 수 있습니다. 넘기면 비자 갱신이나 변경이 거절될 수 있어요.</p><p>워킹홀리데이 비자에는 이 시간 제한이 없습니다. 또 일본에 나를 부양하는 가족이 없다면 130만·136만 엔의 벽은 보통 해당이 없고, 178만 엔과 주 28시간만 보면 돼요.</p></div>
+      </details>
+      <details>
+        <summary><span data-i18n="q6">이 계산기는 어떻게 계산하나요?</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="a" data-i18n-html="a6"><p>1년을 52주로 보고, 주급(시급 × 주당 시간, 심야 시간은 25% 더함)에 남은 주 수를 곱해요. 이미 받은 급여를 넣으면 「받은 급여 + 남은 개월의 예상 급여」로 올해 총수입을 구합니다.</p><p>진행률이 85%를 넘으면 「임박」, 한도를 넘으면 「초과」로 표시해요. 교통비, 상여, 다른 소득은 넣지 않은 참고용 계산입니다.</p></div>
+      </details>
+    </div>
+    <p class="foot" data-i18n="foot">2026년(令和8年)분 세제와 2026년 10월 사회보험 개정 내용을 바탕으로 한 참고용 계산기입니다. 실제 세금과 보험 가입 여부는 근무처, 건강보험조합, 세무서에서 확인해 주세요. 원화 금액은 직접 넣은 환율로 바꾼 참고치입니다.</p>
+  </section>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  var WALLS = [
+    { id:'130', limit:1300000, cap:1299999 },
+    { id:'136', limit:1360000, cap:1360000 },
+    { id:'178', limit:1780000, cap:1780000 }
+  ];
+  var NEAR = 0.85;
+
+  /* ---------- 일본어 글 (한국어는 화면에 적힌 글을 그대로 씀) ---------- */
+  var JA = {
+    docTitle:'アルバイト年収の壁シミュレーター（2026年）｜130万・136万・178万円',
+    docDesc:'時給と勤務時間を入れるだけで、年収の壁（130万・136万・178万円）まであといくらか、週に何時間まで働けるかをすぐ計算します。令和8年（2026年）の最新基準と留学生の週28時間ルールに対応。',
+    title:'アルバイト年収の壁シミュレーター',
+    lead:'時給と勤務時間を入れると、<strong>130万・136万・178万円</strong>の壁まであといくらかがすぐわかります。旧103万円の壁が変わった令和8年（2026年）の基準です。',
+    inTitle:'バイトの条件', wage:'時給', yen:'円', wagePreset:'時給のクイック選択', tokyoMin:'東京最低',
+    hours:'勤務時間', modeWeek:'週の時間', modeDay:'1日 × 週の回数',
+    hPerWeek:'時間/週', hPerDay:'時間', dPerWeek:'回/週', dayHours:'1日の勤務時間', daysWeek:'週の勤務回数',
+    nightOn:'深夜勤務（22時〜5時）がある', nightAria:'週の深夜勤務時間',
+    nightHint:'上の勤務時間のうち深夜にあたる時間です。この時間は時給に25%を上乗せして計算します。',
+    ytd:'今年すでにもらった給与', ytdHint:'0のままなら、1年（12か月）この条件で働くものとして計算します。',
+    remLabel:'今年あと何か月分もらうか', remMinus:'1か月減らす', remPlus:'1か月増やす',
+    n28t:'週28時間超え', n28d:'留学生（資格外活動許可）は、すべてのバイトを合わせて週28時間までしか働けません。',
+    n20t:'週20時間以上', n20d:'2026年10月から106万円の賃金要件がなくなり、従業員51人以上の勤務先では収入に関係なく勤務先の社会保険の加入対象になることがあります。（学生は対象外）',
+    totTitle:'見込み収入', krwToggle:'ウォンでも表示', monthly:'月の見込み給与', annual:'今年の見込み年収',
+    rateL:'参考レート：100円 =', won:'ウォン',
+    w130t:'130万円の壁', w130r:'社会保険の扶養の上限',
+    w130d:'超えると家族の健康保険の扶養から外れ、国民健康保険と国民年金を自分で払うことになります。',
+    w136t:'136万円の壁', w136r:'扶養控除・配偶者控除の上限（旧103万円）',
+    w136d:'超えると、あなたを扶養している親や配偶者が受ける税金の控除が減ります。',
+    w178t:'178万円の壁', w178r:'本人の所得税がかからない上限（旧103万円）',
+    w178d:'超えると、超えた金額にだけ本人の所得税がかかり始めます。',
+    faqTitle:'よくある質問・2026年の変更点',
+    q1:'旧103万円の壁は2026年にどう変わりましたか？',
+    a1:'<p>以前は年収103万円が「税金がかかり始めるライン」であり「扶養から外れるライン」でもありました。今はこのラインが2つに分かれて引き上げられています。</p><p><strong>本人の所得税は178万円</strong>（給与所得控除74万円＋基礎控除最大104万円）まで0円、<strong>扶養控除・配偶者控除は136万円</strong>（所得62万円＋給与所得控除74万円）まで受けられます。2025年はそれぞれ160万円、123万円でした。</p>',
+    q2:'130万円の壁とは何ですか？',
+    a2:'<p>家族（親・配偶者）の勤務先の健康保険に被扶養者として入っていられる収入の上限です。年収が<strong>130万円以上</strong>になる見込みだと扶養から外れ、国民健康保険と国民年金を自分で払います。</p><p>税金と違って「これから1年の見込み収入」で判定するため、月およそ108,333円が目安になり、交通費も収入に含まれます。19〜22歳は2025年10月からこの上限が150万円です。</p>',
+    q3:'2026年10月に106万円の壁がなくなって、何が変わりますか？',
+    a3:'<p>勤務先の社会保険に入る条件のうち「月額賃金8.8万円（年収約106万円）以上」がなくなりました。従業員51人以上の勤務先で<strong>週20時間以上</strong>働き、2か月を超えて雇用される見込みなら、収入が少なくても本人が社会保険に加入します。</p><p>学生は今も対象外です。保険料は給与から引かれますが、その分将来の年金や保障が手厚くなります。</p>',
+    q4:'178万円を超えると損ですか？',
+    a4:'<p>いいえ。超えた金額にだけ所得税（5%から）がかかるので、働くほど手取りは増え続けます。手取りが一度に減るのは社会保険のほう（130万円、週20時間）です。</p><p>ただし<strong>住民税</strong>は基準が別で、178万円より少なくてもかかることがあります。毎月の給与から先に引かれた所得税は、年末調整や確定申告で戻ってきます。</p>',
+    q5:'留学生はなぜ週28時間を守る必要がありますか？',
+    a5:'<p>留学ビザの資格外活動許可では、<strong>すべてのバイトを合わせて週28時間</strong>までしか認められていません。学校が定める長期休暇中は1日8時間まで働けます。超えると在留資格の更新や変更が認められないことがあります。</p><p>ワーキングホリデーにはこの時間制限がありません。また、日本にあなたを扶養する家族がいなければ130万・136万円の壁はふつう関係なく、178万円と週28時間だけ見れば十分です。</p>',
+    q6:'このシミュレーターはどう計算していますか？',
+    a6:'<p>1年を52週として、週給（時給×週の時間、深夜の時間は25%上乗せ）に残りの週数を掛けます。すでにもらった給与を入れると「もらった給与＋残りの月の見込み給与」で今年の年収を出します。</p><p>進み具合が85%を超えると「もうすぐ」、上限を超えると「超過」と表示します。交通費、賞与、ほかの所得は含まない参考用の計算です。</p>',
+    foot:'令和8年（2026年）分の税制と2026年10月の社会保険改正をもとにした参考用のシミュレーターです。実際の税額や保険の加入は、勤務先・健康保険組合・税務署でご確認ください。ウォンの金額は入力したレートで換算した参考値です。'
+  };
+  var KO = {
+    docTitle:document.title,
+    docDesc:document.querySelector('meta[name="description"]').getAttribute('content')
+  };
+
+  /* 화면에서 바뀌는 글 */
+  var T = {
+    ko:{
+      yen:'엔', won:'원', approx:'약 ',
+      basisYear:'1년(12개월) 내내 일할 때', basisRem:function(n){ return '받은 급여 + 남은 '+n+'개월'; },
+      daySum:function(h){ return '= 주 <b class="num">'+h+'</b>시간'; },
+      safe:'안전', near:'임박', over:'초과',
+      roomL:'남은 여유', overL:'넘은 금액',
+      maxYear:'1년 기준, 주 최대', maxRem:function(n){ return '남은 '+n+'개월, 주 최대'; },
+      hrs:function(h){ return h+'시간'; }, hrsPlus:'60시간 이상',
+      more:function(h){ return '지금보다 +'+h+'시간'; },
+      less:function(h){ return '지금보다 −'+h+'시간'; },
+      same:'지금이 딱 한도예요',
+      already:'올해는 이미 넘었어요', noMonths:'남은 개월이 없어요', needInput:'시급을 넣어 주세요',
+      aria:function(name,p){ return name+' 진행률 '+p+'%'; }
+    },
+    ja:{
+      yen:'円', won:'ウォン', approx:'約',
+      basisYear:'1年（12か月）働く場合', basisRem:function(n){ return 'もらった給与＋残り'+n+'か月'; },
+      daySum:function(h){ return '＝ 週 <b class="num">'+h+'</b>時間'; },
+      safe:'安全', near:'もうすぐ', over:'超過',
+      roomL:'残りの余裕', overL:'超えた金額',
+      maxYear:'1年ベースで週の上限', maxRem:function(n){ return '残り'+n+'か月、週の上限'; },
+      hrs:function(h){ return h+'時間'; }, hrsPlus:'60時間以上',
+      more:function(h){ return '今より +'+h+'時間'; },
+      less:function(h){ return '今より −'+h+'時間'; },
+      same:'今がちょうど上限です',
+      already:'今年はすでに超えています', noMonths:'残りの月がありません', needInput:'時給を入力してください',
+      aria:function(name,p){ return name+' 進み具合 '+p+'%'; }
+    }
+  };
+
+  var state = { lang:'ko', mode:'week', krw:false, rem:defaultRem() };
+
+  function defaultRem(){
+    var m = new Date().getMonth() + 1;      // 이번 달 포함
+    return Math.max(1, 12 - m + 1);
+  }
+  function digits(v){ var n = parseInt(String(v).replace(/[^\d]/g,''),10); return isFinite(n) ? n : 0; }
+  function dec(v){ var n = parseFloat(String(v).replace(/[^\d.]/g,'')); return isFinite(n) ? n : 0; }
+  function fmt(n){ return Math.round(n).toLocaleString('en-US'); }
+  function h1(n){ return (Math.round(n*10)/10).toLocaleString('en-US',{maximumFractionDigits:1}); }
+
+  /* ---------- 언어 ---------- */
+  function captureKo(){
+    document.querySelectorAll('[data-i18n]').forEach(function(el){ var k = el.getAttribute('data-i18n'); if(!(k in KO)) KO[k] = el.textContent; });
+    document.querySelectorAll('[data-i18n-html]').forEach(function(el){ KO[el.getAttribute('data-i18n-html')] = el.innerHTML; });
+    document.querySelectorAll('[data-i18n-aria]').forEach(function(el){ KO[el.getAttribute('data-i18n-aria')] = el.getAttribute('aria-label'); });
+  }
+  function setLang(lang){
+    state.lang = lang;
+    var D = lang === 'ja' ? JA : KO;
+    document.documentElement.lang = lang;
+    document.title = D.docTitle;
+    document.querySelector('meta[name="description"]').setAttribute('content', D.docDesc);
+    document.querySelectorAll('[data-i18n]').forEach(function(el){ el.textContent = D[el.getAttribute('data-i18n')]; });
+    document.querySelectorAll('[data-i18n-html]').forEach(function(el){ el.innerHTML = D[el.getAttribute('data-i18n-html')]; });
+    document.querySelectorAll('[data-i18n-aria]').forEach(function(el){ el.setAttribute('aria-label', D[el.getAttribute('data-i18n-aria')]); });
+    document.querySelectorAll('[data-lang]').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === lang)); });
+    try{ localStorage.setItem('kabe-lang', lang); }catch(e){}
+    render();
+  }
+
+  /* ---------- 계산 ---------- */
+  function weeklyHours(){
+    if(state.mode === 'week') return Math.min(dec($('wh').value), 168);
+    return Math.min(dec($('dh').value), 24) * Math.min(digits($('dd').value), 7);
+  }
+  function render(){
+    var t = T[state.lang];
+    var wage = digits($('wage').value);
+    var hours = weeklyHours();
+    var night = $('night-on').checked ? Math.min(dec($('nh').value), hours) : 0;
+    var ytd = digits($('ytd').value);
+    var useRem = ytd > 0;
+    var rem = state.rem;
+
+    var weekPay = wage * hours + wage * 0.25 * night;
+    var rate = hours > 0 ? weekPay / hours : wage;          // 심야를 섞은 실제 시급
+    var remWeeks = useRem ? rem * 52 / 12 : 52;
+    var monthly = weekPay * 52 / 12;
+    var annual = (useRem ? ytd : 0) + weekPay * remWeeks;
+
+    $('m-yen').textContent = fmt(monthly);
+    $('a-yen').textContent = fmt(annual);
+    $('basis').textContent = useRem ? t.basisRem(rem) : t.basisYear;
+
+    /* 원화 */
+    var r = dec($('rate').value);
+    $('rate-box').hidden = !state.krw;
+    ['m','a'].forEach(function(k){
+      var el = $(k+'-krw');
+      el.hidden = !state.krw;
+      if(state.krw) el.textContent = t.approx + fmt((k === 'm' ? monthly : annual) * r / 100) + t.won;
+    });
+
+    /* 입력 쪽 표시 */
+    $('rem-box').hidden = !useRem;
+    $('ytd-hint').hidden = useRem;
+    $('rem').textContent = rem;
+    $('rem-minus').disabled = rem <= 0;
+    $('rem-plus').disabled = rem >= 12;
+    $('day-sum').innerHTML = t.daySum(h1(hours));
+    $('note28').hidden = !(hours > 28);
+    $('note20').hidden = !(hours >= 20);
+    document.querySelectorAll('.chip').forEach(function(c){ c.setAttribute('aria-pressed', String(digits(c.getAttribute('data-wage')) === wage)); });
+
+    /* 벽 세 개 */
+    WALLS.forEach(function(w){
+      var card = document.querySelector('.wall[data-wall="'+w.id+'"]');
+      var ratio = annual / w.limit;
+      var over = annual > w.cap;
+      var pct = Math.round(ratio * 100);
+      if(over && pct < 100) pct = 100;
+      if(!over && pct >= 100) pct = 99;
+      var st = over ? 'over' : (pct >= NEAR * 100 ? 'near' : 'safe');
+      card.setAttribute('data-state', st);
+      card.querySelector('.badge').textContent = t[st];
+      card.querySelector('.pct').textContent = pct + '%';
+      card.querySelector('.bar i').style.transform = 'scaleX(' + Math.max(0, Math.min(1, ratio)) + ')';
+      var bar = card.querySelector('.bar');
+      bar.setAttribute('aria-valuenow', String(Math.min(100, pct)));
+      bar.setAttribute('aria-label', t.aria(card.querySelector('h3').textContent, pct));
+
+      var room = w.cap - annual;
+      card.querySelector('.room-l').textContent = over ? t.overL : t.roomL;
+      card.querySelector('.room').innerHTML = fmt(Math.abs(over ? annual - w.limit : room)) + '<small style="display:inline;margin-left:2px">' + t.yen + '</small>';
+
+      card.querySelector('.max-l').textContent = useRem ? t.maxRem(rem) : t.maxYear;
+      var maxEl = card.querySelector('.max');
+      var left = w.cap - (useRem ? ytd : 0);
+      if(wage <= 0){ maxEl.innerHTML = '–<small>' + t.needInput + '</small>'; return; }
+      if(left < 0){ maxEl.innerHTML = t.hrs('0') + '<small>' + t.already + '</small>'; return; }
+      if(remWeeks <= 0){ maxEl.innerHTML = '–<small>' + t.noMonths + '</small>'; return; }
+      var maxH = Math.floor(left / (remWeeks * rate) * 10) / 10;
+      var diff = Math.round((maxH - hours) * 10) / 10;
+      var sub = diff > 0 ? t.more(h1(diff)) : (diff < 0 ? t.less(h1(-diff)) : t.same);
+      maxEl.innerHTML = (maxH >= 60 ? t.hrsPlus : t.hrs(h1(maxH))) + '<small>' + sub + '</small>';
+    });
+  }
+
+  /* ---------- 입력 연결 ---------- */
+  function commaInput(el){
+    el.addEventListener('input', function(){
+      var n = String(el.value).replace(/[^\d]/g,'').slice(0,9);
+      el.value = n === '' ? '' : parseInt(n,10).toLocaleString('en-US');
+      render();
+    });
+    el.addEventListener('blur', function(){ if(el.value === '') { el.value = '0'; render(); } });
+  }
+  function decInput(el){
+    el.addEventListener('input', function(){
+      var v = el.value.replace(/[^\d.]/g,'');
+      var i = v.indexOf('.');
+      if(i !== -1) v = v.slice(0, i+1) + v.slice(i+1).replace(/\./g,'').slice(0,1);
+      el.value = v.slice(0,5);
+      render();
+    });
+    el.addEventListener('blur', function(){ if(el.value === '' || el.value === '.') { el.value = '0'; render(); } });
+  }
+  ['wage','ytd'].forEach(function(id){ commaInput($(id)); });
+  ['wh','dh','dd','nh','rate'].forEach(function(id){ decInput($(id)); });
+  ['wage','ytd','wh','dh','dd','nh','rate'].forEach(function(id){
+    $(id).addEventListener('focus', function(){ var el = this; setTimeout(function(){ try{ el.select(); }catch(e){} }, 0); });
+  });
+
+  document.querySelectorAll('.chip').forEach(function(c){
+    c.addEventListener('click', function(){ $('wage').value = fmt(digits(c.getAttribute('data-wage'))); render(); });
+  });
+  document.querySelectorAll('[data-mode]').forEach(function(b){
+    b.addEventListener('click', function(){
+      state.mode = b.getAttribute('data-mode');
+      document.querySelectorAll('[data-mode]').forEach(function(x){ x.setAttribute('aria-pressed', String(x === b)); });
+      $('mode-week').hidden = state.mode !== 'week';
+      $('mode-day').hidden = state.mode !== 'day';
+      render();
+    });
+  });
+  $('night-on').addEventListener('change', function(){ $('night-box').hidden = !this.checked; render(); });
+  $('rem-minus').addEventListener('click', function(){ state.rem = Math.max(0, state.rem - 1); render(); });
+  $('rem-plus').addEventListener('click', function(){ state.rem = Math.min(12, state.rem + 1); render(); });
+  $('krw-on').addEventListener('click', function(){ state.krw = !state.krw; this.setAttribute('aria-pressed', String(state.krw)); render(); });
+  document.querySelectorAll('[data-lang]').forEach(function(b){
+    b.addEventListener('click', function(){ setLang(b.getAttribute('data-lang')); });
+  });
+
+  /* ---------- 검색용 FAQ 정보 ---------- */
+  function faqSchema(){
+    var items = [];
+    for(var i = 1; i <= 6; i++){
+      var tmp = document.createElement('div'); tmp.innerHTML = KO['a'+i];
+      items.push({ '@type':'Question', name:KO['q'+i], acceptedAnswer:{ '@type':'Answer', text:tmp.textContent } });
+    }
+    var s = document.createElement('script');
+    s.type = 'application/ld+json';
+    s.textContent = JSON.stringify({ '@context':'https://schema.org', '@type':'FAQPage', mainEntity:items });
+    document.head.appendChild(s);
+  }
+
+  /* ---------- 시작 ---------- */
+  captureKo();
+  faqSchema();
+  var first = 'ko';
+  try{
+    var q = new URLSearchParams(location.search).get('lang');
+    var saved = localStorage.getItem('kabe-lang');
+    if(q === 'ja' || q === 'ko') first = q; else if(saved === 'ja' || saved === 'ko') first = saved;
+  }catch(e){}
+  if(first === 'ja') setLang('ja'); else render();
+})();
+</script>
+<!-- 블로그 글 안에 끼워 넣을 때(?embed=1): 높이를 글에 알려 줌 -->
+<style>.is-embed footer{display:none}</style>
+<script>(function(){if(!/[?&]embed=1/.test(location.search)||window.parent===window)return;document.documentElement.classList.add("is-embed");function s(){parent.postMessage({type:"iruka-tool-height",height:Math.ceil(document.documentElement.scrollHeight)},"*")}addEventListener("load",s);if(window.ResizeObserver)new ResizeObserver(s).observe(document.body);setTimeout(s,300)})();</script>
+</body>
+</html>

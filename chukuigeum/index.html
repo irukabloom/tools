@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>축의금 계산기 2026 | 직장 동료·친구·친척 결혼식 얼마 낼까</title>
+<meta name="description" content="관계, 친한 정도, 참석 여부, 호텔 예식, 동반 인원을 고르면 적정 축의금을 알려 드려요. 2023~2026년 설문 7개 기준. 결과는 봉투 모양 인스타 스토리 이미지로 저장할 수 있어요.">
+<link rel="canonical" href="https://tools.irukabloom.com/chukuigeum/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="축의금 계산기 2026">
+<meta property="og:description" content="이 결혼식, 축의금 얼마 내야 할까? 설문 기준으로 알려 드려요">
+<meta property="og:url" content="https://tools.irukabloom.com/chukuigeum/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&family=Noto+Serif+KR:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{font-family:"Gowun Dodum","Apple SD Gothic Neo",sans-serif;color:#252321;background:#f3efe7}
+*{box-sizing:border-box}
+body{margin:0;min-width:320px;min-height:100vh;background:#f3efe7}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+[hidden]{display:none!important}
+.hanja{font-family:"Noto Serif KR",serif;font-weight:600}
+
+.mobile-shell{width:100%;max-width:375px;margin:0 auto;background:#fff9ee;overflow:hidden}
+.app-header,.simple-header{height:58px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(37,35,33,.08)}
+.app-header{justify-content:flex-start;gap:9px;font-weight:700;font-size:14px}
+.mini-envelope{width:28px;height:32px;display:grid;place-items:center;background:#fff;border-radius:2px;box-shadow:0 3px 10px rgba(45,37,22,.1);color:#ff5f73;font-size:12px}
+.year-pill{margin-left:auto;padding:5px 9px 4px;border-radius:99px;color:#7357ff;background:#eee9ff;font-size:11px;letter-spacing:.05em}
+.intro{padding:38px 22px 32px;position:relative}
+.intro::after{content:"";position:absolute;right:-34px;top:15px;width:110px;height:110px;border-radius:50%;background:#ffcf4a;opacity:.2}
+.intro p{margin:0 0 10px;color:#7357ff;font-size:13px;font-weight:700}
+.intro h1{margin:0 0 14px;font-family:"Black Han Sans",sans-serif;font-size:38px;line-height:1.16;letter-spacing:-.04em;font-weight:400}
+.intro h1 em{color:#7357ff;font-style:normal;position:relative;z-index:0}
+.intro h1 em::after{content:"";position:absolute;left:-2px;right:-2px;bottom:1px;height:8px;background:#ffcf4a;opacity:.75;z-index:-1}
+.intro>span{color:#77716b;font-size:13px}
+.form-section{padding:26px 20px;border-top:1px solid rgba(37,35,33,.08)}
+.section-heading{display:flex;align-items:center;gap:9px;margin-bottom:17px}
+.section-heading span{color:#7357ff;font-family:"Black Han Sans",sans-serif;font-size:12px;letter-spacing:.04em}
+.section-heading h2{margin:0;font-size:17px;font-weight:700}
+.relation-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.relation-card{min-height:138px;position:relative;display:flex;flex-direction:column;align-items:flex-start;padding:17px 15px;border:1.5px solid #e7e1d8;border-radius:16px;background:#fff;text-align:left;transition:.18s ease}
+.relation-card.selected{border-color:#7357ff;background:#f4f1ff;box-shadow:0 5px 15px rgba(115,87,255,.1)}
+.relation-icon{width:39px;height:39px;display:grid;place-items:center;margin-bottom:12px;border-radius:12px;color:#7357ff;background:#eee9ff}
+.relation-card:nth-child(2) .relation-icon{color:#e6485d;background:#ffe8eb}
+.relation-card:nth-child(3) .relation-icon{color:#a27300;background:#fff2c8}
+.relation-card:nth-child(4) .relation-icon{color:#32816a;background:#e1f4ed}
+.relation-card strong{font-size:14px;white-space:nowrap}
+.relation-card small{margin-top:4px;color:#8d867e;font-size:10px}
+.selected-check{position:absolute;right:10px;top:10px;width:20px;height:20px;display:none;place-items:center;border-radius:50%;color:#fff;background:#7357ff}
+.relation-card.selected .selected-check{display:grid}
+.segmented,.three-options{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.segmented button,.three-options button{min-height:48px;padding:8px 4px;border:1.5px solid #e7e1d8;border-radius:13px;color:#6e6862;background:#fff;font-size:12px}
+.segmented button.selected,.three-options button.selected{border-color:#7357ff;color:#7357ff;background:#eee9ff;font-weight:700}
+.two-options{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.two-options button{min-height:70px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:1.5px solid #e7e1d8;border-radius:15px;color:#5f5a54;background:#fff}
+.two-options button span{color:#252321;font-weight:700;font-size:14px}
+.two-options button small{font-size:10px;color:#8d867e}
+.two-options button.selected{border-color:#7357ff;background:#f4f1ff;color:#7357ff}
+.two-options.compact button{min-height:52px;font-size:13px}
+.stepper-row{margin-top:12px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;border-radius:13px;background:#fff;font-size:13px}
+.stepper{display:flex;align-items:center;gap:14px}
+.stepper button{width:34px;height:34px;border:0;border-radius:50%;color:#7357ff;background:#eee9ff;font-size:18px}
+.stepper strong{width:14px;text-align:center}
+.optional-section{margin:8px 20px 0;border:1px solid #e7e1d8;border-radius:16px;background:rgba(255,255,255,.75);overflow:hidden}
+.optional-toggle{width:100%;padding:16px;display:flex;align-items:center;justify-content:space-between;border:0;background:transparent;text-align:left}
+.optional-toggle span{display:flex;flex-direction:column;gap:3px}
+.optional-toggle strong{font-size:12px}
+.optional-toggle small{color:#958e87;font-size:10px}
+.optional-toggle b{color:#7357ff;font-size:20px}
+.money-input{margin:0 15px 15px;padding:0 14px;height:48px;display:flex;align-items:center;border:1px solid #dcd4ca;border-radius:11px;background:#fff}
+.money-input input{width:100%;border:0;outline:0;text-align:right;font-size:17px;background:transparent}
+.money-input span{margin-left:8px;font-size:13px}
+.primary-button,.outline-button{width:100%;height:58px;display:flex;align-items:center;justify-content:center;gap:9px;border-radius:16px;font-weight:700;font-size:15px}
+.primary-button{border:0;color:#fff;background:#7357ff;box-shadow:0 8px 18px rgba(115,87,255,.24)}
+.outline-button{border:1.5px solid #7357ff;color:#7357ff;background:transparent}
+.calculate-button{width:calc(100% - 40px);margin:24px 20px 11px}
+.form-note{margin:0;padding-bottom:30px;color:#aaa39b;text-align:center;font-size:10px}
+
+.simple-header button{width:36px;height:36px;display:grid;place-items:center;margin-left:-8px;border:0;background:transparent}
+.simple-header span{font-size:14px;font-weight:700}
+.simple-header div{width:28px}
+.result-hero{min-height:400px;position:relative;display:flex;flex-direction:column;align-items:center;padding:35px 20px 30px;overflow:hidden;text-align:center}
+.envelope{width:130px;height:164px;position:relative;margin-bottom:18px}
+.envelope-shadow{position:absolute;left:15px;right:15px;bottom:-6px;height:25px;border-radius:50%;background:rgba(55,42,24,.14);filter:blur(12px)}
+.envelope-paper{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;border-radius:3px;background:#fff;box-shadow:0 8px 25px rgba(63,50,29,.12)}
+.envelope-red-line{position:absolute;left:9px;top:9px;bottom:9px;width:2px;background:#ff5f73}
+.envelope-paper p{margin:0;font-size:24px;line-height:1.32;text-align:center}
+.result-kicker{margin:0 0 2px;color:#7357ff;font-size:12px;font-weight:700}
+.result-hero h1{margin:0;font-family:"Black Han Sans",sans-serif;font-size:58px;line-height:1.2;font-weight:400}
+.result-hero h1 span{margin-left:3px;font-size:30px}
+.result-hero h1 small{font-size:26px}
+.result-summary{margin:9px 0 0;color:#6f6962;font-size:12px}
+.result-extra{margin:8px 0 0;color:#e6485d;font-size:12px;font-weight:700}
+.confetti{position:absolute;width:10px;height:22px;border-radius:5px;transform:rotate(28deg)}
+.confetti-a{left:58px;top:70px;background:#ffcf4a}
+.confetti-b{right:65px;top:110px;width:8px;height:8px;border-radius:50%;background:#ff5f73}
+.confetti-c{right:42px;top:225px;height:16px;background:#7357ff;transform:rotate(-42deg)}
+.evidence-card,.breakdown-card{margin:0 20px 14px;padding:18px;border-radius:17px;background:#fff;box-shadow:0 5px 20px rgba(59,48,30,.06)}
+.evidence-card{position:relative;padding-left:58px}
+.evidence-icon{position:absolute;left:17px;top:19px;width:30px;height:30px;display:grid;place-items:center;border-radius:10px;color:#7357ff;background:#eee9ff}
+.evidence-card p{margin:0 0 5px;font-size:13px;line-height:1.65}
+.evidence-card p+p{margin-top:8px}
+.evidence-card strong{color:#7357ff}
+.evidence-card small{display:block;color:#a39c94;font-size:10px}
+.tip-card{margin:0 20px 14px;padding:15px 17px;display:flex;align-items:center;gap:12px;border-radius:14px;background:#fff0ba}
+.tip-card span{flex:none;padding:4px 7px;border-radius:6px;color:#725800;background:#ffcf4a;font-size:10px;font-weight:700}
+.tip-card p{margin:0;font-size:13px}
+.breakdown-card h2{margin:0 0 14px;font-size:14px}
+#breakdown>div{padding:10px 0;display:flex;justify-content:space-between;gap:10px;color:#77716b;font-size:12px}
+#breakdown>div strong{color:#252321;white-space:nowrap}
+#breakdown>div .purple{color:#7357ff}
+#breakdown>.total{margin-top:6px;padding-top:15px;border-top:1px dashed #ded7cf;color:#252321;font-size:14px}
+#breakdown>.total strong{color:#7357ff;font-size:17px}
+.result-actions{padding:10px 20px 24px;display:grid;gap:10px}
+
+.share-page{min-height:100vh;padding:66px 20px 120px;background:#e9e6df}
+.share-toolbar{height:56px;position:fixed;z-index:10;left:0;right:0;top:0;display:flex;align-items:center;justify-content:space-between;padding:0 18px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid #ddd8cf}
+.share-toolbar button{width:38px;height:38px;display:grid;place-items:center;border:0;background:transparent}
+.share-toolbar strong{font-size:14px}
+.share-toolbar span{color:#8d867e;font-size:11px}
+.story-preview{width:min(100%,375px);margin:0 auto;box-shadow:0 12px 38px rgba(37,35,33,.15);line-height:0}
+.story-preview svg{width:100%;height:auto;display:block}
+.share-bottom{position:fixed;z-index:10;left:50%;bottom:16px;transform:translateX(-50%);width:calc(100% - 40px);max-width:375px;text-align:center}
+.share-bottom .save-buttons{display:grid;gap:8px;grid-auto-flow:column}
+.share-bottom p{margin:8px 0 0;color:#6f6962;font-size:11px}
+
+.info{max-width:375px;margin:0 auto;padding:30px 22px 20px;background:#fff9ee;font-size:14px;line-height:1.75;border-top:1px solid rgba(37,35,33,.08)}
+.info h2{margin:28px 0 8px;font-family:"Black Han Sans",sans-serif;font-weight:400;font-size:21px}
+.info h2:first-child{margin-top:0}
+.info h3{margin:18px 0 4px;font-size:14px}
+.info p{margin:0 0 10px}
+.info table{width:100%;border-collapse:collapse;margin:6px 0 12px;font-size:12px;background:#fff;border-radius:12px;overflow:hidden}
+.info th,.info td{padding:8px 6px;border-bottom:1px solid #eee7dc;text-align:center}
+.info th{background:#eee9ff;color:#4d3aba;font-weight:700}
+.info td:first-child{text-align:left}
+.info ul{margin:0 0 10px;padding-left:18px;font-size:12px}
+.info li{margin-bottom:4px}
+.info a{color:#5d42df}
+.note{padding:12px 14px;border-radius:12px;background:#f4efe6;color:#77716b;font-size:12px}
+.badge{display:inline-block;margin-right:6px;padding:1px 8px;border-radius:99px;border:1px solid #b9b1a7;font-size:11px}
+footer{max-width:375px;margin:0 auto;padding:10px 22px 40px;background:#fff9ee;text-align:center;font-size:13px}
+footer a{color:#7357ff}
+
+@media (min-width:600px){
+  .mobile-shell{margin-top:24px;border-radius:24px 24px 0 0;box-shadow:0 20px 55px rgba(42,35,24,.12)}
+  footer{border-radius:0 0 24px 24px;margin-bottom:24px}
+}
+</style>
+</head>
+<body>
+
+<!-- 화면 1: 입력 -->
+<main class="mobile-shell" id="formPage">
+  <header class="app-header">
+    <div class="mini-envelope hanja">祝</div>
+    <span>축의금 계산기</span>
+    <span class="year-pill">2026</span>
+  </header>
+  <section class="intro">
+    <p>어려운 축의금 고민, 이제 그만</p>
+    <h1>축의금,<br><em>얼마</em> 내야 할까?</h1>
+    <span>2026년 설문 기준으로 알려드려요</span>
+  </section>
+
+  <section class="form-section">
+    <div class="section-heading"><span>01</span><h2>어떤 관계인가요?</h2></div>
+    <div class="relation-grid" id="relationGrid"></div>
+  </section>
+
+  <section class="form-section">
+    <div class="section-heading"><span>02</span><h2>얼마나 가까운가요?</h2></div>
+    <div class="segmented" id="closeness"></div>
+  </section>
+
+  <section class="form-section">
+    <div class="section-heading"><span>03</span><h2>결혼식에 참석하나요?</h2></div>
+    <div class="two-options" id="attendance">
+      <button type="button" data-v="attend"><span>직접 간다</span><small>식사도 할게요</small></button>
+      <button type="button" data-v="send"><span>봉투만 보낸다</span><small>마음만 전해요</small></button>
+    </div>
+  </section>
+
+  <section class="form-section" id="venueSection">
+    <div class="section-heading"><span>04</span><h2>식장은 어디인가요?</h2></div>
+    <div class="two-options compact" id="venue">
+      <button type="button" data-v="hall">일반 예식장</button>
+      <button type="button" data-v="hotel">호텔</button>
+    </div>
+  </section>
+
+  <section class="form-section" id="companionSection">
+    <div class="section-heading"><span>05</span><h2>누구와 함께 가나요?</h2></div>
+    <div class="three-options" id="companion">
+      <button type="button" data-v="solo">혼자</button>
+      <button type="button" data-v="adult">어른 +1</button>
+      <button type="button" data-v="child">아이 +1</button>
+    </div>
+    <div class="stepper-row" id="adultRow">
+      <span>동반 어른</span>
+      <div class="stepper"><button type="button" data-step="adults:-1" aria-label="어른 한 명 빼기">−</button><strong id="adultsNum">1</strong><button type="button" data-step="adults:1" aria-label="어른 한 명 더하기">＋</button></div>
+    </div>
+    <div class="stepper-row" id="childRow">
+      <span>동반 아이</span>
+      <div class="stepper"><button type="button" data-step="children:-1" aria-label="아이 한 명 빼기">−</button><strong id="childrenNum">1</strong><button type="button" data-step="children:1" aria-label="아이 한 명 더하기">＋</button></div>
+    </div>
+  </section>
+
+  <section class="optional-section">
+    <button type="button" class="optional-toggle" id="recToggle" aria-expanded="false">
+      <span><strong>그 사람이 내 결혼식에 낸 금액</strong><small>선택 사항이에요</small></span>
+      <b id="recSign">+</b>
+    </button>
+    <label class="money-input" id="recBox" hidden>
+      <input id="recInput" inputmode="numeric" placeholder="0" aria-label="받은 축의금 금액">
+      <span>원</span>
+    </label>
+  </section>
+
+  <button class="primary-button calculate-button" type="button" id="calcBtn">축의금 계산하기 →</button>
+  <p class="form-note">입력한 정보는 저장되지 않아요</p>
+</main>
+
+<!-- 화면 2: 결과 -->
+<main class="mobile-shell" id="resultPage" hidden>
+  <header class="simple-header">
+    <button type="button" id="backBtn" aria-label="입력 화면으로 돌아가기"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+    <span>계산 결과</span>
+    <div></div>
+  </header>
+  <section class="result-hero">
+    <div class="confetti confetti-a"></div><div class="confetti confetti-b"></div><div class="confetti confetti-c"></div>
+    <div class="envelope"><div class="envelope-shadow"></div><div class="envelope-paper"><div class="envelope-red-line"></div><p class="hanja">祝<br>結<br>婚</p></div></div>
+    <p class="result-kicker">추천 축의금</p>
+    <h1 id="amountBig"></h1>
+    <p class="result-summary" id="summary"></p>
+    <p class="result-extra" id="extraLine" hidden></p>
+  </section>
+  <section class="evidence-card" id="evidence">
+    <span class="evidence-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="m12 3 1.3 4.1L17 9l-3.7 1.9L12 15l-1.3-4.1L7 9l3.7-1.9L12 3ZM18.5 14l.7 2.3 2.3.7-2.3.7-.7 2.3-.7-2.3-2.3-.7 2.3-.7.7-2.3Z"/></svg></span>
+    <div id="evidenceText"></div>
+  </section>
+  <div class="tip-card" id="tipCard" hidden><span>알아두세요</span><p>안 가고 봉투만 보내면 <strong>5만원</strong></p></div>
+  <section class="breakdown-card"><h2>계산 내역</h2><div id="breakdown"></div></section>
+  <div class="result-actions">
+    <button class="primary-button" type="button" id="toShareBtn">↓ 이미지로 저장</button>
+    <button class="outline-button" type="button" id="againBtn">다시 계산</button>
+  </div>
+</main>
+
+<!-- 화면 3: 공유 카드 -->
+<main class="share-page" id="sharePage" hidden>
+  <div class="share-toolbar">
+    <button type="button" id="shareBackBtn" aria-label="결과 화면으로 돌아가기"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+    <strong>공유 카드 미리보기</strong>
+    <span>9:16</span>
+  </div>
+  <div class="story-preview" id="storyPreview"></div>
+  <div class="share-bottom">
+    <div class="save-buttons">
+      <button class="primary-button" type="button" id="saveBtn">↓ 이미지로 저장</button>
+      <button class="primary-button" type="button" id="shareBtn" hidden>공유하기</button>
+    </div>
+    <p id="saveMsg">1080 × 1920 · 인스타 스토리에 딱 맞아요</p>
+  </div>
+</main>
+
+<article class="info" id="info">
+  <h2>이렇게 계산해요</h2>
+  <p>혼자 참석하고 일반 예식장에서 식사를 하는 경우를 기준 금액으로 잡았어요. 관계와 친한 정도로 기준 금액을 정한 뒤, 참석 여부, 호텔 예식, 동반 인원에 따라 더하거나 빼요.</p>
+  <table>
+    <thead><tr><th>관계</th><th>얼굴만 아는</th><th>보통</th><th>친한</th></tr></thead>
+    <tbody>
+      <tr><td>직장 동료·상사</td><td>10만</td><td>10만</td><td>15만</td></tr>
+      <tr><td>친구·학교 동기</td><td>10만</td><td>15만</td><td>20만</td></tr>
+      <tr><td>지인·동호회·SNS</td><td>10만</td><td>10만</td><td>15만</td></tr>
+    </tbody>
+  </table>
+  <table>
+    <thead><tr><th>친척</th><th>6촌 이상</th><th>4촌</th><th>3촌 이내</th></tr></thead>
+    <tbody><tr><td>기준 금액</td><td>20만</td><td>30만</td><td>50만 이상</td></tr></tbody>
+  </table>
+  <ul>
+    <li>봉투만 보내면 10만원은 5만원으로, 15만원 이상은 5만원을 빼요. 친척은 그대로예요.</li>
+    <li>호텔 예식이면 5만원을 더해요. 친척은 그대로예요.</li>
+    <li>함께 가는 어른 1명마다 10만원, 아이 1명마다 5만원을 더해요.</li>
+    <li>그 사람이 내 결혼식에 낸 금액을 넣으면, 계산 금액이 그보다 적을 때 받은 금액으로 올려요.</li>
+    <li>마지막으로 5만, 10만, 15만, 20만, 30만, 40만, 50만원처럼 봉투에 넣기 좋은 금액으로 맞춰요.</li>
+  </ul>
+  <p>예를 들어 친한 직장 동료(15만원)의 호텔 결혼식(+5만원)에 배우자와 함께 가면(+10만원) 30만원이에요.</p>
+
+  <h2>자주 묻는 질문</h2>
+  <h3>참석하면 왜 10만원부터인가요?</h3>
+  <p>2026년 6월 기준 서울 예식장 1인 식대 중간값이 8만원이에요(한국소비자원). 여러 설문에서도 참석할 때 10만원을 고른 사람이 60% 넘게 가장 많았어요.</p>
+  <h3>15만원을 내도 괜찮나요?</h3>
+  <p>예전에는 5만, 10만, 20만원처럼 맞추는 경우가 많았지만, 2025년 인크루트 조사에서 친한 동료에게 15만원을 낸다는 사람이 12.7%였어요. 호텔 결혼식에서는 18.7%가 15만원을 골랐어요.</p>
+  <h3>내가 받은 축의금보다 적게 내도 되나요?</h3>
+  <p>가연 2026년 조사에서 기혼자 60.6%가 "상대가 내 결혼식에 낸 금액"을 기준으로 삼는다고 답했어요. 그래서 받은 금액을 넣으면 그보다 적게 나오지 않게 했어요.</p>
+  <h3>가까운 친척은 왜 금액 하나로 안 나오나요?</h3>
+  <p>3촌 이내 친척 결혼식의 평균은 90만원이었지만 50만원 이하부터 100만원 넘게까지 차이가 컸어요(KB국민카드 2023). 집안마다 정한 금액이 있는 경우가 많아서 가족과 상의하기를 권해요.</p>
+
+  <h2>근거로 쓴 조사</h2>
+  <ul>
+    <li><a href="https://view.asiae.co.kr/article/2026082716313962867" rel="noopener" target="_blank">가연 결혼 비용 및 축의금 인식 조사</a>, 2026년 8월, 25~39세 1,008명</li>
+    <li><a href="https://www.segye.com/newsView/20260829500854" rel="noopener" target="_blank">NH농협은행 축의금 이체 분석</a>, 2023~2025년 533만 건 / 한국소비자원 참가격 예식장 식대, 2026년 6월</li>
+    <li><a href="https://v.daum.net/v/20260516003319431" rel="noopener" target="_blank">조선일보 아무튼주말·틸리언 프로 설문</a>, 2026년 5월, 성인 1,500명</li>
+    <li><a href="https://zdnet.co.kr/view/?no=20250526084442" rel="noopener" target="_blank">인크루트 직장 동료 적정 축의금 설문</a>, 2025년 5월, 직장인 844명</li>
+    <li><a href="https://www.newsis.com/view/NISX20240418_0002704891" rel="noopener" target="_blank">신한은행 보통사람 금융생활 보고서</a>, 2023년 10~11월, 20~64세 1만 명</li>
+    <li><a href="https://www.newsis.com/view/NISX20231027_0002499689" rel="noopener" target="_blank">KB국민카드 고객패널 설문</a>, 2023년 10월, 400여 명</li>
+  </ul>
+  <p class="note"><span class="badge">참고용</span>설문 통계를 바탕으로 한 참고용 금액이에요. 기준일 2026-11-21. 동반 인원 금액은 설문이 아니라 식대를 기준으로 계산했어요. 관계와 형편에 맞게 조절하세요.</p>
+</article>
+<footer><a href="../">다른 계산기 보기</a></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+const SITE="tools.irukabloom.com/chukuigeum";
+const ICONS={
+  work:'<rect x="3" y="7" width="18" height="12" rx="3"/><path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7M3 12h18M10 12v2h4v-2"/>',
+  friend:'<circle cx="9" cy="8" r="3"/><path d="M3.8 19v-1.5A4.5 4.5 0 0 1 8.3 13h1.4a4.5 4.5 0 0 1 4.5 4.5V19M15 5.5a3 3 0 0 1 0 5.5M17 13.5a4.5 4.5 0 0 1 3.2 4.3V19"/>',
+  community:'<path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 9.5 9.5 0 0 1-3.5-.7L4 20l1.4-3.8A7.7 7.7 0 0 1 4 11.5 7.5 7.5 0 0 1 12 4a7.5 7.5 0 0 1 8 7.5Z"/><path d="M8 11h.01M12 11h.01M16 11h.01"/>',
+  family:'<path d="m3 11 9-7 9 7"/><path d="M5.5 9.5V20h13V9.5M9.5 20v-6h5v6"/>'
+};
+const RELATIONS=[
+  {v:"work",label:"직장 동료·상사",short:"직장 동료",sub:"매일 만나는 사이"},
+  {v:"friend",label:"친구·학교 동기",short:"친구",sub:"오래 알고 지낸 사이"},
+  {v:"community",label:"지인·동호회·SNS",short:"지인",sub:"가끔 소식 듣는 사이"},
+  {v:"family",label:"친척",short:"친척",sub:"가족으로 이어진 사이"}
+];
+// 혼자 참석, 일반 예식장 기준 (만원)
+const BASE={work:[10,10,15],friend:[10,15,20],community:[10,10,15],family:[20,30,50]};
+const CLOSE_LABELS={normal:["얼굴만 아는 사이","보통","친한 사이"],family:["6촌 이상","4촌","3촌 이내"]};
+const STEPS=[5,10,15,20,30,40,50,60,70,80,100];
+
+const S={relation:"work",closeness:1,attendance:"attend",venue:"hall",adult:false,child:false,adults:1,children:1,received:0};
+
+function closeLabels(){return S.relation==="family"?CLOSE_LABELS.family:CLOSE_LABELS.normal;}
+function snap(v){
+  if(v>100) return Math.ceil(v/10)*10;
+  let best=STEPS[0];
+  for(const s of STEPS){ if(Math.abs(s-v)<Math.abs(best-v)||(Math.abs(s-v)===Math.abs(best-v)&&s>best)) best=s; }
+  return best;
+}
+
+// ---------- 계산 ----------
+function calc(){
+  const fam=S.relation==="family";
+  const base=BASE[S.relation][S.closeness];
+  const rows=[["기본 금액 ("+RELATIONS.find(r=>r.v===S.relation).short+" · "+closeLabels()[S.closeness]+")",base]];
+  let total=base;
+  if(S.attendance==="send"){
+    if(!fam){ const cut=base<=10?base-5:5; rows.push(["봉투만 보냄",-cut]); total-=cut; }
+  }else{
+    if(S.venue==="hotel"&&!fam){ rows.push(["호텔 예식",5]); total+=5; }
+    if(S.adult){ rows.push([`동반 어른 ${S.adults}명`,S.adults*10]); total+=S.adults*10; }
+    if(S.child){ rows.push([`동반 아이 ${S.children}명`,S.children*5]); total+=S.children*5; }
+  }
+  let amount=snap(total);
+  if(amount!==total) rows.push(["봉투에 넣기 좋은 금액으로 맞춤",amount-total]);
+  const rec=Math.ceil(S.received/10000);
+  if(rec>amount){ rows.push(["내 결혼식에 받은 금액만큼",rec-amount]); amount=rec; }
+  const open=fam&&S.closeness===2&&rec<=amount&&amount===snap(total); // 3촌 이내는 "이상"으로 표시
+  return {amount,rows,open};
+}
+function summaryText(){
+  const r=RELATIONS.find(r=>r.v===S.relation);
+  const parts=[r.short+(S.relation==="family"?"("+closeLabels()[S.closeness]+")":S.closeness===2?"(친한 사이)":S.closeness===0?"(얼굴만 아는 사이)":"")];
+  if(S.attendance==="send"){ parts.push("봉투만"); }
+  else{
+    parts.push(S.venue==="hotel"?"호텔":"일반 예식장");
+    const c=[]; if(S.adult)c.push(`어른 ${S.adults}명`); if(S.child)c.push(`아이 ${S.children}명`);
+    parts.push(c.length?c.join("·")+" 동반":"혼자 참석");
+  }
+  return parts.join(" · ");
+}
+function evidence(){
+  const L=[];
+  if(S.attendance==="send"&&S.relation!=="family"){
+    L.push(['봉투만 보낼 때는 <strong>5만원</strong>이 <strong>52.8%</strong>로 가장 많았어요',"신한은행 보통사람 금융생활 보고서, 2023년 조사"]);
+  }else if(S.relation==="work"){
+    if(S.closeness===2) L.push(['사적으로 친한 동료에게 <strong>15만원 이상</strong>을 낸다는 직장인이 <strong>27%</strong>예요',"인크루트, 2025"]);
+    else L.push(['직장인 <strong>61.8%</strong>가 동료 결혼식에<br><strong>10만원</strong>을 골랐어요',"인크루트, 2025"]);
+  }else if(S.relation==="friend"){
+    if(S.closeness===0) L.push(['결혼식에 참석하면 <strong>10만원</strong>을 낸다는 사람이 <strong>65.3%</strong>예요',"아무튼주말·틸리언 프로, 2026"]);
+    else L.push(['친한 사이 결혼식에는 평균 <strong>17만원</strong>을 냈어요',"KB국민카드 고객패널, 2023"]);
+  }else if(S.relation==="community"){
+    L.push(['그냥 알고 지내는 사이는 평균 <strong>8만원</strong>이었어요. 참석하면 식대 때문에 10만원이 무난해요',"KB국민카드 고객패널, 2023"]);
+  }else{
+    if(S.closeness===2) L.push(['3촌 이내 친척 결혼식에는 평균 <strong>90만원</strong>을 냈어요. 집마다 차이가 커서 가족과 상의하세요',"KB국민카드 고객패널, 2023"]);
+    else L.push(['4촌 이상 친척 결혼식에는 평균 <strong>26만원</strong>을 냈어요',"KB국민카드 고객패널, 2023"]);
+  }
+  if(S.attendance==="attend"&&S.venue==="hotel"&&S.relation!=="family")
+    L.push(['호텔 결혼식이면 <strong>15만원 이상</strong>을 낸다는 사람이 <strong>33.9%</strong>예요',"아무튼주말·틸리언 프로, 2026"]);
+  return L.map(([t,s])=>`<p>${t}</p><small>${s}</small>`).join("");
+}
+
+// ---------- 입력 화면 ----------
+function renderForm(){
+  $("relationGrid").innerHTML=RELATIONS.map(r=>`<button type="button" class="relation-card${S.relation===r.v?" selected":""}" data-v="${r.v}">
+    <span class="relation-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[r.v]}</svg></span>
+    <strong>${r.label}</strong><small>${r.sub}</small>
+    <span class="selected-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m5 12 4 4L19 6"/></svg></span></button>`).join("");
+  $("closeness").innerHTML=closeLabels().map((l,i)=>`<button type="button" class="${S.closeness===i?"selected":""}" data-i="${i}">${l}</button>`).join("");
+  document.querySelectorAll("#attendance button").forEach(b=>b.classList.toggle("selected",b.dataset.v===S.attendance));
+  document.querySelectorAll("#venue button").forEach(b=>b.classList.toggle("selected",b.dataset.v===S.venue));
+  const solo=!S.adult&&!S.child;
+  document.querySelectorAll("#companion button").forEach(b=>b.classList.toggle("selected",b.dataset.v==="solo"?solo:S[b.dataset.v]));
+  const send=S.attendance==="send";
+  $("venueSection").hidden=send; $("companionSection").hidden=send;
+  $("adultRow").hidden=!S.adult; $("childRow").hidden=!S.child;
+  $("adultsNum").textContent=S.adults; $("childrenNum").textContent=S.children;
+}
+$("relationGrid").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.relation=b.dataset.v;S.closeness=1;renderForm();};
+$("closeness").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.closeness=+b.dataset.i;renderForm();};
+$("attendance").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.attendance=b.dataset.v;renderForm();};
+$("venue").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.venue=b.dataset.v;renderForm();};
+$("companion").onclick=e=>{const b=e.target.closest("button");if(!b)return;const v=b.dataset.v;
+  if(v==="solo"){S.adult=false;S.child=false;}else{S[v]=!S[v];}
+  renderForm();};
+document.querySelectorAll("[data-step]").forEach(b=>b.onclick=()=>{const [k,d]=b.dataset.step.split(":");S[k]=Math.max(1,Math.min(9,S[k]+Number(d)));renderForm();});
+$("recToggle").onclick=()=>{const open=$("recBox").hidden;$("recBox").hidden=!open;$("recSign").textContent=open?"−":"+";$("recToggle").setAttribute("aria-expanded",open);if(open)$("recInput").focus();};
+$("recInput").oninput=e=>{const n=e.target.value.replace(/\D/g,"").slice(0,8);S.received=Number(n)||0;e.target.value=n?Number(n).toLocaleString("ko-KR"):"";};
+
+// ---------- 결과 화면 ----------
+let last=null;
+function man(v){return (v>0?"+":v<0?"−":"")+Math.abs(v)+"만원";}
+function showResult(){
+  last=calc();
+  $("amountBig").innerHTML=`${last.amount}<span>만원</span>${last.open?"<small> 이상</small>":""}`;
+  $("summary").textContent=summaryText();
+  $("extraLine").hidden=!last.open; $("extraLine").textContent="가족과 금액을 맞춰 보세요";
+  $("evidenceText").innerHTML=evidence();
+  $("tipCard").hidden=!(S.closeness===0&&S.relation!=="family"&&S.attendance==="attend");
+  let h=last.rows.map(([k,v],i)=>`<div><span>${k}</span><strong${i?' class="purple"':""}>${i?man(v):v+"만원"}</strong></div>`).join("");
+  h+=`<div class="total"><span>합계</span><strong>${last.amount}만원${last.open?" 이상":""}</strong></div>`;
+  $("breakdown").innerHTML=h;
+  show("resultPage");
+}
+function show(id){["formPage","resultPage","sharePage"].forEach(p=>$(p).hidden=p!==id);$("info").hidden=id==="sharePage";document.querySelector("footer").hidden=id==="sharePage";window.scrollTo(0,0);}
+$("calcBtn").onclick=showResult;
+$("backBtn").onclick=$("againBtn").onclick=()=>show("formPage");
+$("shareBackBtn").onclick=()=>show("resultPage");
+$("toShareBtn").onclick=()=>{$("storyPreview").innerHTML=storySVG();$("saveMsg").textContent="1080 × 1920 · 인스타 스토리에 딱 맞아요";show("sharePage");prepareShare();};
+
+// ---------- 공유 카드 (1080×1920 SVG) ----------
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+function storySVG(css=""){
+  const amt=`${last.amount}만원${last.open?" 이상":""}`;
+  const big=amt.length>6?96:112;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<defs><style>${css}
+.bh{font-family:"Black Han Sans",sans-serif}.gd{font-family:"Gowun Dodum",sans-serif}.hj{font-family:"Noto Serif KR",serif;font-weight:600}</style>
+<filter id="sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="30" stdDeviation="24" flood-color="#3e2d13" flood-opacity=".15"/></filter>
+<filter id="sh2" x="-20%" y="-30%" width="140%" height="170%"><feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#2c2316" flood-opacity=".16"/></filter></defs>
+<rect width="1080" height="1920" fill="#FFF9EE"/>
+<circle cx="70" cy="520" r="96" fill="#EEE9FF"/>
+<circle cx="958" cy="1330" r="40" fill="#FFCF4A"/>
+<circle cx="900" cy="410" r="14" fill="#FF5F73"/>
+<rect x="150" y="1520" width="22" height="48" rx="11" fill="#7357FF" transform="rotate(-40 161 1544)"/>
+<path transform="translate(930 470) rotate(14) scale(2.6)" d="m0 -9 1.3 4.1L5 -3l-3.7 1.9L0 3l-1.3-4.1L-5 -3l3.7-1.9Z" fill="#FF5F73"/>
+<text x="540" y="365" text-anchor="middle" class="gd" font-size="38" font-weight="700" fill="#7357FF">나에게 딱 맞는 축의금</text>
+<g filter="url(#sh)"><rect x="285" y="440" width="510" height="660" rx="10" fill="#fff"/></g>
+<rect x="312" y="468" width="6" height="604" fill="#FF5F73"/>
+<text x="540" y="640" text-anchor="middle" class="hj" font-size="92" fill="#252321">祝</text>
+<text x="540" y="770" text-anchor="middle" class="hj" font-size="92" fill="#252321">結</text>
+<text x="540" y="900" text-anchor="middle" class="hj" font-size="92" fill="#252321">婚</text>
+<g transform="rotate(-2 540 1180)" filter="url(#sh2)"><rect x="160" y="1030" width="760" height="300" rx="22" fill="#EEE9FF"/></g>
+<g transform="rotate(-2 540 1180)">
+<text x="540" y="1122" text-anchor="middle" class="gd" font-size="44" fill="#7357FF">내 축의금은</text>
+<text x="540" y="1262" text-anchor="middle" class="bh" font-size="${big}" fill="#252321">${esc(amt)}</text></g>
+<text x="540" y="1440" text-anchor="middle" class="gd" font-size="38" fill="#5F5A54">${esc(summaryText())}</text>
+<text x="540" y="1640" text-anchor="middle" class="gd" font-size="30" fill="#8D867E">${SITE}</text>
+</svg>`;
+}
+
+// ---------- 이미지 저장 (폰트까지 넣어서) ----------
+const fontCache={};
+async function fontCss(family,text){
+  const key=family+"|"+text; if(fontCache[key]) return fontCache[key];
+  const css=await (await fetch(`https://fonts.googleapis.com/css2?family=${family}&text=${encodeURIComponent(text)}`)).text();
+  let out=css;
+  for(const m of css.matchAll(/url\((https:[^)]+)\)/g)){
+    const blob=await (await fetch(m[1])).blob();
+    const data=await new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(blob);});
+    out=out.replace(m[1],data);
+  }
+  return fontCache[key]=out;
+}
+async function renderPng(){
+  const plain=storySVG();
+  const chars=[...new Set((plain.replace(/<style>[\s\S]*?<\/style>/,"").replace(/<[^>]+>/g,"")+"0123456789").replace(/\s/g,""))].join("");
+  let css="";
+  try{ css=(await fontCss("Black+Han+Sans",chars))+(await fontCss("Gowun+Dodum",chars))+(await fontCss("Noto+Serif+KR:wght@600","祝結婚")); }catch(e){ css=""; }
+  const svg=storySVG(css);
+  const img=new Image();
+  await new Promise((res,rej)=>{img.onload=res;img.onerror=rej;img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg);});
+  const c=document.createElement("canvas");c.width=1080;c.height=1920;const ctx=c.getContext("2d");
+  ctx.drawImage(img,0,0,1080,1920);
+  await new Promise(r=>setTimeout(r,150)); // 사파리가 폰트를 늦게 그리는 경우 대비
+  ctx.clearRect(0,0,1080,1920); ctx.drawImage(img,0,0,1080,1920);
+  return await new Promise(r=>c.toBlob(r,"image/png"));
+}
+function fileName(){return `축의금-${last.amount}만원.png`;}
+let shareFile=null;
+async function prepareShare(){
+  shareFile=null; $("shareBtn").hidden=true;
+  if(!navigator.canShare) return;
+  try{
+    const blob=await renderPng(); const f=new File([blob],fileName(),{type:"image/png"});
+    if(navigator.canShare({files:[f]})){shareFile=f;$("shareBtn").hidden=false;}
+  }catch(e){}
+}
+$("saveBtn").onclick=async()=>{
+  $("saveMsg").textContent="이미지를 만드는 중이에요…";
+  try{
+    const blob=await renderPng(); const url=URL.createObjectURL(blob);
+    const a=document.createElement("a");a.href=url;a.download=fileName();document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),3000);
+    $("saveMsg").textContent="저장했어요. 사진 앱이나 다운로드 폴더를 확인하세요";
+  }catch(e){ $("saveMsg").textContent="저장에 실패했어요. 화면을 길게 눌러 캡처해 주세요"; }
+};
+$("shareBtn").onclick=async()=>{
+  if(!shareFile) return;
+  try{ await navigator.share({files:[shareFile],title:"내 축의금"}); }catch(e){}
+};
+
+renderForm();
+</script>
+<!-- 블로그 글 안에 끼워 넣을 때(?embed=1): 높이를 글에 알려 줌 -->
+<style>.is-embed footer{display:none}</style>
+<script>(function(){if(!/[?&]embed=1/.test(location.search)||window.parent===window)return;document.documentElement.classList.add("is-embed");function s(){parent.postMessage({type:"iruka-tool-height",height:Math.ceil(document.documentElement.scrollHeight)},"*")}addEventListener("load",s);if(window.ResizeObserver)new ResizeObserver(s).observe(document.body);setTimeout(s,300)})();</script>
+</body>
+</html>
