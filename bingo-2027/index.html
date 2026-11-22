@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<!-- 직접 열면 블로그 글로 넘김(blog-redirect). ?embed=1 로 블로그 안에 끼워 넣었을 때만 웹툴이 보임. 주소 뒤 #b= (내 판 링크)로 열면 넘기지 않음. 글이 아직 없어서 모음 페이지로 넘김 -->
+<script>if(!/[?&]embed=1(&|#|$)/.test(location.search)&&!/(^|[#&])b=/.test(location.hash))location.replace("https://haeminlog.com/category/life-webtools/");</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>2027 새해 빙고 만들기 | 목표 빙고판 메이커</title>
+<meta name="description" content="2027년 목표를 빙고판에 채우고 인스타 스토리 이미지로 저장하세요. 이룬 칸에는 도장을 찍고 몇 빙고인지 세어 줘요. 추천 목표 56개, 가입 없이 무료.">
+<!-- 워드프레스 글 주소를 받으면 canonical, og:url, 맨 위 blog-redirect 주소를 그 글로 바꿈 -->
+<link rel="canonical" href="https://tools.irukabloom.com/bingo-2027/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="2027 새해 빙고">
+<meta property="og:description" content="올해 목표를 빙고판에 채우고, 이룰 때마다 도장 찍기">
+<meta property="og:url" content="https://tools.irukabloom.com/bingo-2027/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#fff9ee;--ink:#252321;--purple:#7357ff;--lavender:#eee9ff;--red:#ff5f73;--yellow:#ffcf4a}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#e9e5dd;scroll-behavior:smooth}
+body{margin:0;min-width:320px;color:var(--ink);background:#e9e5dd;font-family:'Gowun Dodum',sans-serif;font-synthesis:none}
+button,input,textarea{font-family:inherit;color:inherit}
+button{cursor:pointer}
+[hidden]{display:none!important}
+.shell,.info,footer.site{width:min(100%,390px);margin:0 auto;background:var(--cream)}
+.shell{overflow:hidden;box-shadow:0 0 50px rgba(37,35,33,.1)}
+.topbar{height:56px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1.5px solid var(--ink)}
+.brand{color:var(--ink);font-family:'Black Han Sans',sans-serif;font-size:15px;text-decoration:none;letter-spacing:-.3px}
+.topbar>span{font-size:9px;font-weight:700;letter-spacing:1.3px}
+
+.section-tag{display:flex;align-items:center;gap:9px;margin-bottom:30px;position:relative;z-index:2}
+.section-tag span{width:29px;height:29px;display:grid;place-items:center;border-radius:50%;background:var(--ink);color:#fff;font-size:10px;font-weight:700}
+.section-tag p{margin:0;font-size:12px;font-weight:700}
+.eyebrow{margin:0 0 6px;color:var(--purple);font-size:10px;font-weight:700;letter-spacing:1.8px}
+h1,.sec h2{margin:0;font-family:'Black Han Sans',sans-serif;font-weight:400;letter-spacing:-1.7px;line-height:.98}
+
+.hero{padding:24px 20px 44px;position:relative;border-bottom:1.5px solid var(--ink)}
+.hero h1{font-size:54px}
+.hero h1 em{color:var(--purple);font-size:67px;font-style:normal}
+.hero-copy{margin:17px 0 26px;font-size:15px;line-height:1.55}
+.deco-one{position:absolute;top:94px;right:37px;width:34px;color:var(--yellow);transform:rotate(12deg)}
+.deco-two{position:absolute;top:134px;right:-16px;width:84px;height:52px;display:grid;place-items:center;background:var(--red);color:#fff;font:27px 'Black Han Sans';transform:rotate(8deg);border:1.5px solid var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.setup-card{position:relative;z-index:1;padding:20px;border:1.5px solid var(--ink);border-radius:20px;background:#fff;box-shadow:5px 5px 0 var(--ink)}
+.flabel{display:block;margin-bottom:8px;font-size:12px;font-weight:700}
+.input-wrap{height:48px;display:flex;align-items:center;margin-bottom:18px;padding:0 14px;border:1px solid #c9c3b9;border-radius:10px;background:var(--cream)}
+.input-wrap:focus-within{border-color:var(--purple);box-shadow:0 0 0 2px var(--lavender)}
+.input-wrap input{width:100%;border:0;outline:0;background:transparent;font-size:16px}
+.input-wrap span{color:#8d8981;font-size:11px;flex:0 0 auto}
+.size-selector{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.size-selector>button{height:78px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;border:1px solid #d5cfc4;border-radius:11px;background:#fff}
+.size-selector>button.active{border:2px solid var(--purple);color:var(--purple);background:var(--lavender)}
+.size-selector b{font-size:12px}
+.size-selector small{position:absolute;top:-8px;right:5px;padding:2px 6px;border-radius:9px;background:var(--purple);color:#fff;font-size:8px}
+.mini-grid{width:25px;height:25px;display:grid;gap:1px}
+.mini-grid i{border-radius:1px;background:currentColor;opacity:.65}
+
+.primary{width:100%;height:52px;display:flex;align-items:center;justify-content:center;gap:9px;border:0;border-radius:12px;background:var(--purple);color:#fff;font-size:15px;font-weight:700;box-shadow:0 4px 0 #3f2db7;transition:transform .15s,box-shadow .15s}
+.primary:active{transform:translateY(3px);box-shadow:0 1px 0 #3f2db7}
+.primary svg,.outline svg{width:18px;height:18px;flex:0 0 auto}
+.primary.large{height:58px;font-size:16px;border-radius:14px}
+.outline{height:52px;display:flex;align-items:center;justify-content:center;gap:6px;border:1.5px solid var(--purple);border-radius:12px;background:#fff;color:var(--purple);font-size:13px;font-weight:700}
+.text-btn{display:block;width:100%;margin-top:12px;padding:6px;border:0;background:transparent;color:#66605b;font-size:12px;text-decoration:underline}
+
+.sec{padding:32px 20px 48px;border-bottom:1.5px solid var(--ink);scroll-margin-top:8px}
+.sec h2{font-size:31px;line-height:1.08}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:8px}
+.count-badge{padding:6px 10px;border-radius:15px;background:var(--lavender);color:var(--purple);font-size:11px;font-weight:700;white-space:nowrap}
+.count-badge.full{background:var(--purple);color:#fff}
+.note{margin:0 0 18px;color:#77716b;font-size:12px}
+
+/* board */
+.board{width:100%;position:relative;display:grid;gap:4px}
+.cell{aspect-ratio:1;min-width:0;position:relative;display:flex;align-items:center;justify-content:center;padding:3px;overflow:hidden;border:1.15px solid var(--ink);border-radius:8px;background:#fff;text-align:center;font-size:11px;line-height:1.3;word-break:keep-all;overflow-wrap:anywhere}
+.n4 .cell{font-size:13px;border-radius:10px}
+.n3 .cell{font-size:16px;border-radius:12px;padding:8px}
+button.cell{font-family:inherit}
+.cell .ph{color:#c4bdb2;font-size:18px}
+.cell.sel{border:2px solid var(--purple);background:var(--lavender)}
+.cell.empty-warn{border-color:var(--red);background:#fff0f2}
+.free{background:var(--purple)!important;color:#fff}
+.free-mark{display:flex;flex-direction:column;line-height:.9;transform:rotate(-6deg)}
+.free-mark span{font:17px 'Black Han Sans'}
+.free-mark b{margin-top:3px;font-size:7px;letter-spacing:1px}
+.stamp{width:78%;aspect-ratio:1;position:absolute;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2.5px double var(--red);border-radius:50%;color:var(--red);transform:rotate(-12deg);background:transparent;pointer-events:none;animation:pop .28s ease-out}
+.cell.done{color:#e8445b}
+.cell.done .stamp{width:92%}
+.stamp::before{content:'';position:absolute;inset:3px;border:1px dashed var(--red);border-radius:50%}
+.stamp b{font:13px 'Black Han Sans';line-height:1}
+.n4 .stamp b{font-size:16px}.n3 .stamp b{font-size:22px}
+.stamp i{position:absolute;bottom:-3px;left:50%;transform:translateX(-50%);padding:0 3px;border-radius:4px;background:var(--red);color:#fff;font-size:7px;font-style:normal;font-weight:700;line-height:1.5}
+.n4 .stamp i{font-size:8px}.n3 .stamp i{font-size:10px}
+@keyframes pop{0%{transform:rotate(-12deg) scale(1.6);opacity:0}100%{transform:rotate(-12deg) scale(1);opacity:1}}
+.lines{position:absolute;inset:0;z-index:2;width:100%;height:100%;pointer-events:none;overflow:visible}
+.lines line{vector-effect:non-scaling-stroke;stroke-width:7px}
+
+/* editor */
+.editor{margin-top:14px;padding:14px;border:1.5px solid var(--ink);border-radius:14px;background:#fff}
+.editor-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:12px;font-weight:700}
+.editor-top small{color:#8d8981;font-weight:400}
+.editor-row{display:flex;gap:6px}
+.editor-row input{flex:1;min-width:0;height:46px;padding:0 12px;border:1px solid #c9c3b9;border-radius:10px;background:var(--cream);font-size:16px;outline:0}
+.editor-row input:focus{border-color:var(--purple);box-shadow:0 0 0 2px var(--lavender)}
+.editor-row button{flex:0 0 auto;height:46px;padding:0 13px;border:0;border-radius:10px;background:var(--ink);color:#fff;font-size:13px;font-weight:700}
+.editor-row button.ghost{background:#eee9e0;color:var(--ink)}
+
+.recommend{margin-top:18px;padding:16px;border-radius:16px;background:var(--lavender)}
+.rec-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}
+.rec-title>span{display:flex;align-items:center;gap:5px;color:var(--purple);font-size:14px;font-weight:700}
+.rec-title svg{width:15px;height:15px}
+.rec-title small{color:#716a81;font-size:10px}
+.tabs{display:flex;gap:5px;overflow-x:auto;margin:0 -16px 12px;padding:0 16px 4px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:0 0 auto;padding:7px 11px;border:1px solid #cec4f7;border-radius:15px;background:#fff;font-size:12px}
+.tabs button.active{border-color:var(--purple);background:var(--purple);color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{padding:8px 10px;border:1px solid #cfc7ed;border-radius:7px;background:#fff;color:#493c83;font-size:12px}
+.chips button.used{opacity:.4;text-decoration:line-through}
+.random{width:100%;height:46px;margin:12px 0 18px;border:1.5px solid var(--ink);border-radius:11px;background:#fff;font-size:13px;font-weight:700;box-shadow:3px 3px 0 var(--ink)}
+.random span{display:inline-block;margin-right:5px;color:var(--purple);font-size:18px;vertical-align:-1px}
+.warn{min-height:0;margin:0 0 10px;color:#d23a50;font-size:12px;text-align:center}
+
+/* check */
+.check{background:var(--lavender)}
+.who{margin:0 0 18px;font-size:19px;letter-spacing:-.5px}
+.who b{color:var(--purple)}
+.score{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.score p{margin:0 0 2px;font-size:12px}
+.score p b{color:var(--red)}
+.score h2{font-size:46px}
+.score h2 span{color:var(--purple);font-size:68px}
+.ring{width:72px;height:72px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:50%;background:conic-gradient(var(--yellow) var(--p,0%),#fff 0);position:relative}
+.ring::before{content:'';position:absolute;inset:7px;border-radius:50%;background:var(--lavender)}
+.ring>*{position:relative}
+.ring b{font:21px 'Black Han Sans';line-height:1}
+.ring span{font-size:8px}
+.tip{margin:0 0 11px;font-size:12px}
+.tip span{margin-right:5px;padding:2px 5px;border-radius:4px;background:var(--yellow);font-size:9px;font-weight:700}
+.check .cell,.friend .cell{background:var(--cream)}
+.check-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:22px}
+.check-actions .primary{grid-column:1/-1}
+.link-box{margin-top:12px;padding:12px;border-radius:12px;background:#fff;font-size:12px;line-height:1.6}
+.link-box p{margin:0 0 8px;color:#55504a}
+.link-box input{width:100%;height:40px;padding:0 10px;border:1px solid #d5cfc4;border-radius:8px;background:var(--cream);font-size:12px}
+.save-msg{min-height:18px;margin:12px 0 0;color:#6f6962;text-align:center;font-size:12px}
+.preview-wrap{margin-top:24px;text-align:center}
+.preview-wrap p{margin:0 0 10px;font-size:12px;color:#6f6962}
+.preview-wrap img{width:72%;border-radius:14px;box-shadow:6px 6px 0 var(--ink);border:1.5px solid var(--ink)}
+
+/* friend */
+.friend-title{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.avatar{width:46px;height:46px;flex:0 0 auto;display:grid;place-items:center;border:1.5px solid var(--ink);border-radius:50%;background:var(--yellow);font:19px 'Black Han Sans';box-shadow:2px 2px 0 var(--ink)}
+.friend-title h2{font-family:'Gowun Dodum';font-size:22px;letter-spacing:-1px;line-height:1.2}
+.friend-title h2 b{color:var(--purple)}
+.friend-title p{margin:4px 0 0;color:#77716b;font-size:11px}
+.ro{margin-bottom:11px;font-size:10px;color:#716d67}
+.ro span{margin-right:6px;padding:3px 7px;border-radius:8px;background:#e5dfd4;font-weight:700}
+.friend-sum{display:flex;align-items:center;justify-content:space-between;margin:18px 0 15px;padding:13px 15px;border-radius:10px;background:var(--yellow)}
+.friend-sum b{font-family:'Black Han Sans';font-size:19px;font-weight:400}
+.friend-sum span{font-size:12px;font-weight:700}
+
+.toast{position:fixed;left:50%;bottom:28px;z-index:50;padding:12px 18px;border-radius:30px;background:var(--ink);color:#fff;font-size:14px;transform:translate(-50%,30px);opacity:0;transition:.25s;pointer-events:none;max-width:92%;text-align:center;line-height:1.4}
+.toast.show{transform:translate(-50%,0);opacity:1}
+
+.made{margin:0;padding:30px 20px;text-align:center;background:var(--yellow)}
+.made svg{width:17px;color:var(--purple)}
+.made p{margin:8px 0 10px;font-size:13px;font-weight:700}
+.made span{font:12px 'Black Han Sans';letter-spacing:1px}
+
+.info{padding:30px 22px 10px;border-top:2px solid var(--ink);line-height:1.75;font-size:14px}
+.info h2{margin:26px 0 10px;font-family:'Black Han Sans',sans-serif;font-size:20px;font-weight:400}
+.info h2:first-child{margin-top:0}
+.info h3{margin:18px 0 4px;font-size:15px}
+.info p,.info li{color:#45413b}
+.info p{margin:0 0 10px}
+.info ul,.info ol{margin:0 0 10px;padding-left:20px}
+footer.site{padding:18px 0 36px;text-align:center;font-size:13px}
+footer.site a{color:var(--purple)}
+@media (min-width:700px){.shell{margin-top:24px;border-radius:16px 16px 0 0}footer.site{border-radius:0 0 16px 16px;margin-bottom:24px}}
+@media (max-width:350px){.hero h1{font-size:47px}.hero h1 em{font-size:59px}.cell{font-size:10px}}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <a class="brand" href="../" target="_top">픽툴</a>
+    <span>2027 BINGO MAKER</span>
+  </header>
+
+  <!-- 1. 시작 -->
+  <section class="hero" id="start" data-mode="make">
+    <div class="deco-one"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.8c.7 6.4 3.8 9.5 10.2 10.2-6.4.7-9.5 3.8-10.2 10.2C11.3 15.8 8.2 12.7 1.8 12 8.2 11.3 11.3 8.2 12 1.8Z" fill="currentColor"/></svg></div>
+    <div class="deco-two">27</div>
+    <div class="section-tag"><span>01</span><p>시작하기</p></div>
+    <p class="eyebrow">HELLO, NEW YEAR!</p>
+    <h1><em>2027</em><br>새해 빙고</h1>
+    <p class="hero-copy">올해 목표를 빙고판에 채우고,<br>이룰 때마다 도장 찍기</p>
+    <div class="setup-card">
+      <label class="flabel" for="nick">닉네임</label>
+      <div class="input-wrap">
+        <input id="nick" maxlength="8" placeholder="이미지에 들어갈 이름" autocomplete="off">
+        <span id="nickCount">0/8</span>
+      </div>
+      <div class="flabel">판 크기</div>
+      <div class="size-selector" id="sizeSel"></div>
+    </div>
+  </section>
+
+  <!-- 2. 칸 채우기 -->
+  <section class="sec" id="fill" data-mode="make">
+    <div class="section-tag"><span>02</span><p>칸 채우기</p></div>
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">MAKE YOUR WISHES</p>
+        <h2>올해 이루고 싶은 걸<br>한 칸씩 적어 봐요</h2>
+      </div>
+      <span class="count-badge" id="countBadge">0 / 24</span>
+    </div>
+    <p class="note">칸을 누르고 아래에 적어요. 한 칸에 12자까지 들어가요.</p>
+    <div class="board" id="fillBoard"></div>
+    <div class="editor">
+      <div class="editor-top"><span id="editLabel">1번 칸</span><small>엔터를 누르면 다음 칸</small></div>
+      <div class="editor-row">
+        <input id="editInput" maxlength="12" placeholder="예: 책 12권 읽기" enterkeyhint="next" autocomplete="off">
+        <button class="ghost" type="button" id="clearBtn">지우기</button>
+        <button type="button" id="nextBtn">다음</button>
+      </div>
+    </div>
+    <div class="recommend">
+      <div class="rec-title">
+        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.8c.7 6.4 3.8 9.5 10.2 10.2-6.4.7-9.5 3.8-10.2 10.2C11.3 15.8 8.2 12.7 1.8 12 8.2 11.3 11.3 8.2 12 1.8Z" fill="currentColor"/></svg> 목표 추천</span>
+        <small>누르면 고른 칸에 들어가요</small>
+      </div>
+      <div class="tabs" id="tabs"></div>
+      <div class="chips" id="chips"></div>
+    </div>
+    <button class="random" type="button" id="randomBtn"><span>↻</span>빈 칸 랜덤으로 채우기</button>
+    <p class="warn" id="fillWarn"></p>
+    <button class="primary large" type="button" id="makeBtn">내 빙고판 만들기 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </section>
+
+  <!-- 3. 체크 -->
+  <section class="sec check" id="check" data-mode="check" hidden>
+    <div class="section-tag"><span>03</span><p>체크하기</p></div>
+    <p class="who"><b id="checkNick">나</b>의 2027 빙고</p>
+    <div class="score">
+      <div>
+        <p id="cheer"><b>시작이 반!</b> 하나씩 해 보자</p>
+        <h2><span id="bingoNum">0</span>빙고</h2>
+      </div>
+      <div class="ring" id="ring"><b id="doneNum">1</b><span id="totalNum">/ 25칸</span></div>
+    </div>
+    <p class="tip"><span>TIP</span>이룬 목표를 누르면 도장이 찍혀요</p>
+    <div class="board" id="checkBoard"></div>
+    <div class="check-actions">
+      <button class="primary" type="button" id="saveBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 20h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> 스토리 이미지 저장</button>
+      <button class="outline" type="button" id="myLinkBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 14.5 5-5m-2.2-3 1.4-1.4a4 4 0 0 1 5.7 5.6L18 12.1m-6.3 5.4-1.4 1.4a4 4 0 0 1-5.7-5.6L6 11.9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> 내 판 링크</button>
+      <button class="outline" type="button" id="friendLinkBtn">친구에게 보내기</button>
+    </div>
+    <div class="link-box" id="linkBox" hidden>
+      <p id="linkMsg"></p>
+      <input id="linkInput" readonly>
+    </div>
+    <p class="save-msg" id="saveMsg"></p>
+    <button class="text-btn" type="button" id="editBtn">판 고치기</button>
+    <div class="preview-wrap">
+      <p>저장될 이미지 (1080×1920)</p>
+      <img id="preview" alt="빙고판 스토리 이미지 미리보기">
+    </div>
+  </section>
+
+  <!-- 4. 친구 화면 -->
+  <section class="sec friend" id="friend" data-mode="view" hidden>
+    <div class="friend-title">
+      <span class="avatar" id="avatar">나</span>
+      <div>
+        <h2><b id="friendNick">친구</b>의 2027 빙고</h2>
+        <p>구경 중 · 목표를 응원해 주세요!</p>
+      </div>
+    </div>
+    <div class="ro"><span>보기 전용</span>친구의 도전 기록이에요</div>
+    <div class="board" id="viewBoard"></div>
+    <div class="friend-sum"><b id="friendBingo">0빙고</b><span id="friendDone">25칸 중 1칸 완료</span></div>
+    <button class="primary large" type="button" id="copyGoalsBtn">이 목표로 나도 만들기 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="text-btn" type="button" id="freshBtn">처음부터 내 판 만들기</button>
+    <button class="text-btn" type="button" id="adoptBtn">내 판이에요, 이어서 도장 찍을래요</button>
+  </section>
+
+  <div class="made">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.8c.7 6.4 3.8 9.5 10.2 10.2-6.4.7-9.5 3.8-10.2 10.2C11.3 15.8 8.2 12.7 1.8 12 8.2 11.3 11.3 8.2 12 1.8Z" fill="currentColor"/></svg>
+    <p>2027년의 작은 다짐을 응원해요.</p>
+    <span>픽툴</span>
+  </div>
+</div>
+
+<article class="info">
+  <h2>이렇게 써요</h2>
+  <ol>
+    <li>닉네임을 넣고 판 크기를 골라요. 5×5는 25칸, 4×4는 16칸, 3×3은 9칸이에요.</li>
+    <li>칸을 누르고 목표를 적어요. 뭘 적을지 모르겠으면 추천 목표를 누르거나 "빈 칸 랜덤으로 채우기"를 눌러요.</li>
+    <li>칸이 다 차면 "내 빙고판 만들기"를 눌러요. 인스타 스토리 크기(1080×1920) 이미지를 저장할 수 있어요.</li>
+    <li>"내 판 링크"를 눌러 나온 링크를 카톡 나와의 채팅이나 메모에 붙여 두세요. 몇 달 뒤에도 이 링크로 들어오면 내 판이 그대로 열려요.</li>
+    <li>목표를 이루면 그 칸을 눌러 도장을 찍어요. 도장에는 찍은 날짜가 같이 남아요.</li>
+  </ol>
+
+  <h2>빙고는 이렇게 세요</h2>
+  <p>가로 한 줄, 세로 한 줄, 대각선 한 줄이 모두 도장으로 채워지면 1빙고예요. 5×5 판은 가로 5줄, 세로 5줄, 대각선 2줄이라 최대 12빙고까지 나와요. 4×4는 10빙고, 3×3은 8빙고가 끝이에요. 5×5 판의 가운데 칸은 처음부터 도장이 찍힌 무료 칸이라, 가운데를 지나는 줄은 4칸만 채우면 돼요.</p>
+
+  <h2>목표 적는 요령</h2>
+  <p>"운동하기"보다 "주 3회 운동"처럼 숫자를 넣으면 이뤘는지 판단하기 쉬워요. 그리고 1년 내내 해야 하는 큰 목표만 적으면 6월이 돼도 도장 찍을 칸이 없어요. "헌혈하기", "방 정리하기"처럼 하루면 끝나는 목표를 판 곳곳에 섞어 두면 중간에 빙고가 나와서 계속 들어오게 돼요.</p>
+
+  <h2>자주 묻는 질문</h2>
+  <h3>적은 목표가 어딘가로 전송되나요?</h3>
+  <p>아니요. 빙고판은 지금 쓰는 휴대폰 브라우저 안에만 저장돼요. 서버가 없어서 저희도 볼 수 없어요. 링크를 만들면 목표가 링크 주소 안에 들어가니, 링크는 보여 주고 싶은 사람에게만 보내세요.</p>
+  <h3>다시 들어왔더니 판이 없어졌어요.</h3>
+  <p>아이폰 사파리는 오래 열지 않은 사이트의 저장 내용을 지울 수 있고, 인스타·카카오톡 안에서 연 화면은 사파리와 저장 공간이 따로예요. 그래서 판을 만든 뒤 "내 판 링크"를 꼭 저장해 두세요. 그 링크로 들어오면 어디서든 판이 다시 열려요.</p>
+  <h3>다른 휴대폰에서도 열 수 있나요?</h3>
+  <p>네. "내 판 링크"를 새 휴대폰에서 열면 돼요. 도장을 찍은 뒤에는 링크 내용도 바뀌니, 새로 찍은 도장까지 남기려면 링크를 다시 복사해 두세요.</p>
+  <h3>친구가 내 링크를 열면 어떻게 보이나요?</h3>
+  <p>"친구에게 보내기" 링크로 들어온 친구는 내 판을 보기만 할 수 있어요. 도장은 못 찍고, "이 목표로 나도 만들기"를 누르면 같은 목표로 자기 판을 새로 만들 수 있어요.</p>
+  <h3>칸 내용을 나중에 바꿀 수 있나요?</h3>
+  <p>네. 체크 화면 아래 "판 고치기"를 누르면 돼요. 내용을 바꾼 칸은 도장이 지워지고, 그대로 둔 칸의 도장은 남아요.</p>
+</article>
+<footer class="site"><a href="../" target="_top">다른 웹툴 보기</a></footer>
+<div class="toast" id="toast"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+const SITE = "tools.irukabloom.com/bingo-2027";
+const BASE = "https://tools.irukabloom.com/bingo-2027/";
+const KEY = "bingo2027";
+const POOL = 24; // 가장 큰 판(5×5)에서 쓰는 칸 수
+
+const GROUPS = {
+  "건강": ["주 3회 운동","하루 물 2L","5km 달리기","헬스 3개월 유지","12시 전에 자기","건강검진 받기","매일 만 보 걷기","야식 주 1회만"],
+  "돈": ["1,000만원 모으기","가계부 3개월","배달앱 한 달 끊기","비상금 만들기","ETF 첫 매수","안 쓰는 구독 정리","무지출 챌린지 1주","연말정산 환급"],
+  "공부·일": ["책 12권 읽기","자격증 하나 따기","영어 회화 매일 10분","포트폴리오 정리","연봉 올리기","이직 성공","사이드 프로젝트","블로그 글 30개"],
+  "여행": ["해외여행 1번","혼자 여행 가기","안 가본 도시 3곳","부모님과 여행","친구들과 1박 2일","제주도 한 바퀴","캠핑 해 보기","눈 보러 가기"],
+  "사람": ["부모님께 주1회 전화","옛 친구 만나기","연애하기","생일 챙겨 주기","모임 한 번 열기","고마운 사람에게 편지","혼자만의 시간","싫은 약속 거절하기"],
+  "취미": ["새 취미 시작","악기 배우기","원데이 클래스","요리 10가지","공연 보러 가기","사진 인화해서 앨범","화분 키우기","마라톤 신청"],
+  "소소한 것": ["방 정리하기","스크린타임 줄이기","일기 쓰기","운전면허 따기","매일 침대 정리","헌혈하기","안 입는 옷 정리","내 사진 많이 찍기"]
+};
+const ALL_GOALS = Object.values(GROUPS).flat();
+
+/* ---------- 상태 ---------- */
+function newId(){ return Math.random().toString(36).slice(2,10); }
+function blank(){ return {i:newId(), n:"", s:5, g:Array(POOL).fill(""), d:Array(POOL).fill(""), made:false}; }
+let S = blank();
+let mode = "make";       // make | check | view
+let sel = 0;             // 고른 칸 (목표 번호)
+let group = "건강";
+let viewData = null;     // 친구 판
+
+const free = n => n === 5 ? 12 : -1;
+const count = n => n*n - (n === 5 ? 1 : 0);
+// 판 위치 → 목표 번호 (무료 칸은 -1)
+function gi(n, b){ const f = free(n); if (b === f) return -1; return (f >= 0 && b > f) ? b-1 : b; }
+
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} }
+function load(){
+  try { const v = JSON.parse(localStorage.getItem(KEY)); if (v && Array.isArray(v.g)) return normalize(v); } catch(e){}
+  return null;
+}
+function normalize(v){
+  const o = blank();
+  o.i = String(v.i || o.i).slice(0,12);
+  o.n = String(v.n || "").slice(0,8);
+  o.s = [3,4,5].includes(+v.s) ? +v.s : 5;
+  for (let k=0;k<POOL;k++){ o.g[k] = String((v.g||[])[k] || "").slice(0,12); o.d[k] = String((v.d||[])[k] || "").slice(0,5); }
+  o.made = !!v.made;
+  return o;
+}
+
+/* ---------- 링크 ---------- */
+function enc(obj){
+  const bytes = new TextEncoder().encode(JSON.stringify(obj));
+  let bin = ""; bytes.forEach(b => bin += String.fromCharCode(b));
+  return btoa(bin).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+}
+function dec(str){
+  const b64 = str.replace(/-/g,"+").replace(/_/g,"/");
+  const bin = atob(b64 + "===".slice((b64.length+3)%4));
+  const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+  return JSON.parse(new TextDecoder().decode(bytes));
+}
+function packed(st){ const L = count(st.s); return {i:st.i, n:st.n, s:st.s, g:st.g.slice(0,L), d:st.d.slice(0,L)}; }
+function linkFor(st, me){ return BASE + "#b=" + enc(packed(st)) + (me ? "&me=1" : ""); }
+function readHash(){
+  const h = location.hash.replace(/^#/,""); if (!h) return null;
+  const p = new URLSearchParams(h); const b = p.get("b"); if (!b) return null;
+  try { return {data: normalize(dec(b)), me: p.get("me") === "1"}; } catch(e){ return null; }
+}
+
+/* ---------- 계산 ---------- */
+function doneAt(st, b){ const k = gi(st.s, b); return k < 0 ? true : !!st.d[k]; }
+function lines(st){
+  const n = st.s, out = [];
+  for (let r=0;r<n;r++){ let ok=true; for (let c=0;c<n;c++) ok = ok && doneAt(st, r*n+c); if (ok) out.push(["r",r]); }
+  for (let c=0;c<n;c++){ let ok=true; for (let r=0;r<n;r++) ok = ok && doneAt(st, r*n+c); if (ok) out.push(["c",c]); }
+  let a=true,b=true; for (let k=0;k<n;k++){ a = a && doneAt(st, k*n+k); b = b && doneAt(st, k*n+(n-1-k)); }
+  if (a) out.push(["d",0]); if (b) out.push(["d",1]);
+  return out;
+}
+function doneCount(st){ let c=0; for (let b=0;b<st.s*st.s;b++) if (doneAt(st,b)) c++; return c; }
+function today(){ const t = new Date(); return String(t.getMonth()+1).padStart(2,"0") + "." + String(t.getDate()).padStart(2,"0"); }
+
+/* ---------- 그리기 ---------- */
+function esc(s){ return s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function linesSvg(st){
+  const n = st.s, L = lines(st); if (!L.length) return "";
+  const parts = L.map(([t,k]) => {
+    const m = k + .5;
+    if (t==="r") return `<line x1=".15" y1="${m}" x2="${n-.15}" y2="${m}"/>`;
+    if (t==="c") return `<line x1="${m}" y1=".15" x2="${m}" y2="${n-.15}"/>`;
+    return k===0 ? `<line x1=".2" y1=".2" x2="${n-.2}" y2="${n-.2}"/>` : `<line x1="${n-.2}" y1=".2" x2=".2" y2="${n-.2}"/>`;
+  }).join("");
+  return `<svg class="lines" viewBox="0 0 ${n} ${n}" preserveAspectRatio="none" aria-hidden="true"><g stroke="rgba(255,207,74,.55)" stroke-linecap="round">${parts}</g></svg>`;
+}
+function boardHtml(st, kind){
+  const n = st.s, f = free(n); let h = "";
+  for (let b=0;b<n*n;b++){
+    if (b === f){ h += `<div class="cell free"><div class="free-mark"><span>2027</span><b>FREE</b></div></div>`; continue; }
+    const k = gi(n,b), text = st.g[k];
+    if (kind === "fill"){
+      h += `<button type="button" class="cell${k===sel?" sel":""}" data-k="${k}" aria-label="${k+1}번 칸">${text ? esc(text) : '<span class="ph">+</span>'}</button>`;
+    } else {
+      const stamp = st.d[k] ? `<span class="stamp"><i>${esc(st.d[k])}</i></span>` : "";
+      const tag = kind === "check" ? "button" : "div";
+      h += `<${tag} ${tag==="button"?'type="button"':''} class="cell${st.d[k]?" done":""}" data-k="${k}">${esc(text)}${stamp}</${tag}>`;
+    }
+  }
+  if (kind !== "fill") h += linesSvg(st);
+  return h;
+}
+function setBoard(el, st, kind){
+  el.className = "board n" + st.s;
+  el.style.gridTemplateColumns = `repeat(${st.s},1fr)`;
+  el.innerHTML = boardHtml(st, kind);
+}
+
+function renderSize(){
+  $("sizeSel").innerHTML = [3,4,5].map(n =>
+    `<button type="button" class="${S.s===n?"active":""}" data-n="${n}"><span class="mini-grid" style="grid-template-columns:repeat(${n},1fr)">${"<i></i>".repeat(n*n)}</span><b>${n} × ${n}</b>${n===5?"<small>추천</small>":""}</button>`).join("");
+}
+function renderFill(){
+  if (sel >= count(S.s)) sel = 0;
+  setBoard($("fillBoard"), S, "fill");
+  const L = count(S.s), filled = S.g.slice(0,L).filter(x => x.trim()).length;
+  $("countBadge").textContent = `${filled} / ${L}`;
+  $("countBadge").classList.toggle("full", filled === L);
+  $("editLabel").textContent = `${sel+1}번 칸`;
+  if (document.activeElement !== $("editInput")) $("editInput").value = S.g[sel];
+  renderChips();
+}
+function renderTabs(){
+  $("tabs").innerHTML = Object.keys(GROUPS).map(g => `<button type="button" class="${g===group?"active":""}" data-g="${g}">${g}</button>`).join("");
+}
+function renderChips(){
+  const used = new Set(S.g.slice(0,count(S.s)));
+  $("chips").innerHTML = GROUPS[group].map(x => `<button type="button" class="${used.has(x)?"used":""}" data-x="${esc(x)}">+ ${esc(x)}</button>`).join("");
+}
+function renderCheck(){
+  setBoard($("checkBoard"), S, "check");
+  const L = lines(S).length, done = doneCount(S), total = S.s*S.s;
+  $("checkNick").textContent = S.n || "나";
+  $("bingoNum").textContent = L;
+  $("doneNum").textContent = done;
+  $("totalNum").textContent = `/ ${total}칸`;
+  $("ring").style.setProperty("--p", Math.round(done/total*100) + "%");
+  const goalsDone = done - (S.s===5?1:0);
+  $("cheer").innerHTML = L >= 3 ? "<b>벌써 이만큼!</b> 계속 가보자" : L >= 1 ? "<b>첫 빙고!</b> 한 줄 더 가보자" : goalsDone > 0 ? "<b>좋아요!</b> 한 줄을 채워 봐요" : "<b>시작이 반!</b> 하나씩 해 보자";
+}
+function renderView(){
+  const v = viewData;
+  setBoard($("viewBoard"), v, "view");
+  $("friendNick").textContent = v.n || "친구";
+  $("avatar").textContent = (v.n || "친").slice(0,1);
+  $("friendBingo").textContent = `${lines(v).length}빙고${lines(v).length?" 달성!":""}`;
+  $("friendDone").textContent = `${v.s*v.s}칸 중 ${doneCount(v)}칸 완료`;
+}
+function setMode(m){
+  mode = m;
+  document.querySelectorAll("[data-mode]").forEach(el => el.hidden = el.dataset.mode !== m);
+  if (m === "make"){ renderSize(); renderTabs(); renderFill(); }
+  if (m === "check"){ renderCheck(); drawSoon(); }
+  if (m === "view"){ renderView(); }
+}
+
+/* ---------- 칸 채우기 ---------- */
+function nextEmpty(from){
+  const L = count(S.s);
+  for (let j=1;j<=L;j++){ const k = (from+j)%L; if (!S.g[k].trim()) return k; }
+  return (from+1)%L;
+}
+function setGoal(k, text){
+  if (S.g[k] !== text) S.d[k] = "";
+  S.g[k] = text; save();
+}
+$("nick").addEventListener("input", e => { S.n = e.target.value.slice(0,8); $("nickCount").textContent = `${S.n.length}/8`; save(); });
+$("sizeSel").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  S.s = +b.dataset.n; save(); renderSize(); renderFill();
+});
+$("fillBoard").addEventListener("click", e => {
+  const c = e.target.closest(".cell[data-k]"); if (!c) return;
+  sel = +c.dataset.k; $("editInput").value = S.g[sel]; renderFill();
+  $("editInput").focus({preventScroll:true});
+});
+$("editInput").addEventListener("input", e => { setGoal(sel, e.target.value); $("fillWarn").textContent = ""; renderFill(); });
+$("editInput").addEventListener("keydown", e => { if (e.key === "Enter" && !e.isComposing){ e.preventDefault(); goNext(); } });
+function goNext(){ sel = nextEmpty(sel); $("editInput").value = S.g[sel]; renderFill(); }
+$("nextBtn").onclick = () => { goNext(); $("editInput").focus({preventScroll:true}); };
+$("clearBtn").onclick = () => { setGoal(sel, ""); $("editInput").value = ""; renderFill(); };
+$("tabs").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; group = b.dataset.g; renderTabs(); renderChips(); });
+$("chips").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  const x = b.dataset.x, L = count(S.s);
+  if (S.g.slice(0,L).includes(x)){ toast("이미 판에 있는 목표예요"); return; }
+  const k = S.g[sel].trim() ? nextEmpty(sel) : sel;
+  if (S.g[k].trim()){ toast("빈 칸이 없어요. 바꿀 칸을 눌러 지우기를 해 주세요"); return; }
+  setGoal(k, x); sel = nextEmpty(k); $("editInput").value = S.g[sel]; renderFill();
+});
+$("randomBtn").onclick = () => {
+  const L = count(S.s), used = new Set(S.g.slice(0,L));
+  const pool = ALL_GOALS.filter(x => !used.has(x)).sort(() => Math.random() - .5);
+  let added = 0;
+  for (let k=0;k<L;k++) if (!S.g[k].trim() && pool.length){ setGoal(k, pool.pop()); added++; }
+  $("fillWarn").textContent = "";
+  toast(added ? `빈 칸 ${added}개를 채웠어요. 마음에 안 드는 칸은 눌러서 바꿔요` : "빈 칸이 없어요");
+  renderFill();
+};
+$("makeBtn").onclick = () => {
+  const L = count(S.s), empty = [];
+  for (let k=0;k<L;k++) if (!S.g[k].trim()) empty.push(k);
+  if (empty.length){
+    $("fillWarn").textContent = `빈 칸이 ${empty.length}개 남았어요. 다 채우거나 "빈 칸 랜덤으로 채우기"를 눌러 주세요`;
+    sel = empty[0]; renderFill();
+    empty.forEach(k => { const c = $("fillBoard").querySelector(`[data-k="${k}"]`); if (c) c.classList.add("empty-warn"); });
+    return;
+  }
+  S.g = S.g.map(x => x.trim()); S.made = true; save();
+  setMode("check"); syncHash();
+  $("check").scrollIntoView({behavior:"smooth"});
+};
+
+/* ---------- 체크 ---------- */
+$("checkBoard").addEventListener("click", e => {
+  const c = e.target.closest(".cell[data-k]"); if (!c) return;
+  const k = +c.dataset.k, before = lines(S).length;
+  if (S.d[k]){ S.d[k] = ""; toast("도장을 지웠어요"); }
+  else { S.d[k] = today(); }
+  save(); renderCheck(); syncHash(); drawSoon();
+  const after = lines(S).length;
+  if (after > before) toast(`🎉 빙고! 이제 ${after}빙고예요`);
+  hideLink();
+});
+function syncHash(){
+  // 주소창도 최신 판으로 바꿔 둠 (북마크해도 그대로 열리게)
+  try { history.replaceState(null, "", location.pathname + location.search + "#b=" + enc(packed(S)) + "&me=1"); } catch(e){}
+}
+$("editBtn").onclick = () => { sel = 0; setMode("make"); $("nick").value = S.n; $("nickCount").textContent = `${S.n.length}/8`; $("fill").scrollIntoView({behavior:"smooth"}); };
+
+async function copyText(t){
+  try { await navigator.clipboard.writeText(t); return true; } catch(e){}
+  try { const a = document.createElement("textarea"); a.value = t; a.style.position="fixed"; a.style.opacity="0"; document.body.appendChild(a); a.select(); const ok = document.execCommand("copy"); a.remove(); return ok; } catch(e){ return false; }
+}
+function showLink(url, msg){ $("linkBox").hidden = false; $("linkMsg").textContent = msg; $("linkInput").value = url; }
+function hideLink(){ $("linkBox").hidden = true; }
+$("linkInput").addEventListener("focus", e => e.target.select());
+$("myLinkBtn").onclick = async () => {
+  const url = linkFor(S, true), ok = await copyText(url);
+  showLink(url, (ok ? "복사했어요. " : "아래 링크를 길게 눌러 복사해 주세요. ") + "카톡 나와의 채팅이나 메모에 붙여 두면 나중에 이 링크로 이어서 도장을 찍을 수 있어요. 도장을 찍은 뒤에는 다시 복사해 두세요.");
+};
+$("friendLinkBtn").onclick = async () => {
+  const url = linkFor(S, false);
+  const text = `${S.n || "나"}의 2027 빙고 구경하기`;
+  if (navigator.share){ try { await navigator.share({title:"2027 새해 빙고", text, url}); return; } catch(e){ if (e && e.name === "AbortError") return; } }
+  const ok = await copyText(url);
+  showLink(url, (ok ? "복사했어요. " : "아래 링크를 길게 눌러 복사해 주세요. ") + "친구는 이 링크로 내 판을 보기만 할 수 있어요.");
+};
+
+/* ---------- 친구 화면 ---------- */
+$("copyGoalsBtn").onclick = () => {
+  const v = viewData; S = blank(); S.s = v.s; S.g = v.g.slice(); save();
+  sel = 0; clearHash(); setMode("make"); $("nick").value = ""; $("nickCount").textContent = "0/8";
+  window.scrollTo({top:0, behavior:"smooth"}); toast("목표를 가져왔어요. 내 것에 맞게 고쳐 보세요");
+};
+$("freshBtn").onclick = () => {
+  S = blank(); save(); sel = 0; clearHash(); setMode("make"); $("nick").value = ""; $("nickCount").textContent = "0/8";
+  window.scrollTo({top:0, behavior:"smooth"});
+};
+$("adoptBtn").onclick = () => { S = viewData; S.made = true; save(); setMode("check"); syncHash(); window.scrollTo({top:0, behavior:"smooth"}); };
+function clearHash(){ try { history.replaceState(null, "", location.pathname + location.search); } catch(e){} }
+
+/* ---------- 토스트 ---------- */
+let tt = null;
+function toast(msg){ const t = $("toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(tt); tt = setTimeout(() => t.classList.remove("show"), 2200); }
+
+/* ---------- 스토리 이미지 ---------- */
+const W = 1080, H = 1920;
+const canvas = document.createElement("canvas"); canvas.width = W; canvas.height = H;
+const cx = canvas.getContext("2d");
+const BHS = "'Black Han Sans', sans-serif", GD = "'Gowun Dodum', sans-serif";
+function rr(x,y,w,h,r){ cx.beginPath(); cx.moveTo(x+r,y); cx.arcTo(x+w,y,x+w,y+h,r); cx.arcTo(x+w,y+h,x,y+h,r); cx.arcTo(x,y+h,x,y,r); cx.arcTo(x,y,x+w,y,r); cx.closePath(); }
+function star(x,y,s,color){
+  cx.save(); cx.translate(x,y); cx.scale(s/24,s/24); cx.fillStyle = color;
+  cx.fill(new Path2D("M12 1.8c.7 6.4 3.8 9.5 10.2 10.2-6.4.7-9.5 3.8-10.2 10.2C11.3 15.8 8.2 12.7 1.8 12 8.2 11.3 11.3 8.2 12 1.8Z")); cx.restore();
+}
+let wrapBroke = false;
+function wrapText(text, maxW){
+  wrapBroke = false;
+  const words = text.split(/\s+/).filter(Boolean), out = []; let line = "";
+  const push = w => {
+    const t = line ? line + " " + w : w;
+    if (cx.measureText(t).width <= maxW){ line = t; return; }
+    if (line) out.push(line);
+    if (cx.measureText(w).width <= maxW){ line = w; return; }
+    wrapBroke = true; line = ""; for (const ch of w){ if (cx.measureText(line+ch).width > maxW){ out.push(line); line = ch; } else line += ch; }
+  };
+  words.forEach(push); if (line) out.push(line);
+  return out;
+}
+function spaced(text, x, y, sp){ // 글자 사이 띄우기 (letterSpacing 대신)
+  let w = 0; for (const ch of text) w += cx.measureText(ch).width + sp; w -= sp;
+  let cur = x - w/2; cx.textAlign = "left";
+  for (const ch of text){ cx.fillText(ch, cur, y); cur += cx.measureText(ch).width + sp; }
+  cx.textAlign = "center";
+}
+function drawStory(st){
+  const n = st.s;
+  cx.clearRect(0,0,W,H);
+  cx.fillStyle = "#7357ff"; cx.fillRect(0,0,W,H);
+  // 오른쪽 원 장식
+  cx.strokeStyle = "rgba(255,255,255,.2)"; cx.lineWidth = 3;
+  cx.beginPath(); cx.arc(1135, 850, 400, 0, Math.PI*2); cx.stroke();
+  cx.fillStyle = "rgba(255,255,255,.04)"; cx.beginPath(); cx.arc(1135, 850, 510, 0, Math.PI*2); cx.fill();
+  star(70, 64, 60, "#ffcf4a"); star(990, 340, 38, "#ffcf4a"); star(120, 1640, 34, "rgba(255,207,74,.8)");
+
+  cx.textAlign = "center"; cx.textBaseline = "alphabetic"; cx.fillStyle = "#fff";
+  cx.font = `700 24px ${GD}`; spaced("MY NEW YEAR GOALS", 540, 190, 7);
+  const name = st.n || "나";
+  cx.font = `400 60px ${GD}`;
+  const nw = cx.measureText(name).width, uw = cx.measureText("의").width, sx = 540 - (nw+uw)/2;
+  cx.textAlign = "left"; cx.fillStyle = "#ffcf4a"; cx.fillText(name, sx, 290);
+  cx.fillStyle = "#fff"; cx.fillText("의", sx+nw, 290); cx.textAlign = "center";
+  cx.font = `400 128px ${BHS}`; cx.fillText("2027 빙고", 540, 420);
+
+  // 판
+  const px = 70, py = 490, ps = 940, pad = 22, gap = n===5?10:n===4?12:16;
+  rr(px,py,ps,ps,40); cx.fillStyle = "rgba(255,255,255,.15)"; cx.fill();
+  cx.strokeStyle = "rgba(255,255,255,.7)"; cx.lineWidth = 3; cx.stroke();
+  const cs = (ps - pad*2 - gap*(n-1)) / n, f = free(n);
+  const fs = n===5 ? 31 : n===4 ? 38 : 46;
+  const pos = b => [px+pad+(b%n)*(cs+gap), py+pad+Math.floor(b/n)*(cs+gap)];
+  for (let b=0;b<n*n;b++){
+    const [x,y] = pos(b);
+    rr(x,y,cs,cs,n===5?16:22);
+    if (b === f){
+      cx.fillStyle = "#ffcf4a"; cx.fill();
+      cx.save(); cx.translate(x+cs/2, y+cs/2); cx.rotate(-6*Math.PI/180); cx.fillStyle = "#252321";
+      cx.font = `400 52px ${BHS}`; cx.fillText("2027", 0, 8);
+      cx.font = `700 20px ${GD}`; spaced("FREE", 0, 42, 4); cx.restore();
+      continue;
+    }
+    cx.fillStyle = "#fff9ee"; cx.fill();
+  }
+  // 빙고 줄
+  cx.strokeStyle = "rgba(255,207,74,.75)"; cx.lineWidth = 26; cx.lineCap = "round";
+  const cen = b => { const [x,y] = pos(b); return [x+cs/2, y+cs/2]; };
+  const inset = cs*0.35;
+  lines(st).forEach(([t,k]) => {
+    let a, z;
+    if (t==="r"){ a = cen(k*n); z = cen(k*n+n-1); a[0]-=inset; z[0]+=inset; }
+    else if (t==="c"){ a = cen(k); z = cen((n-1)*n+k); a[1]-=inset; z[1]+=inset; }
+    else if (k===0){ a = cen(0); z = cen(n*n-1); a[0]-=inset*.7; a[1]-=inset*.7; z[0]+=inset*.7; z[1]+=inset*.7; }
+    else { a = cen(n-1); z = cen(n*(n-1)); a[0]+=inset*.7; a[1]-=inset*.7; z[0]-=inset*.7; z[1]+=inset*.7; }
+    cx.beginPath(); cx.moveTo(a[0],a[1]); cx.lineTo(z[0],z[1]); cx.stroke();
+  });
+  for (let b=0;b<n*n;b++){
+    if (b === f) continue;
+    const [x,y] = pos(b);
+    const k = gi(n,b); let size = fs, ls;    do { cx.font = `400 ${size}px ${GD}`; ls = wrapText(st.g[k], cs*0.74); if (ls.length <= 3 && !wrapBroke) break; size -= 2; } while (size > 22);
+    if (ls.length > 3 || wrapBroke) { cx.font = `400 ${size}px ${GD}`; ls = wrapText(st.g[k], cs*0.84); }
+    ls = ls.slice(0,3);
+    const lh = size*1.28, top = y + cs/2 - (ls.length*lh)/2 + size*0.82;
+    cx.fillStyle = st.d[k] ? "#e8445b" : "#252321"; ls.forEach((t,i) => cx.fillText(t, x+cs/2, top + i*lh));
+  }
+  // 도장
+  for (let b=0;b<n*n;b++){
+    const k = gi(n,b); if (k < 0 || !st.d[k]) continue;
+    const [x,y] = pos(b), r = cs*0.46;
+    cx.save(); cx.translate(x+cs/2, y+cs/2); cx.rotate(-12*Math.PI/180);
+    cx.strokeStyle = "#ff5f73"; cx.lineWidth = r*0.06; cx.beginPath(); cx.arc(0,0,r,0,Math.PI*2); cx.stroke();
+    cx.setLineDash([r*0.06, r*0.05]); cx.lineWidth = r*0.025; cx.beginPath(); cx.arc(0,0,r*0.88,0,Math.PI*2); cx.stroke(); cx.setLineDash([]);
+    cx.restore();
+    // 날짜 꼬리표
+    cx.font = `700 ${Math.round(cs*0.12)}px ${GD}`;
+    const tw = cx.measureText(st.d[k]).width + cs*0.1, th = cs*0.17, ty = y + cs*0.86;
+    rr(x+cs/2-tw/2, ty-th/2, tw, th, th*0.3); cx.fillStyle = "#ff5f73"; cx.fill();
+    cx.fillStyle = "#fff"; cx.fillText(st.d[k], x+cs/2, ty + th*0.3);
+  }
+  // 점수
+  const done = doneCount(st), L = lines(st).length, total = n*n, goals = count(n);
+  const anyStamp = st.d.slice(0,goals).some(Boolean);
+  cx.textAlign = "left"; cx.fillStyle = "#ffcf4a";
+  if (anyStamp){
+    cx.font = `400 120px ${BHS}`; cx.fillText(String(done), 80, 1610);
+    const w = cx.measureText(String(done)).width;
+    cx.fillStyle = "#fff"; cx.font = `400 34px ${GD}`; cx.fillText(`/ ${total}칸 달성`, 80+w+16, 1606);
+    cx.textAlign = "right";
+    if (L){ cx.font = `400 92px ${BHS}`; cx.fillText(`${L}빙고`, 1000, 1606); }
+    else { cx.font = `400 46px ${BHS}`; cx.fillText("첫 빙고 도전 중", 1000, 1600); }
+  } else {
+    cx.font = `400 110px ${BHS}`; cx.fillText(String(goals), 80, 1610);
+    const w = cx.measureText(String(goals)).width;
+    cx.fillStyle = "#fff"; cx.font = `400 36px ${GD}`; cx.fillText("개 목표, 도전 시작!", 80+w+14, 1606);
+  }
+  cx.fillStyle = "rgba(255,255,255,.5)"; cx.fillRect(80, 1650, 920, 3);
+  // 아래
+  cx.textAlign = "left"; cx.fillStyle = "#fff"; cx.font = `400 26px ${GD}`; cx.fillText("픽툴  " + SITE, 80, 1842);
+  cx.save(); cx.translate(950, 1832); cx.rotate(-5*Math.PI/180); cx.fillStyle = "#ff5f73"; cx.fillRect(-58,-34,116,62);
+  cx.fillStyle = "#fff"; cx.textAlign = "center"; cx.font = `400 34px ${BHS}`; cx.fillText("2027", 0, 10); cx.restore();
+  // 테이프
+  cx.save(); cx.translate(1052, 640); cx.rotate(Math.PI/2); cx.fillStyle = "#ff5f73"; cx.fillRect(-150,-22,300,44);
+  cx.fillStyle = "#fff"; cx.textAlign = "center"; cx.font = `700 19px ${GD}`; spaced("HAPPY NEW YEAR", 0, 7, 4); cx.restore();
+}
+async function fontsReady(st){
+  const text = "2027빙고FREE달성MYNEWYEARGOALSHAPPY의칸개목표도전시작픽툴/0123456789." + st.n + st.g.join("") + SITE;
+  try { await Promise.all([document.fonts.load(`400 40px "Black Han Sans"`, text), document.fonts.load(`400 40px "Gowun Dodum"`, text)]); } catch(e){}
+}
+let lastBlob = null, previewUrl = null, drawT = null;
+async function renderStory(){
+  await fontsReady(S); drawStory(S);
+  const blob = await new Promise(r => canvas.toBlob(r, "image/png"));
+  lastBlob = blob;
+  if (previewUrl) URL.revokeObjectURL(previewUrl);
+  previewUrl = URL.createObjectURL(blob); $("preview").src = previewUrl;
+  return blob;
+}
+function drawSoon(){ clearTimeout(drawT); drawT = setTimeout(renderStory, 200); }
+function fileName(){ return `2027빙고-${S.n || "나"}.png`.replace(/[\\/:*?"<>|\s]+/g,"_"); }
+$("saveBtn").onclick = async () => {
+  $("saveMsg").textContent = "이미지를 만드는 중이에요…";
+  try {
+    clearTimeout(drawT); const blob = await renderStory();
+    const file = new File([blob], fileName(), {type:"image/png"});
+    if (navigator.canShare && navigator.canShare({files:[file]})){
+      try { await navigator.share({files:[file], title:"2027 새해 빙고"}); $("saveMsg").textContent = "공유 창에서 \"이미지 저장\"을 누르면 사진첩에 들어가요"; return; }
+      catch(e){ if (e && e.name === "AbortError"){ $("saveMsg").textContent = ""; return; } }
+    }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a"); a.href = url; a.download = fileName();
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 3000);
+    $("saveMsg").textContent = "저장했어요. 안 보이면 아래 미리보기를 길게 눌러 저장하세요";
+  } catch(e){ $("saveMsg").textContent = "저장이 안 되면 아래 미리보기를 길게 눌러 저장하세요"; }
+};
+
+/* ---------- 시작 ---------- */
+(function init(){
+  const h = readHash(), saved = load();
+  if (h){
+    if (h.me || (saved && saved.i === h.data.i)){
+      // 내 판: 링크 내용이 최신이라고 보고 이어서 씀
+      S = h.data; S.made = true; save(); setMode("check");
+    } else { viewData = h.data; viewData.made = true; setMode("view"); }
+  } else if (saved){
+    S = saved; setMode(S.made ? "check" : "make"); if (S.made) syncHash();
+  } else { setMode("make"); }
+  $("nick").value = S.n; $("nickCount").textContent = `${S.n.length}/8`;
+})();
+</script>
+<!-- 블로그 글 안에 끼워 넣을 때(?embed=1): 높이를 글에 알려 줌 -->
+<style>.is-embed footer{display:none}</style>
+<script>(function(){if(!/[?&]embed=1/.test(location.search)||window.parent===window)return;document.documentElement.classList.add("is-embed");function s(){parent.postMessage({type:"iruka-tool-height",height:Math.ceil(document.documentElement.scrollHeight)},"*")}addEventListener("load",s);if(window.ResizeObserver)new ResizeObserver(s).observe(document.body);setTimeout(s,300)})();</script>
+</body>
+</html>
