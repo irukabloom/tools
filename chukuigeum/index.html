@@ -16,9 +16,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&family=Noto+Serif+KR:wght@600&display=swap" rel="stylesheet">
 <style>
+/* iOS Safari 인앱(iframe) 가로 흔들림 방지: 문서 폭을 화면에 고정 */
+html,body{overflow-x:hidden!important;max-width:100%!important;overscroll-behavior-x:none}
+@supports (overflow-x:clip){html,body{overflow-x:clip!important}} /* iOS 16+ : 스크롤 컨테이너를 만들지 않아 sticky 유지 */
+
 :root{font-family:"Gowun Dodum","Apple SD Gothic Neo",sans-serif;color:#252321;background:#f3efe7}
 *{box-sizing:border-box}
-body{margin:0;min-width:320px;min-height:100vh;background:#f3efe7}
+body{margin:0;min-width:0;min-height:100vh;background:#f3efe7}
 button,input{font:inherit;color:inherit}
 button{cursor:pointer}
 [hidden]{display:none!important}
