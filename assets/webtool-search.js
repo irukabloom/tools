@@ -24,7 +24,7 @@
   }
 
   var CSS = [
-    '.wtb{margin:0 0 28px;padding:20px 18px 16px;background:#FFFDF5;border:2px dashed #1E3A5F;border-radius:16px;color:#1E3A5F;font-family:inherit}',
+    '.wtb{margin:0 0 28px;padding:20px 18px 16px;background:#FFFDF5;border:2px dashed #1E3A5F;border-radius:16px;color:#1E3A5F;font-family:inherit;grid-column:1/-1;width:100%}',
     '.wtb,.wtb *{box-sizing:border-box}',
     '.wtb-kick{display:inline-block;margin:0 0 8px;padding:4px 10px;border:1.5px dashed #7DD3FC;border-radius:999px;background:#EAF8FF;color:#1E3A5F;font-size:12px;font-weight:800;letter-spacing:.12em}',
     '.wtb-h{margin:0 0 6px;color:#1E3A5F;font-size:23px;line-height:1.28;font-weight:800;letter-spacing:-.02em}',
