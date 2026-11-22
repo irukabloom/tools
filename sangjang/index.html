@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<!-- 직접 열면 블로그 글로 넘김(blog-redirect). ?embed=1 로 블로그 안에 끼워 넣었을 때만 웹툴이 보임 -->
+<script>if(!/[?&]embed=1(&|#|$)/.test(location.search))location.replace("https://haeminlog.com/category/life-webtools/");</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>병맛 상장 생성기 | 우리끼리 연말 시상식</title>
+<meta name="description" content="친구 이름 넣고 상 고르면 웃긴 상장이 완성돼요. 지각상, 읽씹 대상, 약속 파토상 등 16가지. 가입 없이 무료로 릴스·스토리 크기 이미지 저장.">
+<link rel="canonical" href="https://tools.irukabloom.com/sangjang/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="병맛 상장 생성기">
+<meta property="og:description" content="올해의 지각상, 읽씹 대상... 친구한테 상장 하나 줘 보세요">
+<meta property="og:url" content="https://tools.irukabloom.com/sangjang/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#efece5}
+body{margin:0;min-width:320px;color:#252321;background:#efece5;font-family:'Gowun Dodum',sans-serif;font-synthesis:none}
+button,input,textarea{font-family:inherit}
+button{cursor:pointer}
+main,.info,footer.site{width:min(100%,390px);margin:0 auto;background:#fff9ee}
+main{overflow:hidden;box-shadow:0 0 45px rgba(74,62,45,.12)}
+.hero{position:relative;padding:54px 24px 38px;overflow:hidden;text-align:center;background:radial-gradient(circle at 9% 30%,rgba(255,207,74,.28) 0 4px,transparent 5px),radial-gradient(circle at 91% 70%,rgba(115,87,255,.18) 0 5px,transparent 6px),#eee9ff;border-bottom:2px solid #252321}
+.hero::before,.hero::after{position:absolute;content:'';width:108px;height:108px;border:2px solid rgba(115,87,255,.18);border-radius:50%}
+.hero::before{left:-65px;top:-39px}.hero::after{right:-61px;bottom:-51px}
+.eyebrow{display:inline-block;margin:0 0 15px;padding:6px 12px 4px;color:#7357ff;font-size:12px;font-weight:700;letter-spacing:.02em;border:1.5px solid #7357ff;border-radius:20px}
+.hero h1{position:relative;z-index:1;margin:0;font-family:'Black Han Sans',sans-serif;font-size:45px;font-weight:400;line-height:1.08;letter-spacing:-.045em}
+.hero h1 mark{position:relative;color:#7357ff;background:transparent}
+.hero h1 mark::after{position:absolute;z-index:-1;right:-6px;bottom:1px;left:-6px;height:12px;content:'';background:#ffcf4a;transform:rotate(-1deg)}
+.subtitle{margin:14px 0 21px;font-size:15px;letter-spacing:-.04em}
+.hero-ribbon{display:inline-block;padding:8px 15px;color:#fff;background:#252321;border-radius:4px;font-size:12px;transform:rotate(-1deg)}
+.hero-deco{position:absolute;color:#ff5f73;font-size:26px}
+.star-one{top:96px;left:32px;transform:rotate(12deg)}
+.star-two{top:65px;right:30px;color:#ffcf4a;transform:rotate(-13deg)}
+.content{padding:34px 20px 22px}
+section{margin-bottom:46px}
+.section-heading{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:8px;margin-bottom:17px}
+.section-heading>span{display:grid;width:27px;height:27px;color:#fff;background:#7357ff;border-radius:50%;place-items:center;font-family:Arial,sans-serif;font-size:11px;font-weight:800}
+.section-heading h2{margin:0;font-family:'Black Han Sans',sans-serif;font-size:22px;font-weight:400;letter-spacing:-.03em}
+.section-heading p{grid-column:2;margin:-5px 0 0;color:#807b73;font-size:12px}
+.field-label{display:block;margin:0 0 8px;font-size:13px;font-weight:700}
+.text-input{width:100%;padding:13px 14px;color:#252321;background:#fffdf8;border:1.5px solid #cfc8bd;border-radius:8px;outline:none;font-size:16px;line-height:1.5;transition:border-color .18s,box-shadow .18s}
+.text-input:focus{border-color:#7357ff;box-shadow:0 0 0 3px rgba(115,87,255,.12)}
+.text-input::placeholder{color:#aca69d}
+.name-input{padding:16px}
+.award-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.award-card{position:relative;display:flex;min-height:72px;align-items:center;gap:9px;padding:12px 11px;color:#252321;background:#fffdf8;border:1.5px solid #ddd5ca;border-radius:10px;box-shadow:0 2px 0 #ddd5ca;text-align:left;font-size:13px;line-height:1.35;transition:transform .16s,border-color .16s,background .16s}
+.award-card:active{transform:translateY(2px);box-shadow:none}
+.award-card.selected{background:#eee9ff;border:2px solid #7357ff;box-shadow:0 3px 0 #7357ff}
+.award-emoji{flex:0 0 auto;font-size:25px}
+.check{position:absolute;top:-7px;right:-5px;display:none;width:21px;height:21px;color:#fff;background:#7357ff;border:2px solid #fff9ee;border-radius:50%;place-items:center;font-family:Arial,sans-serif;font-size:11px;font-style:normal;font-weight:700}
+.award-card.selected .check{display:grid}
+.custom-card{border-style:dashed;background:#fff6dc}
+.form-card{padding:18px 16px 4px;background:#fffdf8;border:1.5px solid #252321;border-radius:12px;box-shadow:4px 4px 0 #eee9ff}
+.form-card .text-input{margin-bottom:17px}
+.label-row{display:flex;align-items:center;justify-content:space-between}
+.shuffle{margin-top:-6px;padding:6px 11px;color:#7357ff;background:#eee9ff;border:0;border-radius:20px;font-size:12px;font-weight:700}
+.shuffle span{display:inline-block;margin-right:3px;font:700 14px Arial,sans-serif}
+.shuffle small{margin-left:3px;color:#9a8cf0;font-size:11px}
+.textarea{min-height:150px;resize:vertical;word-break:keep-all}
+.preview-wrap{padding:12px;background:linear-gradient(45deg,#e4dfd6 25%,transparent 25%) 0 0/12px 12px,linear-gradient(-45deg,#e4dfd6 25%,transparent 25%) 0 0/12px 12px,#f1ede6;border:1px solid #d6cfc3;border-radius:12px}
+.preview-wrap img{display:block;width:100%;aspect-ratio:9/16;background:#fffaf0;box-shadow:0 8px 24px rgba(58,47,27,.17);-webkit-touch-callout:default}
+.safe-note{margin:11px 0 0;color:#777269;text-align:center;font-size:11px;line-height:1.6}
+.safe-note span{display:inline-grid;width:16px;height:16px;margin-right:4px;color:#fff;background:#7357ff;border-radius:50%;place-items:center;font:700 9px Arial,sans-serif}
+.actions{margin:-8px 0 30px}
+.save-button{display:flex;width:100%;height:58px;align-items:center;justify-content:center;gap:12px;color:#fff;background:#7357ff;border:2px solid #252321;border-radius:10px;box-shadow:0 5px 0 #252321;font-size:17px;font-weight:700;transition:transform .15s,box-shadow .15s}
+.save-button:active{transform:translateY(4px);box-shadow:0 1px 0 #252321}
+.save-button b{display:grid;width:25px;height:25px;color:#7357ff;background:#fff;border-radius:50%;place-items:center;font:700 16px Arial,sans-serif}
+.share-button{display:block;width:100%;height:50px;margin-top:14px;color:#252321;background:#ffcf4a;border:2px solid #252321;border-radius:10px;font-size:15px;font-weight:700}
+.save-msg{min-height:18px;margin:10px 0 0;color:#6f6962;text-align:center;font-size:12px}
+.again-button{display:block;margin:16px auto 0;padding:6px;color:#252321;background:transparent;border:0;border-bottom:1px solid #252321;font-size:13px}
+.again-button span{margin-left:5px}
+.made{padding:22px 0 12px;color:#9a948a;border-top:1px dashed #d8d0c5;text-align:center;font-size:10px}
+.info{padding:30px 22px 10px;border-top:2px solid #252321;line-height:1.75;font-size:14px}
+.info h2{margin:26px 0 10px;font-family:'Black Han Sans',sans-serif;font-size:20px;font-weight:400}
+.info h2:first-child{margin-top:0}
+.info h3{margin:18px 0 4px;font-size:15px}
+.info p,.info li{color:#45413b}
+.info p{margin:0 0 10px}
+.info ul,.info ol{margin:0 0 10px;padding-left:20px}
+footer.site{padding:18px 0 36px;text-align:center;font-size:13px}
+footer.site a{color:#7357ff}
+@media (min-width:700px){main{margin-top:24px;border-radius:16px 16px 0 0}footer.site{border-radius:0 0 16px 16px;margin-bottom:24px}}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+  <header class="hero">
+    <div class="hero-deco star-one">✦</div>
+    <div class="hero-deco star-two">✦</div>
+    <p class="eyebrow">병맛 상장 생성기</p>
+    <h1>우리끼리<br><mark>연말 시상식</mark></h1>
+    <p class="subtitle">친구 이름 넣고 상 고르면 상장 완성</p>
+    <div class="hero-ribbon">웃긴데 은근 감동적인 상장 만들기</div>
+  </header>
+
+  <div class="content">
+    <section>
+      <div class="section-heading"><span>01</span><h2>누구에게 줄까요?</h2></div>
+      <label class="field-label" for="recipient">받는 사람 이름</label>
+      <input id="recipient" class="text-input name-input" maxlength="12" placeholder="예: 김민수" autocomplete="off">
+    </section>
+
+    <section>
+      <div class="section-heading"><span>02</span><h2>상 고르기</h2><p>딱 맞는 상을 골라 보세요</p></div>
+      <div class="award-grid" id="awardGrid"></div>
+    </section>
+
+    <section>
+      <div class="section-heading"><span>03</span><h2>문구 다듬기</h2><p>칸을 눌러 마음대로 고칠 수 있어요</p></div>
+      <div class="form-card">
+        <label class="field-label" for="awardTitle">상 이름</label>
+        <input id="awardTitle" class="text-input" maxlength="16">
+        <div class="label-row">
+          <label class="field-label" for="awardBody">본문</label>
+          <button class="shuffle" type="button" id="shuffleBtn"><span>↻</span>다른 문구<small id="shuffleCount">1/3</small></button>
+        </div>
+        <textarea id="awardBody" class="text-input textarea" rows="6" maxlength="160"></textarea>
+        <label class="field-label" for="giver">주는 사람</label>
+        <input id="giver" class="text-input" maxlength="22" placeholder="2026 우리끼리 연말 시상식 위원회">
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading"><span>04</span><h2>상장 미리보기</h2><p>1080 × 1920 · 릴스·스토리 크기</p></div>
+      <div class="preview-wrap"><img id="preview" alt="만든 상장 미리보기"></div>
+      <p class="safe-note"><span>✓</span>릴스 글자에 가리지 않게 위아래를 비워 뒀어요</p>
+    </section>
+
+    <div class="actions">
+      <button class="save-button" type="button" id="saveBtn"><span>상장 저장하기</span><b>↓</b></button>
+      <button class="share-button" type="button" id="shareBtn" hidden>인스타·카톡으로 공유하기</button>
+      <p class="save-msg" id="saveMsg"></p>
+      <button class="again-button" type="button" id="againBtn">한 명 더 주기 <span>→</span></button>
+    </div>
+    <p class="made">올해도 함께여서 즐거웠어요 · 픽툴</p>
+  </div>
+</main>
+
+<article class="info">
+  <h2>이렇게 써요</h2>
+  <ol>
+    <li>상장 받을 친구 이름을 넣어요.</li>
+    <li>16가지 상 중에 하나를 골라요. 딱 맞는 상이 없으면 "직접 쓰기"를 눌러요.</li>
+    <li>상마다 문구가 3개씩 있어요. "다른 문구"를 누르면 바뀌고, 칸을 눌러 직접 고쳐도 돼요.</li>
+    <li>주는 사람에 단톡방 이름이나 모임 이름을 넣으면 더 그럴듯해요.</li>
+    <li>"상장 저장하기"를 누르면 1080×1920 이미지가 저장돼요. 인스타 릴스·스토리에 그대로 올릴 수 있어요.</li>
+  </ol>
+
+  <h2>송년회에서 이렇게 써 보세요</h2>
+  <p>모임 전에 한 사람씩 상장을 만들어 두고, 송년회 자리에서 휴대폰으로 하나씩 보여 주며 시상식을 해요. 단톡방에 한 장씩 올리면서 "올해의 수상자"를 발표해도 좋아요. 놀리기만 하면 미안하니까 마지막에는 "올해의 비타민상"이나 "우리 모임 총무상"으로 마무리하는 걸 추천해요.</p>
+
+  <h2>자주 묻는 질문</h2>
+  <h3>입력한 이름이 어딘가로 전송되나요?</h3>
+  <p>아니요. 상장 이미지는 지금 보고 있는 휴대폰 안에서 만들어져요. 이름과 문구는 서버로 보내지 않고 저장하지도 않아요.</p>
+  <h3>저장한 상장은 어디에 있나요?</h3>
+  <p>아이폰은 공유 창에서 "이미지 저장"을 누르면 사진 앱에 들어가요. 안드로이드와 컴퓨터는 다운로드 폴더에 저장돼요. 인스타·카카오톡 안에서 열어서 저장이 안 되면, 미리보기 상장을 길게 눌러 저장하거나 사파리·크롬으로 다시 열어 주세요.</p>
+  <h3>인쇄해도 되나요?</h3>
+  <p>네. 세로 9:16 이미지라 A4에 맞추면 위아래 여백이 조금 남아요. 진짜 상장처럼 주고 싶으면 사진 인화로 뽑는 것도 방법이에요.</p>
+  <h3>상 이름도 바꿀 수 있나요?</h3>
+  <p>네. 상 이름, 본문, 주는 사람 모두 고칠 수 있어요. 상 이름은 16자, 본문은 160자까지 들어가고 글자가 많으면 크기가 자동으로 줄어요.</p>
+</article>
+<footer class="site"><a href="../">다른 웹툴 보기</a></footer>
+
+<script>
+const $ = id => document.getElementById(id);
+const today = new Date();
+// 1~2월에 만들면 지난해 시상식으로 봄
+const YEAR = today.getMonth() < 2 ? today.getFullYear() - 1 : today.getFullYear();
+const DEFAULT_GIVER = `${YEAR} 우리끼리 연말 시상식 위원회`;
+const SITE = "tools.irukabloom.com/sangjang";
+
+const AWARDS = [
+  ["⏰","올해의 지각상",[
+    "약속 시간에 평균 23분 늦게 도착하여 친구들의 기다리는 힘을 크게 길러 주었으므로",
+    "\"곧 도착\"이라는 문자를 보내고 40분 뒤에 나타나 '곧'의 뜻을 새로 정하였으므로",
+    "약속 장소에 가장 먼저 도착한 적이 한 번도 없어 친구들에게 먼저 주문하는 여유를 주었으므로"]],
+  ["👀","읽씹 대상",[
+    "단톡방 메시지를 빠짐없이 읽고 한 번도 답하지 않아, 숫자 1이 사라지는 것만으로 살아 있음을 알려 주었으므로",
+    "단톡방 투표에는 빠짐없이 참여하면서 대화에는 한 마디도 하지 않아 조용한 존재감을 보여 주었으므로",
+    "\"확인했어\"라는 답을 사흘 뒤에 보내 친구들에게 기다림을 가르쳤으므로"]],
+  ["💨","약속 파토상",[
+    "잡힌 약속을 당일에 \"미안 오늘 좀...\"으로 취소하여 친구들에게 예상치 못한 휴식을 선물하였으므로",
+    "잡은 약속 12번 중 9번을 미루어 \"다음에 꼭 보자\"를 우리 모임의 인사말로 만들었으므로",
+    "약속 1시간 전 \"나 갑자기 배가...\"라는 메시지로 친구들의 저녁 메뉴를 바꿔 주었으므로"]],
+  ["🌙","프로 야근상",[
+    "퇴근 시간이 지나도 자리를 지키며 사무실 불을 끄는 마지막 사람이 되었으므로",
+    "칼퇴라는 말을 들어만 봤을 뿐 한 번도 해 보지 않았으므로",
+    "저녁 약속마다 \"회사에서 바로 갈게\"라고 하고 밤 9시에 도착하여 2차부터 함께하였으므로"]],
+  ["🍜","먹방 대상",[
+    "어느 모임에서나 메뉴판을 가장 먼저 펼치고 마지막 한 점까지 책임졌으므로",
+    "\"나 배 안 고파\"라고 말한 뒤 가장 많이 먹어 말과 행동이 다를 수 있음을 증명하였으므로",
+    "동네 맛집 웨이팅 시간을 모두 외워 우리 모임의 걸어 다니는 맛집 지도가 되었으므로"]],
+  ["📣","단톡방 확성기상",[
+    "하루 평균 300개의 메시지로 단톡방 알림이 쉬는 날이 없게 하였으므로",
+    "새벽 2시에도 단톡방에 글을 올려 친구들의 아침을 알림 99+로 시작하게 하였으므로",
+    "혼자서 단톡방 대화의 절반을 채워 나머지 사람은 읽기만 해도 되게 하였으므로"]],
+  ["🥗","내일부터 다이어트상",[
+    "\"다이어트는 내일부터\"라고 말하며 오늘의 야식에 최선을 다하였으므로",
+    "헬스장 1년 회원권을 끊고 세 번 가서 헬스장 운영에 큰 도움을 주었으므로",
+    "샐러드를 시키고 디저트를 두 개 추가하여 균형 잡힌 식단의 새 기준을 세웠으므로"]],
+  ["📦","택배 VIP상",[
+    "문 앞에 택배 상자가 없는 날이 없어 택배 기사님과 가장 자주 만난 사람이 되었으므로",
+    "받은 택배 상자로 작은 집 한 채를 지을 수 있을 만큼 쇼핑하였으므로",
+    "배송 완료 알림이 오면 1분 안에 문을 열어 택배 수거 세계 기록을 세웠으므로"]],
+  ["🛒","장바구니 수집가상",[
+    "장바구니에 247개를 담고 결제는 3번만 하여 아껴 쓰는 삶의 모범이 되었으므로",
+    "\"이거 살까 말까\"를 친구들에게 50번 물어보고 결국 사지 않아 모두를 쇼핑 상담사로 만들었으므로",
+    "세일 알림이 올 때마다 장바구니를 열어 보기만 하여 눈으로 하는 쇼핑의 고수가 되었으므로"]],
+  ["🧳","월요일의 퇴사 선언상",[
+    "매주 월요일 \"나 진짜 퇴사한다\"고 말하고 금요일까지 성실히 출근하였으므로",
+    "점심시간마다 퇴사 후 계획을 발표하고 오후에는 어김없이 자리로 돌아와 일하였으므로",
+    "사직서를 써서 저장만 해 둔 채 끝까지 출근하여 끈기의 상징이 되었으므로"]],
+  ["🗺️","길치 원정대상",[
+    "지도 앱을 켜고도 반대 방향으로 걸어가 친구들에게 모르는 동네를 구경시켜 주었으므로",
+    "10번 간 식당도 매번 처음 가는 것처럼 헤매어 새로운 기분을 느끼게 하였으므로",
+    "\"나 거의 다 왔어\"라고 한 뒤 반대편 출구에서 전화하여 친구들의 걸음 수를 늘려 주었으므로"]],
+  ["📸","\"한 장만 더\" 사진상",[
+    "모든 모임에서 \"한 장만 더\"를 외치며 같은 구도의 사진을 수백 장 남겼으므로",
+    "음식이 나올 때마다 5분씩 사진을 찍어 모두가 식은 음식에 익숙해지게 하였으므로",
+    "사진첩에 3만 장을 모아 우리의 한 해를 빠짐없이 기록하였으므로"]],
+  ["🛌","주말 겨울잠상",[
+    "주말 오후 2시 전에 일어난 기록이 한 번도 없어 잠의 소중함을 몸으로 보여 주었으므로",
+    "금요일 밤 \"내일 일찍 만나자\"에 찬성하고 토요일 저녁에 답장하였으므로",
+    "알람 7개를 맞추고 모두 끈 뒤 다시 잠들어 꿀잠의 기술을 완성하였으므로"]],
+  ["🧾","우리 모임 총무상",[
+    "날짜·장소·정산까지 혼자 챙겨 이 모임이 깨지지 않게 하였으므로",
+    "정산 금액을 원 단위까지 맞추고 \"입금 부탁해\"를 끝까지 보내 우리 모임의 장부를 깨끗하게 하였으므로",
+    "아무도 정하지 않는 약속 날짜를 투표로 정해 이 모임이 단톡방에만 있는 모임이 되지 않게 하였으므로"]],
+  ["👏","리액션 장인상",[
+    "어떤 이야기에도 \"헐 대박 진짜?\"로 답하여 말하는 사람을 기분 좋게 하였으므로",
+    "같은 이야기를 세 번 들어도 매번 처음 듣는 것처럼 놀라 주었으므로",
+    "친구들 글마다 웃는 이모티콘을 빠짐없이 달아 단톡방을 밝게 하였으므로"]],
+  ["🍋","올해의 비타민상",[
+    "늘 곁에 있어 주며 우리를 자주 웃게 하였으므로",
+    "힘든 날 먼저 연락해 \"밥은 먹었어?\"라고 물어 주었으므로",
+    "좋은 기억 대부분에 함께 있었으므로"]]
+];
+
+const state = { award: 0, line: 0, custom: false };
+const sentence = line => `위 사람은 ${YEAR}년 한 해 동안 ${line} 이에 상장을 수여합니다.`;
+
+function renderGrid(){
+  const g = $("awardGrid");
+  g.innerHTML = AWARDS.map(([e,t],i)=>`<button type="button" class="award-card" data-i="${i}"><span class="award-emoji">${e}</span><span>${t}</span><i class="check">✓</i></button>`).join("")
+    + `<button type="button" class="award-card custom-card" data-i="custom"><span class="award-emoji">✏️</span><span>직접 쓰기</span><i class="check">✓</i></button>`;
+  g.onclick = ev => {
+    const b = ev.target.closest(".award-card"); if(!b) return;
+    if (b.dataset.i === "custom") {
+      state.custom = true;
+      $("awardTitle").value = "";
+      $("awardBody").value = `위 사람은 ${YEAR}년 한 해 동안 `;
+      $("awardTitle").focus();
+    } else {
+      state.custom = false; state.award = +b.dataset.i; state.line = 0;
+      fillFromAward();
+    }
+    markSelected(); draw();
+  };
+}
+function markSelected(){
+  document.querySelectorAll(".award-card").forEach(b=>{
+    const on = state.custom ? b.dataset.i==="custom" : b.dataset.i===String(state.award);
+    b.classList.toggle("selected", on);
+  });
+  $("shuffleBtn").hidden = state.custom;
+  $("shuffleCount").textContent = `${state.line+1}/3`;
+}
+function fillFromAward(){
+  const a = AWARDS[state.award];
+  $("awardTitle").value = a[1];
+  $("awardBody").value = sentence(a[2][state.line]);
+}
+$("shuffleBtn").onclick = () => { state.line = (state.line+1)%3; fillFromAward(); markSelected(); draw(); };
+
+// ---------- 상장 그리기 (1080×1920) ----------
+const W = 1080, H = 1920;
+const SERIF = '"Noto Serif KR", serif';
+let certNo = String(Math.floor(Math.random()*900)+100);
+const dateText = `${today.getFullYear()}년 ${today.getMonth()+1}월 ${today.getDate()}일`;
+
+function values(){
+  return {
+    name: $("recipient").value.trim() || "김민수",
+    title: $("awardTitle").value.trim() || "올해의 지각상",
+    body: $("awardBody").value.trim().replace(/\s+/g," ") || sentence(AWARDS[0][2][0]),
+    giver: $("giver").value.trim() || DEFAULT_GIVER
+  };
+}
+function fit(ctx, text, weight, size, maxW, min){
+  let s = size;
+  do { ctx.font = `${weight} ${s}px ${SERIF}`; if (ctx.measureText(text).width <= maxW) break; s -= 2; } while (s > min);
+  return s;
+}
+function wrap(ctx, text, maxW){
+  const words = text.split(" "), lines = []; let cur = [];
+  const width = arr => ctx.measureText(arr.join(" ")).width;
+  for (const w of words){
+    if (ctx.measureText(w).width > maxW){ // 띄어쓰기 없는 긴 글은 글자 단위로 자름
+      if (cur.length){ lines.push(cur); cur=[]; }
+      let part = "";
+      for (const ch of w){ if (ctx.measureText(part+ch).width > maxW){ lines.push([part]); part=ch; } else part+=ch; }
+      cur = [part]; continue;
+    }
+    if (cur.length && width([...cur,w]) > maxW){ lines.push(cur); cur=[w]; } else cur.push(w);
+  }
+  if (cur.length) lines.push(cur);
+  return lines;
+}
+function drawJustified(ctx, words, x, y, maxW, last){
+  if (last || words.length < 2){ ctx.textAlign="left"; ctx.fillText(words.join(" "), x, y); return; }
+  const total = words.reduce((s,w)=>s+ctx.measureText(w).width,0);
+  const gap = (maxW-total)/(words.length-1);
+  if (gap > ctx.measureText(" ").width*1.8){ ctx.textAlign="left"; ctx.fillText(words.join(" "), x, y); return; }
+  let cx = x; ctx.textAlign="left";
+  for (const w of words){ ctx.fillText(w, cx, y); cx += ctx.measureText(w).width + gap; }
+}
+function goldGrad(ctx){
+  const g = ctx.createLinearGradient(70,80,1010,1840);
+  g.addColorStop(0,"#8f681e"); g.addColorStop(.28,"#e3c36d"); g.addColorStop(.55,"#9b7426"); g.addColorStop(.8,"#f0d780"); g.addColorStop(1,"#896018");
+  return g;
+}
+function drawCorner(ctx, x, y, gold){
+  ctx.save(); ctx.translate(x,y);
+  ctx.strokeStyle = gold; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(-44,0); ctx.lineTo(44,0); ctx.moveTo(0,-44); ctx.lineTo(0,44); ctx.stroke();
+  ctx.rotate(Math.PI/4);
+  ctx.fillStyle = "#fffaf0"; ctx.fillRect(-20,-20,40,40);
+  ctx.strokeRect(-20,-20,40,40);
+  ctx.fillStyle = gold; ctx.fillRect(-9,-9,18,18);
+  ctx.restore();
+}
+function drawCert(ctx){
+  const v = values();
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle = "#fffaf0"; ctx.fillRect(0,0,W,H);
+  // 종이 결
+  ctx.fillStyle = "rgba(154,116,38,.035)";
+  for (let y=10;y<H;y+=34) for (let x=(y/34%2)*17+8;x<W;x+=34){ ctx.beginPath(); ctx.arc(x,y,2,0,7); ctx.fill(); }
+  const gold = goldGrad(ctx);
+  ctx.strokeStyle = gold;
+  ctx.lineWidth = 12; ctx.strokeRect(72,80,936,1760);
+  ctx.lineWidth = 3; ctx.strokeRect(100,108,880,1704);
+  ctx.lineWidth = 1.5; ctx.strokeRect(114,122,852,1676);
+  [[72,80],[1008,80],[72,1840],[1008,1840]].forEach(([x,y])=>drawCorner(ctx,x,y,gold));
+
+  const L = 160, R = 920, CW = R-L;
+  // 본문 줄 수를 먼저 정함 (높이 380 안에 들어가게 글자 크기 자동)
+  let size = 36, lines, lh;
+  for (;;){
+    ctx.font = `400 ${size}px ${SERIF}`; lh = Math.round(size*1.95);
+    lines = wrap(ctx, v.body, CW);
+    if (lines.length*lh <= 380 || size <= 24) break;
+    size -= 2;
+  }
+  // 전체 내용 높이를 구해서 위아래 안전 영역(300~1610) 가운데에 놓음
+  const bodyH = (lines.length-1)*lh;
+  const total = 580 + bodyH + 170 + 105 + 110;
+  const y0 = Math.round(330 + Math.max(0, (1610 - 330 - total)/2));
+
+  ctx.fillStyle = "#5b5348"; ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
+  ctx.font = `400 30px ${SERIF}`; ctx.fillText(`제 ${YEAR}-${certNo}호`, L, y0);
+
+  ctx.textAlign = "center"; ctx.fillStyle = "#211e19";
+  ctx.font = `700 104px ${SERIF}`; ctx.fillText("상   장", 540, y0+180);
+  ctx.strokeStyle = gold; ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.moveTo(400,y0+240); ctx.lineTo(680,y0+240); ctx.stroke();
+  ctx.save(); ctx.translate(540,y0+240); ctx.rotate(Math.PI/4); ctx.fillStyle="#a7802f"; ctx.fillRect(-7,-7,14,14); ctx.restore();
+
+  ctx.fillStyle = "#211e19";
+  fit(ctx, v.title, 700, 58, CW, 34); ctx.fillText(v.title, 540, y0+355);
+  const nameLine = `성명 : ${v.name}`;
+  fit(ctx, nameLine, 400, 40, CW, 28); ctx.fillText(nameLine, 540, y0+465);
+
+  ctx.fillStyle = "#2c2924"; ctx.font = `400 ${size}px ${SERIF}`;
+  const top = y0+580;
+  lines.forEach((ws,i)=>drawJustified(ctx, ws, L, top + i*lh, CW, i===lines.length-1));
+
+  const dateY = top + bodyH + 170, giverY = dateY + 105;
+  ctx.textAlign = "center"; ctx.fillStyle = "#2c2924";
+  ctx.font = `400 36px ${SERIF}`; ctx.fillText(dateText, 540, dateY);
+
+  const gs = fit(ctx, v.giver, 700, 38, 600, 24);
+  ctx.font = `700 ${gs}px ${SERIF}`;
+  const gw = ctx.measureText(v.giver).width;
+  const gx = 468; ctx.fillText(v.giver, gx, giverY);
+  // 도장: 이름 끝에 조금만 겹치게
+  const sx = gx + gw/2 + 74, sy = giverY - 12;
+  ctx.save(); ctx.translate(sx, sy); ctx.rotate(-.06);
+  ctx.globalAlpha = .86;
+  ctx.strokeStyle = "#b52727"; ctx.lineWidth = 6; ctx.strokeRect(-60,-60,120,120);
+  ctx.lineWidth = 2; ctx.strokeRect(-50,-50,100,100);
+  ctx.fillStyle = "#b52727"; ctx.textAlign = "center";
+  ctx.font = `700 22px ${SERIF}`; ctx.fillText("시상식", 0, -6); ctx.fillText("위원회인", 0, 24);
+  ctx.restore();
+
+  ctx.fillStyle = "rgba(73,65,54,.42)"; ctx.textAlign = "center";
+  ctx.font = `400 24px ${SERIF}`; ctx.fillText(`픽툴 ${SITE}`, 540, giverY + 110);
+}
+
+const canvas = document.createElement("canvas"); canvas.width = W; canvas.height = H;
+const cctx = canvas.getContext("2d");
+let lastBlob = null, drawTimer = null, previewUrl = null;
+async function ensureFonts(){
+  const v = values();
+  const text = "상장제호성명년월일픽툴시상식위원회인0123456789-:. " + v.name + v.title + v.body + v.giver + dateText;
+  try { await Promise.all([document.fonts.load(`400 36px "Noto Serif KR"`, text), document.fonts.load(`700 36px "Noto Serif KR"`, text)]); } catch(e){}
+}
+async function renderNow(){
+  await ensureFonts();
+  drawCert(cctx);
+  const blob = await new Promise(r=>canvas.toBlob(r,"image/png"));
+  lastBlob = blob;
+  if (previewUrl) URL.revokeObjectURL(previewUrl);
+  previewUrl = URL.createObjectURL(blob);
+  $("preview").src = previewUrl;
+  prepareShare();
+  return blob;
+}
+function draw(){ clearTimeout(drawTimer); drawTimer = setTimeout(renderNow, 250); }
+["recipient","awardTitle","awardBody","giver"].forEach(id=>$(id).addEventListener("input", draw));
+$("awardTitle").addEventListener("input", ()=>{ if(!state.custom){ state.custom = true; markSelected(); } });
+
+function fileName(){ const v = values(); return `상장-${v.name}-${v.title}.png`.replace(/[\\/:*?"<>|\s]+/g,"_"); }
+let shareFile = null;
+function prepareShare(){
+  shareFile = null; $("shareBtn").hidden = true;
+  if (!navigator.canShare || !lastBlob) return;
+  const f = new File([lastBlob], fileName(), {type:"image/png"});
+  try { if (navigator.canShare({files:[f]})) { shareFile = f; $("shareBtn").hidden = false; } } catch(e){}
+}
+$("saveBtn").onclick = async () => {
+  $("saveMsg").textContent = "상장을 만드는 중이에요…";
+  try {
+    clearTimeout(drawTimer);
+    const blob = await renderNow();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a"); a.href = url; a.download = fileName();
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url), 3000);
+    $("saveMsg").textContent = "저장했어요. 안 보이면 미리보기를 길게 눌러 저장하세요";
+  } catch(e) { $("saveMsg").textContent = "저장이 안 되면 미리보기 상장을 길게 눌러 저장하세요"; }
+};
+$("shareBtn").onclick = async () => {
+  if (!shareFile) return;
+  try { await navigator.share({files:[shareFile], title:"병맛 상장"}); } catch(e){}
+};
+$("againBtn").onclick = () => {
+  $("recipient").value = ""; $("saveMsg").textContent = "";
+  certNo = String(Math.floor(Math.random()*900)+100);
+  window.scrollTo({top:0, behavior:"smooth"});
+  setTimeout(()=>$("recipient").focus(), 400);
+  draw();
+};
+
+$("giver").placeholder = DEFAULT_GIVER;
+renderGrid(); fillFromAward(); markSelected();
+document.fonts.ready.then(renderNow);
+</script>
+<!-- 블로그 글 안에 끼워 넣을 때(?embed=1): 높이를 글에 알려 줌 -->
+<style>.is-embed footer{display:none}</style>
+<script>(function(){if(!/[?&]embed=1/.test(location.search)||window.parent===window)return;document.documentElement.classList.add("is-embed");function s(){parent.postMessage({type:"iruka-tool-height",height:Math.ceil(document.documentElement.scrollHeight)},"*")}addEventListener("load",s);if(window.ResizeObserver)new ResizeObserver(s).observe(document.body);setTimeout(s,300)})();</script>
+</body>
+</html>
