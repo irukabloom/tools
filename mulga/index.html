@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<!-- 직접 열면 블로그 글로 넘김(blog-redirect). ?embed=1 로 블로그 안에 끼워 넣었을 때만 웹툴이 보임 -->
+<script>if(!/[?&]embed=1(&|#|$)/.test(location.search))location.replace("https://haeminlog.com/category/life-webtools/");</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>내 물가 감각은 몇 년도? | 물가 감각 테스트</title>
+<meta name="description" content="김밥, 짜장면, 지하철, 택시, 영화표 등 요즘 물가 10개를 맞히면 내 물가 감각이 몇 년도에 멈춰 있는지 알려 줘요. 서울 평균 가격(한국소비자원 참가격) 기준, 결과 이미지 저장.">
+<link rel="canonical" href="https://tools.irukabloom.com/mulga/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="내 물가 감각은 몇 년도?">
+<meta property="og:description" content="요즘 가격 10개 맞히면 당신의 물가 감각이 멈춘 해를 알려 드려요">
+<meta property="og:url" content="https://tools.irukabloom.com/mulga/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#FFF9EE;--ink:#252321;--accent:#7357FF;--lavender:#EEE9FF;--red:#FF5F73;--yellow:#FFCF4A}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--lavender)}
+body{margin:0;min-width:0;overflow-x:hidden;color:var(--ink);font-family:'Gowun Dodum',sans-serif;font-synthesis:none;
+  background:linear-gradient(135deg,var(--lavender) 25%,transparent 25%) 0 0/18px 18px,var(--paper)}
+button,input{font-family:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0;padding:0}
+button:disabled{cursor:default}
+h1,h2,h3,p{margin:0}
+
+.phone{position:relative;width:min(100%,390px);min-height:min(100dvh,760px);margin:0 auto;overflow:hidden;background:var(--paper);box-shadow:0 18px 70px rgba(37,35,33,.2);display:flex;flex-direction:column}
+.top-brand{flex:none;height:42px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1.5px solid var(--ink);font-size:10px;letter-spacing:.08em}
+.screen{flex:1;display:flex;flex-direction:column;padding:20px 18px 22px}
+.screen[hidden]{display:none}
+
+.primary-button,.secondary-button{width:100%;min-height:58px;display:flex;align-items:center;justify-content:center;gap:10px;border:2px solid var(--ink);font-size:17px;font-weight:900;transition:transform .12s,box-shadow .12s,opacity .12s}
+.primary-button{color:var(--paper);background:var(--accent);box-shadow:4px 4px 0 var(--ink)}
+.secondary-button{background:var(--lavender)}
+.primary-button:active,.secondary-button:active{transform:translate(3px,3px);box-shadow:none}
+.primary-button:disabled{opacity:.35;transform:none;box-shadow:4px 4px 0 var(--ink)}
+button svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.stamp{display:inline-flex;align-items:center;min-height:30px;padding:5px 12px;border:1.5px solid currentColor;color:var(--accent);font-size:12px;font-weight:800;letter-spacing:-.03em;transform:rotate(-1deg)}
+
+/* 시작 */
+#start{justify-content:space-between;position:relative}
+.price-stickers{position:absolute;inset:20px 0 auto;height:270px;opacity:.08;pointer-events:none}
+.price-stickers span{position:absolute;border:3px solid var(--ink);padding:5px 9px;font:29px/1 'Black Han Sans',sans-serif}
+.price-stickers span:nth-child(1){top:10px;left:-24px;transform:rotate(-10deg)}
+.price-stickers span:nth-child(2){top:70px;right:-38px;transform:rotate(7deg)}
+.price-stickers span:nth-child(3){top:185px;left:74px;transform:rotate(-4deg)}
+.start-copy{position:relative;z-index:1;margin-top:clamp(50px,11vh,100px)}
+.start-copy h1{margin:20px 0 22px;font:400 clamp(43px,12vw,50px)/1.08 'Black Han Sans',sans-serif;letter-spacing:-.07em}
+.start-copy h1::after{content:'';display:block;width:78px;height:8px;margin-top:14px;background:var(--red)}
+.start-copy p{font-size:16px;font-weight:600;line-height:1.65;letter-spacing:-.04em}
+.bottom-actions{margin-top:40px}
+.bottom-actions small{display:block;margin-top:15px;text-align:center;font-size:11px;font-weight:600;opacity:.65}
+
+/* 문제 */
+.progress-row{display:flex;align-items:center;gap:16px}
+.progress-row strong{flex:none;font:18px/1 'Black Han Sans',sans-serif}
+.progress-row i{color:var(--accent);font-style:normal}
+.progress-track{height:7px;flex:1;overflow:hidden;border:1.5px solid var(--ink)}
+.progress-track span{display:block;height:100%;background:var(--accent);transition:width .25s}
+.item-stage{flex:1;min-height:270px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.burst{width:150px;height:150px;display:grid;place-items:center;margin-bottom:19px;border:2px solid var(--ink);border-radius:50%;background:var(--yellow);box-shadow:7px 7px 0 var(--ink);font-size:72px}
+.item-stage h2{margin-top:12px;font:400 25px/1.2 'Black Han Sans',sans-serif;letter-spacing:-.05em}
+.item-note{margin-top:6px;font-size:12px;opacity:.65}
+.price-control output{display:block;margin-bottom:8px;text-align:center;font:clamp(45px,13vw,53px)/1 'Black Han Sans',sans-serif;letter-spacing:-.08em}
+.price-control output.untouched{color:rgba(37,35,33,.25)}
+.hint{height:18px;margin-bottom:12px;text-align:center;font-size:12px;font-weight:700;color:var(--accent)}
+.range-row{display:flex;align-items:center;gap:10px}
+.step-btn{flex:none;width:38px;height:38px;border:2px solid var(--ink);background:var(--paper);font:22px/1 'Black Han Sans',sans-serif;box-shadow:2px 2px 0 var(--ink)}
+.step-btn:active{transform:translate(2px,2px);box-shadow:none}
+.range-row input{flex:1;min-width:0;height:34px;margin:0;appearance:none;-webkit-appearance:none;background:transparent;touch-action:pan-y}
+.range-row input::-webkit-slider-runnable-track{height:8px;border:1.5px solid var(--ink);background:linear-gradient(to right,var(--accent) var(--p,50%),var(--paper) var(--p,50%))}
+.range-row input::-webkit-slider-thumb{width:30px;height:30px;margin-top:-12px;-webkit-appearance:none;appearance:none;border:2px solid var(--ink);border-radius:0;background:var(--accent);box-shadow:2px 2px 0 var(--ink)}
+.range-row input.untouched::-webkit-slider-runnable-track{background:var(--paper)}
+.range-row input.untouched::-webkit-slider-thumb{background:var(--yellow)}
+.range-row input::-moz-range-track{height:8px;border:1.5px solid var(--ink);background:var(--paper)}
+.range-row input::-moz-range-progress{height:8px;background:var(--accent)}
+.range-row input.untouched::-moz-range-progress{background:transparent}
+.range-row input::-moz-range-thumb{width:28px;height:28px;border:2px solid var(--ink);border-radius:0;background:var(--accent)}
+.range-labels{display:flex;justify-content:space-between;margin:6px 48px 22px;font-size:10px}
+
+/* 결과 */
+.result-hero{padding:14px 0 27px;text-align:center}
+.result-hero p{font-size:18px;font-weight:800;letter-spacing:-.05em}
+.result-hero h1{margin:1px 0 -4px;color:var(--accent);font:400 72px/1.08 'Black Han Sans',sans-serif;letter-spacing:-.06em}
+.result-hero .stamp{margin-top:16px;color:var(--paper);background:var(--accent);border-color:var(--accent)}
+.result-hero .sub{margin-top:14px;font-size:13px;font-weight:600;line-height:1.6;opacity:.8}
+.receipt{position:relative;padding:20px 14px 28px;border:1.5px solid var(--ink);background:var(--lavender)}
+.receipt::after{content:'';position:absolute;bottom:-7px;left:0;width:100%;height:12px;background:linear-gradient(135deg,transparent 6px,var(--ink) 7px,var(--paper) 8px) 0 0/14px 14px}
+.receipt-head,.receipt-row{display:grid;grid-template-columns:1.35fr .95fr .95fr .6fr;align-items:center;text-align:right}
+.receipt-head{padding-bottom:10px;border-bottom:1.5px dashed var(--ink);font-size:10px;font-weight:700}
+.receipt-head span:first-child{text-align:left}
+.receipt-row{min-height:36px;border-bottom:1px dotted rgba(37,35,33,.35);font-size:12px}
+.receipt-row .item-name{font-weight:700;text-align:left}
+.receipt-row b{color:var(--accent)}
+.receipt-row.worst{background:var(--yellow)}
+.worst-note{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;padding:12px;color:var(--paper);background:var(--red)}
+.worst-note span{flex:none;font-size:11px;font-weight:700}
+.worst-note strong{font-size:13px;font-weight:900;text-align:right}
+.result-actions{display:grid;gap:10px;margin-top:26px}
+.result-actions .primary-button,.result-actions .secondary-button{min-height:54px}
+.text-button{min-height:42px;font-size:13px;font-weight:800;text-decoration:underline;text-underline-offset:4px}
+
+/* 저장 카드 */
+.card-mode{background:var(--lavender)}
+#card{align-items:center;gap:14px}
+#cardImg{display:block;width:auto;max-width:100%;height:min(560px,70dvh);aspect-ratio:9/16;border:2px solid var(--ink);box-shadow:5px 5px 0 var(--ink);background:var(--paper)}
+.card-tip{font-size:12px;text-align:center;opacity:.75}
+.card-actions{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.card-actions .primary-button,.card-actions .secondary-button{min-height:48px;font-size:14px}
+.card-actions .wide{grid-column:1/-1}
+.save-msg{min-height:16px;font-size:12px;text-align:center;color:var(--accent)}
+
+/* 설명 글 */
+.info{width:min(100%,390px);margin:0 auto;padding:34px 20px 30px;background:var(--paper);border-top:2px solid var(--ink);line-height:1.75;font-size:15px}
+.info h2{margin:30px 0 10px;font:400 22px/1.3 'Black Han Sans',sans-serif;letter-spacing:-.03em}
+.info h2:first-child{margin-top:0}
+.info h3{margin:18px 0 4px;font-size:15px}
+.info p,.info li{font-size:14.5px}
+.info ol,.info ul{padding-left:20px;margin:8px 0}
+.info .ref{font-size:12px;opacity:.75}
+.table-wrap{overflow-x:auto;margin:10px -20px 6px;padding:0 20px;-webkit-overflow-scrolling:touch}
+.price-table{border-collapse:collapse;font-size:12px;white-space:nowrap}
+.price-table th,.price-table td{padding:6px 7px;border-bottom:1px dotted rgba(37,35,33,.35);text-align:right}
+.price-table th:first-child,.price-table td:first-child{position:sticky;left:0;background:var(--paper);text-align:left;font-weight:700}
+.price-table thead th{border-bottom:1.5px solid var(--ink)}
+.price-table td.est{color:rgba(37,35,33,.55)}
+.price-table td.now{color:var(--accent);font-weight:700}
+.info a{color:var(--accent)}
+footer.site{width:min(100%,390px);margin:0 auto 0;padding:18px;text-align:center;background:var(--paper);border-top:1.5px dashed var(--ink);font-size:14px}
+footer.site a{color:var(--ink);font-weight:700}
+@media (min-width:600px){.phone{margin-top:24px;border:2px solid var(--ink);border-radius:18px 18px 0 0}footer.site{margin-bottom:24px;border-radius:0 0 18px 18px}}
+@media (max-height:720px){.item-stage{min-height:230px}.burst{width:120px;height:120px;font-size:58px}}
+</style>
+</head>
+<body>
+<section class="phone" id="phone">
+  <div class="top-brand"><span>MULGA CHECK</span><span>SEOUL · 2026</span></div>
+
+  <div class="screen" id="start">
+    <div class="price-stickers" aria-hidden="true"><span>₩ 3,923</span><span>₩ 15,000</span><span>₩ 1,550</span></div>
+    <div class="start-copy">
+      <span class="stamp">10문제 · 약 1분</span>
+      <h1>내 물가 감각은<br>몇 년도?</h1>
+      <p>요즘 가격 10개 맞히면<br>당신의 물가 감각이 멈춘 해를 알려 드려요</p>
+    </div>
+    <div class="bottom-actions">
+      <button class="primary-button" id="beginBtn" type="button">시작하기 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
+      <small>서울 평균 가격 기준 · 2026년 9월 · 참고용</small>
+    </div>
+  </div>
+
+  <div class="screen" id="quiz" hidden>
+    <div class="progress-row">
+      <strong><span id="stepNo">1</span> <i>/</i> 10</strong>
+      <div class="progress-track"><span id="progressBar" style="width:10%"></span></div>
+    </div>
+    <div class="item-stage">
+      <span class="burst" id="itemEmoji" aria-hidden="true">🍙</span>
+      <span class="stamp">이 가격, 얼마일까요?</span>
+      <h2 id="itemName">김밥 한 줄</h2>
+      <p class="item-note" id="itemNote"></p>
+    </div>
+    <div class="price-control">
+      <output id="guessOut" class="untouched">?원</output>
+      <p class="hint" id="hint">슬라이더를 움직여 가격을 골라 보세요</p>
+      <div class="range-row">
+        <button class="step-btn" id="minusBtn" type="button" aria-label="조금 내리기">−</button>
+        <input type="range" id="range" class="untouched">
+        <button class="step-btn" id="plusBtn" type="button" aria-label="조금 올리기">+</button>
+      </div>
+      <div class="range-labels"><span id="minLabel"></span><span id="maxLabel"></span></div>
+    </div>
+    <button class="primary-button" id="nextBtn" type="button" disabled><span id="nextText">다음</span> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
+  </div>
+
+  <div class="screen" id="result" hidden>
+    <header class="result-hero">
+      <p id="resTop">당신의 물가 감각은</p>
+      <h1 id="resYear">2019년</h1>
+      <p id="resBottom">에 멈춰 있어요</p>
+      <span class="stamp" id="resTitle">코로나 전에 멈춘 사람</span>
+      <p class="sub" id="resSub"></p>
+    </header>
+    <div class="receipt">
+      <div class="receipt-head"><span>품목</span><span>내 답</span><span>2026 실제</span><span>차이</span></div>
+      <div id="receiptRows"></div>
+      <div class="worst-note"><span>가장 큰 오차</span><strong id="worstText"></strong></div>
+    </div>
+    <div class="result-actions">
+      <button class="primary-button" id="toCardBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14"/></svg> 이미지 저장</button>
+      <button class="secondary-button" id="linkBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.5M8.2 13.2l7.6 4.5"/></svg> <span id="linkText">친구한테 보내기</span></button>
+      <button class="text-button" id="againBtn" type="button">다시 하기</button>
+    </div>
+  </div>
+
+  <div class="screen" id="card" hidden>
+    <img id="cardImg" alt="내 물가 감각 결과 카드">
+    <p class="card-tip">이미지를 길게 눌러도 저장돼요 · 1080×1920</p>
+    <div class="card-actions">
+      <button class="primary-button" id="saveBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14"/></svg> 저장하기</button>
+      <button class="secondary-button" id="backBtn" type="button">결과로 돌아가기</button>
+      <button class="secondary-button wide" id="shareImgBtn" type="button" hidden>인스타·카톡으로 공유하기</button>
+    </div>
+    <p class="save-msg" id="saveMsg"></p>
+  </div>
+</section>
+
+<article class="info" id="info">
+  <h2>물가 감각 테스트는 이렇게 계산해요</h2>
+  <p>10개 품목마다 내가 고른 가격을 2018년부터 2026년까지 해마다 실제 가격과 비교해요. 해마다 10개 품목의 차이를 %로 계산해서 평균을 내고, 평균 차이가 가장 작은 해가 내 물가 감각의 연도가 돼요. 김밥이 3,000원, 지하철이 1,250원이라고 답했다면 2021~2022년 가격과 가장 가까워요.</p>
+  <p>2026년 가격보다 평균 10% 넘게 비싸게 답하면 "미래에서 온 사람"이 나와요. 아직 오지 않은 가격까지 예상한 셈이에요.</p>
+
+  <h2>연도별 가격표 (서울)</h2>
+  <p class="ref">회색 숫자는 앞뒤 해 자료로 추정한 값이에요. 외식비는 그해 가을 무렵, 교통비·영화·커피는 그해 말 가격이에요.</p>
+  <div class="table-wrap"><table class="price-table" id="priceTable"></table></div>
+
+  <h2>가격은 어디서 가져왔나요?</h2>
+  <ul>
+    <li>김밥, 짜장면, 냉면, 김치찌개 백반, 삼겹살: 한국소비자원 「참가격」 서울 외식비 평균. 삼겹살은 200g 기준이에요.</li>
+    <li>지하철·버스: 서울시 교통카드 성인 기본요금. 지하철은 2023년 10월 1,400원, 2025년 6월 1,550원이 됐어요.</li>
+    <li>택시: 서울 중형택시 낮 기본요금. 2019년 2월 3,800원, 2023년 2월 4,800원.</li>
+    <li>영화표: CGV 주말 일반 2D 성인 가격. 2022년부터 15,000원.</li>
+    <li>아메리카노: 스타벅스 톨 사이즈. 2022년 1월 4,500원, 2025년 1월 4,700원.</li>
+  </ul>
+  <p class="ref">참고한 기사: 헤럴드경제(2026.11.14), 더퍼블릭(2026.11.11), 서울신문(2019.2.21, 2019.9.12), 뉴시스(2022.12.8, 2024.1.30), 경향신문(2024.1.12, 2025.1.20, 2025.9.16), 세계일보(2024.6.11, 2025.6.29), 한국경제(2026.1.5), 서울시 교통 누리집. 가격은 2026년 11월에 확인했어요.</p>
+
+  <h2>자주 묻는 질문</h2>
+  <h3>왜 서울 가격이에요?</h3>
+  <p>한국소비자원이 매달 발표하는 외식비 자료 중에 해마다 같은 기준으로 비교할 수 있는 게 서울 평균이라서요. 지방은 외식비가 보통 서울보다 조금 싸서, 지방에 살면 결과가 1~2년 이르게 나올 수 있어요.</p>
+  <h3>요즘 물가, 얼마나 올랐어요?</h3>
+  <p>서울 김밥 한 줄은 2018년 2,192원에서 2026년 9월 3,923원이 됐어요. 8년 사이 79% 올랐어요. 짜장면은 7,808원, 냉면은 12,692원, 삼겹살 200g은 21,321원이에요. 외식비 평균이 궁금하면 위 가격표를 보세요.</p>
+  <h3>제 답이 어딘가에 저장되나요?</h3>
+  <p>아니요. 계산과 결과 이미지는 모두 지금 보고 있는 휴대폰 안에서 만들어져요. 답은 서버로 보내지 않아요.</p>
+  <h3>정확한 가격인가요?</h3>
+  <p>공식 발표 숫자를 썼지만 가게마다 가격이 달라서 참고용이에요. 비어 있는 해는 앞뒤 해 자료로 추정했고, 가격표에서 회색으로 표시했어요.</p>
+</article>
+<footer class="site"><a href="../">다른 웹툴 보기</a></footer>
+
+<script>
+(function(){
+const YEARS=[2018,2019,2020,2021,2022,2023,2024,2025,2026];
+// p: 연도별 가격, e: 추정값인 연도 인덱스, step: 슬라이더 단위
+const ITEMS=[
+ {name:"김밥 한 줄",short:"김밥",emoji:"🍙",note:"서울 분식집 평균",step:100,
+  p:[2192,2408,2570,2731,3020,3215,3460,3623,3923],e:[2,4,6]},
+ {name:"짜장면 한 그릇",short:"짜장면",emoji:"🍜",note:"서울 중국집 평균",step:100,
+  p:[5000,4923,5200,5538,6400,7000,7350,7577,7808],e:[0,2,4,5,6]},
+ {name:"지하철 기본요금",short:"지하철",emoji:"🚇",note:"서울, 교통카드 성인",step:50,
+  p:[1250,1250,1250,1250,1250,1400,1400,1550,1550],e:[]},
+ {name:"물냉면 한 그릇",short:"냉면",emoji:"🥢",note:"서울 냉면집 평균",step:100,
+  p:[8600,8962,9300,9650,10300,11200,11800,12423,12692],e:[0,2,3,4,5,6]},
+ {name:"영화표",short:"영화표",emoji:"🎟️",note:"주말, 일반관 성인",step:500,
+  p:[12000,12000,13000,14000,15000,15000,15000,15000,15000],e:[]},
+ {name:"김치찌개 백반",short:"김치찌개",emoji:"🍲",note:"서울 식당 평균",step:100,
+  p:[6000,6269,6500,6900,7350,7900,8192,8577,8846],e:[0,2,3,4,5]},
+ {name:"택시 기본요금",short:"택시",emoji:"🚕",note:"서울 중형, 낮",step:100,
+  p:[3000,3800,3800,3800,3800,4800,4800,4800,4800],e:[]},
+ {name:"아메리카노",short:"아메리카노",emoji:"☕",note:"스타벅스 톨 사이즈",step:100,
+  p:[4100,4100,4100,4100,4500,4500,4500,4700,4700],e:[]},
+ {name:"삼겹살 1인분",short:"삼겹살",emoji:"🥓",note:"서울 식당, 200g 기준",step:500,
+  p:[15600,16154,16500,17188,18600,19250,20083,20571,21321],e:[0,2,4]},
+ {name:"시내버스 기본요금",short:"버스",emoji:"🚌",note:"서울, 교통카드 성인",step:50,
+  p:[1200,1200,1200,1200,1200,1500,1500,1500,1500],e:[]}
+];
+const NOW=YEARS.length-1;
+const $=id=>document.getElementById(id);
+const won=v=>v.toLocaleString("ko-KR")+"원";
+const roundTo=(v,s)=>Math.round(v/s)*s;
+const rand=(a,b)=>a+Math.random()*(b-a);
+
+let step=0,answers=[],touched=false,ranges=[],res=null,lastBlob=null,cardUrl=null,shareFile=null;
+
+function makeRanges(){
+  // 정답이 가운데에 오지 않게 범위를 해마다 다르게 잡음
+  ranges=ITEMS.map(it=>{
+    const p=it.p[NOW],s=it.step;
+    const min=Math.max(s,roundTo(p*rand(.28,.45),s));
+    const max=roundTo(p*rand(1.6,2.15),s);
+    // 시작 위치: 범위 안 아무 데나 (정답 근처 ±12%는 피함)
+    let start;
+    for(let i=0;i<20;i++){start=roundTo(rand(min,max),s);if(Math.abs(start-p)/p>.12)break;}
+    return {min,max,start};
+  });
+}
+function show(id){
+  ["start","quiz","result","card"].forEach(s=>$(s).hidden=(s!==id));
+  $("phone").classList.toggle("card-mode",id==="card");
+  const top=$("phone").getBoundingClientRect().top+window.scrollY;
+  if(window.scrollY>top)window.scrollTo({top,behavior:"smooth"});
+}
+function setProgress(){
+  const r=$("range"),pct=(r.value-r.min)/(r.max-r.min)*100;
+  r.style.setProperty("--p",pct+"%");
+}
+function renderStep(){
+  const it=ITEMS[step],rg=ranges[step],r=$("range");
+  touched=false;
+  $("stepNo").textContent=step+1;
+  $("progressBar").style.width=(step+1)*10+"%";
+  $("itemEmoji").textContent=it.emoji;
+  $("itemName").textContent=it.name;
+  $("itemNote").textContent=it.note;
+  r.min=rg.min;r.max=rg.max;r.step=it.step;r.value=rg.start;
+  r.setAttribute("aria-label",it.name+" 예상 가격");
+  r.classList.add("untouched");
+  $("guessOut").textContent="?원";$("guessOut").classList.add("untouched");
+  $("hint").style.visibility="visible";
+  $("minLabel").textContent=won(rg.min);$("maxLabel").textContent=won(rg.max);
+  $("nextBtn").disabled=true;
+  $("nextText").textContent=step===ITEMS.length-1?"결과 보기":"다음";
+  setProgress();
+}
+function onMove(){
+  const r=$("range");
+  touched=true;
+  r.classList.remove("untouched");
+  $("guessOut").classList.remove("untouched");
+  $("guessOut").textContent=won(Number(r.value));
+  $("hint").style.visibility="hidden";
+  $("nextBtn").disabled=false;
+  setProgress();
+}
+$("range").addEventListener("input",onMove);
+function nudge(dir){
+  const r=$("range"),s=Number(r.step);
+  r.value=Math.min(Number(r.max),Math.max(Number(r.min),Number(r.value)+dir*s));
+  onMove();
+}
+$("minusBtn").onclick=()=>nudge(-1);
+$("plusBtn").onclick=()=>nudge(1);
+
+function begin(){step=0;answers=[];makeRanges();renderStep();show("quiz");}
+$("beginBtn").onclick=begin;
+$("againBtn").onclick=begin;
+$("nextBtn").onclick=()=>{
+  if(!touched)return;
+  answers[step]=Number($("range").value);
+  if(step===ITEMS.length-1){compute();renderResult();show("result");return;}
+  step++;renderStep();
+};
+
+function compute(){
+  const errs=YEARS.map((y,yi)=>ITEMS.reduce((s,it,i)=>s+Math.abs(answers[i]-it.p[yi])/it.p[yi],0)/ITEMS.length);
+  let best=0;errs.forEach((e,i)=>{if(e<errs[best])best=i;});
+  const ratioNow=ITEMS.reduce((s,it,i)=>s+answers[i]/it.p[NOW],0)/ITEMS.length;
+  const ratioOld=ITEMS.reduce((s,it,i)=>s+answers[i]/it.p[0],0)/ITEMS.length;
+  const rows=ITEMS.map((it,i)=>({it,ans:answers[i],real:it.p[NOW],diff:Math.round((answers[i]-it.p[NOW])/it.p[NOW]*100)}));
+  const worst=rows.reduce((a,b)=>Math.abs(b.diff)>Math.abs(a.diff)?b:a);
+  const year=YEARS[best];
+  let kind="year";
+  if(ratioNow>1.10)kind="future";
+  else if(best===0&&ratioOld<.92)kind="before";
+  let res0="",title,sub,top="당신의 물가 감각은",yearText=year+"년",bottom="에 멈춰 있어요";
+  if(kind==="future"){title="미래에서 온 사람";yearText="2027년?";bottom="을 살고 있어요";sub="지금 가격보다 평균 "+Math.round((ratioNow-1)*100)+"% 비싸게 답했어요. 아직 안 오른 가격까지 아는 사람.";}
+  else if(year===2026){title="장보기 만렙";bottom=", 딱 지금이에요";sub="10개 평균 오차 "+Math.round(errs[best]*100)+"%. 요즘 가격을 제대로 알고 있어요.";}
+  else{
+    if(kind==="before"){yearText="2018년";bottom="보다도 전에 멈춰 있어요";title="타임캡슐에서 나온 사람";res0="2018년 가격보다도 평균 "+Math.round((1-ratioOld)*100)+"% 싸게 답했어요.";}
+    else if(year<=2018)title="타임캡슐에서 나온 사람";
+    else if(year===2019)title="코로나 전에 멈춘 사람";
+    else if(year<=2022)title="코로나 때 멈춘 사람";
+    else title="살짝 늦은 사람";
+    sub=res0||("지금 가격과 평균 "+Math.round(Math.abs(1-ratioNow)*100)+"% 차이 나요. "+year+"년 가격과 제일 비슷해요.");
+  }
+  res={year,kind,title,sub,top,yearText,bottom,rows,worst};
+}
+function renderResult(){
+  $("resTop").textContent=res.top;
+  $("resYear").textContent=res.yearText;
+  $("resBottom").textContent=res.bottom;
+  $("resTitle").textContent=res.title;
+  $("resSub").textContent=res.sub;
+  $("receiptRows").innerHTML=res.rows.map(r=>`<div class="receipt-row${r===res.worst?" worst":""}"><span class="item-name">${r.it.short}</span><span>${won(r.ans)}</span><span>${won(r.real)}</span><b>${r.diff>0?"+":""}${r.diff}%</b></div>`).join("");
+  $("worstText").textContent=`${res.worst.it.short}, ${Math.abs(res.worst.diff)}% 차이!`;
+  $("linkText").textContent="친구한테 보내기";
+}
+
+// 링크 보내기
+$("linkBtn").onclick=async()=>{
+  const url="https://tools.irukabloom.com/mulga/";
+  const text=res.kind==="future"?"내 물가 감각은 미래에 가 있대요. 당신은 몇 년도인가요?":`내 물가 감각은 ${res.yearText}에 멈춰 있대요. 당신은 몇 년도인가요?`;
+  try{
+    if(navigator.share){await navigator.share({title:"내 물가 감각은 몇 년도?",text,url});}
+    else{await navigator.clipboard.writeText(text+" "+url);$("linkText").textContent="링크를 복사했어요";setTimeout(()=>$("linkText").textContent="친구한테 보내기",1800);}
+  }catch(e){}
+};
+
+// 결과 카드 그리기 (1080×1920)
+function drawCard(){
+  const W=1080,H=1920,c=document.createElement("canvas");c.width=W;c.height=H;
+  const x=c.getContext("2d");
+  x.fillStyle="#FFF9EE";x.fillRect(0,0,W,H);
+  x.strokeStyle="#252321";x.lineWidth=5;x.setLineDash([16,14]);x.strokeRect(54,54,W-108,H-108);x.setLineDash([]);
+  x.textAlign="center";x.textBaseline="alphabetic";
+  x.fillStyle="#7357FF";x.font='34px "Gowun Dodum", sans-serif';x.fillText("MULGA CHECK · 2026 물가 감각 테스트",540,160);
+  x.fillStyle="#252321";x.font='58px "Black Han Sans", sans-serif';x.fillText(res.top,540,280);
+  x.fillStyle="#7357FF";
+  let ysz=res.yearText.length>5?190:220;x.font=`${ysz}px "Black Han Sans", sans-serif`;x.fillText(res.yearText,540,500);
+  x.fillStyle="#252321";
+  let bsz=58;x.font=`${bsz}px "Black Han Sans", sans-serif`;while(x.measureText(res.bottom).width>900&&bsz>36){bsz-=2;x.font=`${bsz}px "Black Han Sans", sans-serif`;}
+  x.fillText(res.bottom.replace(/^, /,""),540,600);
+  // 칭호
+  x.font='40px "Black Han Sans", sans-serif';
+  const tw=x.measureText(res.title).width+90;
+  x.save();x.translate(540,705);x.rotate(-.017);x.fillStyle="#7357FF";x.fillRect(-tw/2,-45,tw,90);x.fillStyle="#FFF9EE";x.fillText(res.title,0,15);x.restore();
+  // 표
+  const L=120,C1=640,C2=850,C3=965,top=830;
+  x.fillStyle="#EEE9FF";x.fillRect(90,top-50,900,780);
+  x.strokeStyle="#252321";x.lineWidth=3;x.strokeRect(90,top-50,900,780);
+  x.fillStyle="#252321";x.font='28px "Gowun Dodum", sans-serif';
+  x.textAlign="left";x.fillText("품목",L,top+10);
+  x.textAlign="right";x.fillText("내 답",C1,top+10);x.fillText("2026 실제",C2,top+10);x.fillText("차이",C3,top+10);
+  x.setLineDash([10,8]);x.beginPath();x.moveTo(110,top+34);x.lineTo(970,top+34);x.stroke();x.setLineDash([]);
+  res.rows.forEach((r,i)=>{
+    const y=top+100+i*68;
+    if(r===res.worst){x.fillStyle="#FFCF4A";x.fillRect(100,y-46,880,64);}
+    x.fillStyle="#252321";x.textAlign="left";x.font='34px "Gowun Dodum", sans-serif';x.fillText(r.it.short,L,y);
+    x.textAlign="right";x.font='34px "Black Han Sans", sans-serif';x.fillText(won(r.ans),C1,y);x.fillText(won(r.real),C2,y);
+    x.fillStyle="#7357FF";x.fillText((r.diff>0?"+":"")+r.diff+"%",C3,y);
+  });
+  // 가장 큰 오차
+  x.fillStyle="#FF5F73";x.fillRect(90,1630,900,130);
+  x.fillStyle="#FFF9EE";x.textAlign="center";x.font='30px "Gowun Dodum", sans-serif';x.fillText("가장 큰 오차",540,1680);
+  x.font='46px "Black Han Sans", sans-serif';x.fillText(`${res.worst.it.short} · ${Math.abs(res.worst.diff)}% 차이`,540,1736);
+  x.fillStyle="#252321";x.font='28px "Gowun Dodum", sans-serif';x.fillText("tools.irukabloom.com/mulga · 서울 평균 가격 기준",540,1830);
+  return c;
+}
+async function makeCard(){
+  const txt=res.top+res.yearText+res.bottom+res.title+"가장 큰 오차차이원%+-·,.0123456789?"+ITEMS.map(i=>i.short).join("");
+  try{await Promise.all([document.fonts.load('400 40px "Black Han Sans"',txt),document.fonts.load('400 30px "Gowun Dodum"',txt+"MULGACHECK물가감각테스트품목내답실제tools.irukabloom.com/mulga서울평균가격기준")]);}catch(e){}
+  const c=drawCard();
+  lastBlob=await new Promise(r=>c.toBlob(r,"image/png"));
+  if(cardUrl)URL.revokeObjectURL(cardUrl);
+  cardUrl=URL.createObjectURL(lastBlob);
+  $("cardImg").src=cardUrl;
+  shareFile=null;$("shareImgBtn").hidden=true;
+  if(navigator.canShare){const f=new File([lastBlob],fileName(),{type:"image/png"});try{if(navigator.canShare({files:[f]})){shareFile=f;$("shareImgBtn").hidden=false;}}catch(e){}}
+}
+function fileName(){return `물가감각-${res.kind==="future"?"미래":res.year}.png`;}
+$("toCardBtn").onclick=async()=>{$("saveMsg").textContent="";show("card");await makeCard();};
+$("backBtn").onclick=()=>show("result");
+$("saveBtn").onclick=()=>{
+  if(!lastBlob)return;
+  try{
+    const u=URL.createObjectURL(lastBlob),a=document.createElement("a");a.href=u;a.download=fileName();
+    document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),3000);
+    $("saveMsg").textContent="저장했어요. 안 보이면 이미지를 길게 눌러 저장하세요";
+  }catch(e){$("saveMsg").textContent="저장이 안 되면 이미지를 길게 눌러 저장하세요";}
+};
+$("shareImgBtn").onclick=async()=>{if(!shareFile)return;try{await navigator.share({files:[shareFile],title:"내 물가 감각은 몇 년도?"});}catch(e){}};
+
+// 설명 글 가격표
+(function(){
+  let h="<thead><tr><th>품목</th>"+YEARS.map(y=>`<th>${y}</th>`).join("")+"</tr></thead><tbody>";
+  ITEMS.forEach(it=>{h+=`<tr><td>${it.short}</td>`+it.p.map((v,i)=>`<td class="${i===NOW?"now":it.e.includes(i)?"est":""}">${v.toLocaleString("ko-KR")}</td>`).join("")+"</tr>";});
+  $("priceTable").innerHTML=h+"</tbody>";
+})();
+})();
+</script>
+
+<!-- 블로그 글 안에 끼워 넣을 때(?embed=1): 높이를 글에 알려 줌 -->
+<style>.is-embed footer{display:none}</style>
+<script>(function(){if(!/[?&]embed=1/.test(location.search)||window.parent===window)return;document.documentElement.classList.add("is-embed");function s(){parent.postMessage({type:"iruka-tool-height",height:Math.ceil(document.documentElement.scrollHeight)},"*")}addEventListener("load",s);if(window.ResizeObserver)new ResizeObserver(s).observe(document.body);setTimeout(s,300)})();</script>
+</body>
+</html>

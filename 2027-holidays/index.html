@@ -16,13 +16,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&display=swap" rel="stylesheet">
 <style>
-/* iOS Safari 인앱(iframe) 가로 흔들림 방지: 문서 폭을 화면에 고정 */
-html,body{overflow-x:hidden!important;max-width:100%!important;overscroll-behavior-x:none}
-@supports (overflow-x:clip){html,body{overflow-x:clip!important}} /* iOS 16+ : 스크롤 컨테이너를 만들지 않아 sticky 유지 */
-
 :root{font-family:"Gowun Dodum","Apple SD Gothic Neo",sans-serif;color:#252321;background:#fff9ee}
 *{box-sizing:border-box}
-body{margin:0;min-width:0;background:radial-gradient(circle at 15% 4%,rgba(255,203,80,.30),transparent 18%),radial-gradient(circle at 92% 10%,rgba(122,92,255,.12),transparent 20%),#fff9ee}
+body{margin:0;min-width:320px;background:radial-gradient(circle at 15% 4%,rgba(255,203,80,.30),transparent 18%),radial-gradient(circle at 92% 10%,rgba(122,92,255,.12),transparent 20%),#fff9ee}
 .wrap{width:min(100% - 32px,960px);margin:0 auto;padding:36px 0 56px;line-height:1.7;word-break:keep-all}
 .hero{text-align:center}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:#252321;color:#fff;font-size:12px;font-weight:700}
@@ -53,7 +49,7 @@ table{width:100%;border-collapse:collapse;background:#fff;border-radius:18px;ove
 th,td{padding:10px 14px;border-bottom:1px solid #f0ece5;text-align:left}
 th{background:#eee9ff;color:#4d3aba}
 td.sub{color:#ff5f73;font-weight:700}
-.longs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr));gap:10px}
+.longs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
 .longs li{padding:14px 18px;border-radius:20px;background:#eee9ff}
 .longs li:nth-child(even){background:#e7f7ef}
 .longs b{display:block;font-size:16px}

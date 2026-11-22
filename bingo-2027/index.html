@@ -2,8 +2,8 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<!-- 직접 열면 블로그 글로 넘김(blog-redirect). ?embed=1 로 블로그 안에 끼워 넣었을 때만 웹툴이 보임. 주소 뒤 #b= (내 판 링크)로 열면 넘기지 않음 -->
-<script>if(!/[?&]embed=1(&|#|$)/.test(location.search)&&!/(^|[#&])b=/.test(location.hash))location.replace("https://haeminlog.com/webtool-05-bingo-2027/");</script>
+<!-- 직접 열면 블로그 글로 넘김(blog-redirect). ?embed=1 로 블로그 안에 끼워 넣었을 때만 웹툴이 보임. 주소 뒤 #b= (내 판 링크)로 열면 넘기지 않음. 글이 아직 없어서 모음 페이지로 넘김 -->
+<script>if(!/[?&]embed=1(&|#|$)/.test(location.search)&&!/(^|[#&])b=/.test(location.hash))location.replace("https://haeminlog.com/category/life-webtools/");</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>2027 새해 빙고 만들기 | 목표 빙고판 메이커</title>
 <meta name="description" content="2027년 목표를 빙고판에 채우고 인스타 스토리 이미지로 저장하세요. 이룬 칸에는 도장을 찍고 몇 빙고인지 세어 줘요. 추천 목표 56개, 가입 없이 무료.">
@@ -17,14 +17,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&display=swap" rel="stylesheet">
 <style>
-/* iOS Safari 인앱(iframe) 가로 흔들림 방지: 문서 폭을 화면에 고정 */
-html,body{overflow-x:hidden!important;max-width:100%!important;overscroll-behavior-x:none}
-@supports (overflow-x:clip){html,body{overflow-x:clip!important}} /* iOS 16+ : 스크롤 컨테이너를 만들지 않아 sticky 유지 */
-
 :root{--cream:#fff9ee;--ink:#252321;--purple:#7357ff;--lavender:#eee9ff;--red:#ff5f73;--yellow:#ffcf4a}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{background:#e9e5dd;scroll-behavior:smooth}
-body{margin:0;min-width:0;color:var(--ink);background:#e9e5dd;font-family:'Gowun Dodum',sans-serif;font-synthesis:none}
+body{margin:0;min-width:320px;color:var(--ink);background:#e9e5dd;font-family:'Gowun Dodum',sans-serif;font-synthesis:none}
 button,input,textarea{font-family:inherit;color:inherit}
 button{cursor:pointer}
 [hidden]{display:none!important}
