@@ -1,5 +1,5 @@
 /* 픽툴 웹툴 번호·키워드 검색창
-   - 해민로그(category/life-webtools) 상단에 번호(#01~#05)·키워드 즉시 검색창을 붙임
+   - 해민로그(category/life-webtools) 상단에 번호(#01~#06)·키워드 즉시 검색창을 붙임
    - 번호는 01/#01/1, 공휴일 달력은 02-2 로도 찾힘
    - 다른 페이지에서는 아무것도 하지 않음
 */
@@ -15,9 +15,10 @@
     { n: '02', a: '02-2', t: '2027 공휴일 달력', d: '2027년 공휴일·대체공휴일·연휴 한눈에 보기', u: 'https://haeminlog.com/webtool-02-2027-holidays/', k: '공휴일 달력 대체공휴일 연휴 빨간날 2027' },
     { n: '03', t: '2026 결혼식 축의금 계산기', d: '관계와 식대를 넣으면 축의금 얼마 낼지 바로', u: 'https://haeminlog.com/webtool-03-chukuigeum/', k: '축의금 결혼식 식대 봉투 관계 참석' },
     { n: '04', t: '병맛 상장 생성기', d: '연말 모임에서 쓸 16가지 웃긴 상장 이미지 만들기', u: 'https://haeminlog.com/webtool-04-sangjang/', k: '상장 병맛 연말 시상식 지각상 읽씹 친구' },
-    { n: '05', t: '2027 새해 빙고 만들기', d: '목표 채우고 도장 찍는 2027 새해 빙고판', u: 'https://haeminlog.com/webtool-05-bingo-2027/', k: '빙고 새해 목표 2027 갓생 스토리 신년계획' }
+    { n: '05', t: '2027 새해 빙고 만들기', d: '목표 채우고 도장 찍는 2027 새해 빙고판', u: 'https://haeminlog.com/webtool-05-bingo-2027/', k: '빙고 새해 목표 2027 갓생 스토리 신년계획' },
+    { n: '06', t: '물가 감각 테스트', d: '요즘 가격 10개 맞히면 내 물가 감각이 몇 년도인지', u: 'https://haeminlog.com/webtool-06-mulga/', k: '물가 감각 테스트 요즘 가격 김밥 짜장면 지하철 냉면 외식비 몇년도 심리테스트' }
   ];
-  var CH = [['#01', '알바 벽', 0], ['#02', '연차', 1], ['#02', '공휴일', 2], ['#03', '축의금', 3], ['#04', '상장', 4], ['#05', '빙고', 5]];
+  var CH = [['#01', '알바 벽', 0], ['#02', '연차', 1], ['#02', '공휴일', 2], ['#03', '축의금', 3], ['#04', '상장', 4], ['#05', '빙고', 5], ['#06', '물가', 6]];
 
   for (var i = 0; i < D.length; i++) {
     D[i].h = ('#' + D[i].n + ' ' + D[i].n + ' ' + (D[i].a || '') + ' ' + D[i].t + ' ' + D[i].d + ' ' + D[i].k).toLowerCase();
@@ -58,11 +59,11 @@
   w.id = 'wtb-widget';
   w.className = 'wtb';
   w.innerHTML = ''
-    + '<p class="wtb-kick">PICKTOOL · #01–#05</p>'
+    + '<p class="wtb-kick">PICKTOOL · #01–#06</p>'
     + '<p class="wtb-h">번호로 바로 찾기</p>'
     + '<p class="wtb-p">번호(예: 05)나 이름을 넣으면 바로 나와요. 아래 칩을 누르면 한 번에 이동합니다.</p>'
     + '<label class="wtb-sr" for="wtb-q">웹툴 번호나 이름으로 찾기</label>'
-    + '<input id="wtb-q" class="wtb-q" type="search" placeholder="번호(#05)나 이름으로 찾기" autocomplete="off" enterkeyhint="search" aria-controls="wtb-list">'
+    + '<input id="wtb-q" class="wtb-q" type="search" placeholder="번호(#06)나 이름으로 찾기" autocomplete="off" enterkeyhint="search" aria-controls="wtb-list">'
     + '<p class="wtb-tip" id="wtb-tip" aria-live="polite"></p>'
     + '<div class="wtb-chips" id="wtb-chips"></div>'
     + '<ul class="wtb-list" id="wtb-list"></ul>';
@@ -134,14 +135,14 @@
   function render() {
     var q = norm(inp.value);
     list.innerHTML = '';
-    if (!q) { tip.textContent = '#01~#05 중에 고르거나, 이름 한 글자만 넣어 보세요.'; return; }
+    if (!q) { tip.textContent = '#01~#06 중에 고르거나, 이름 한 글자만 넣어 보세요.'; return; }
     var toks = q.split(' '), res = [];
     for (var i = 0; i < D.length; i++) {
       var ok = true;
       for (var j = 0; j < toks.length; j++) if (!hit(D[i], toks[j])) { ok = false; break; }
       if (ok) res.push(D[i]);
     }
-    if (!res.length) { tip.textContent = '그 번호나 이름은 아직 없어요. #01~#05를 눌러 보세요.'; return; }
+    if (!res.length) { tip.textContent = '그 번호나 이름은 아직 없어요. #01~#06을 눌러 보세요.'; return; }
     tip.textContent = res.length + '개 찾았어요. 누르면 바로 이동해요.';
     for (var r = 0; r < res.length; r++) list.appendChild(row(res[r]));
   }
