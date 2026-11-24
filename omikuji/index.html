@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<!-- 직접 열면 블로그 글로 넘김(blog-redirect). ?embed=1 로 블로그 안에 끼워 넣었을 때만 웹툴이 보임 -->
+<script>if(!/[?&]embed=1(&|#|$)/.test(location.search))location.replace("https://haeminlog.com/category/life-webtools/");</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>오늘의 오미쿠지 | 매일 종이운세 뽑기와 한자 해석</title>
+<meta name="description" content="일본 신사에서 뽑는 종이 운세, 오미쿠지를 폰에서 하루 한 번 뽑아 보세요. 오미쿠지 순서(대길·길·중길·소길·말길·흉), 한자 항목 해석, 흉이 나왔을 때 하는 법까지 한국어로 알려 줘요.">
+<link rel="canonical" href="https://tools.irukabloom.com/omikuji/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="오늘의 오미쿠지 | 매일 종이운세 뽑기">
+<meta property="og:description" content="종이운세를 하루 한 번. 뽑아 온 종이의 한자 뜻도 찾아보세요">
+<meta property="og:url" content="https://tools.irukabloom.com/omikuji/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#FFF9EE;--ink:#252321;--accent:#7357FF;--lavender:#EEE9FF;--red:#FF5F73;--yellow:#FFCF4A;--soft:#5d5853;
+  --han:'Black Han Sans',sans-serif;--kanji:'Shippori Mincho B1','Hiragino Mincho ProN','Yu Mincho',serif;
+  --out:cubic-bezier(.23,1,.32,1);--inout:cubic-bezier(.77,0,.175,1)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+::selection{background:var(--yellow);color:var(--ink)}
+html{background:var(--lavender);-webkit-text-size-adjust:100%}
+body{margin:0;display:flow-root;min-width:0;overflow-x:hidden;color:var(--ink);font-family:'Gowun Dodum',sans-serif;font-synthesis:none;word-break:keep-all;overflow-wrap:anywhere;
+  background:linear-gradient(135deg,var(--lavender) 25%,transparent 25%) 0 0/18px 18px,var(--paper)}
+button,input{font-family:inherit;color:inherit;font-size:inherit}
+button{cursor:pointer;background:none;border:0;padding:0}
+h1,h2,h3,p,ol,ul,dl,dd{margin:0}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+[lang=ja]{font-family:var(--kanji);font-weight:700}
+
+.phone{position:relative;width:min(100%,390px);margin:0 auto;overflow:hidden;background:var(--paper);box-shadow:0 18px 70px rgba(37,35,33,.2)}
+.tabs{display:grid;grid-template-columns:1fr 1fr;border-bottom:2px solid var(--ink)}
+.tabs button{min-height:54px;font:400 19px/1 var(--han);letter-spacing:-.03em;transition:background-color .16s ease}
+.tabs button+button{border-left:2px solid var(--ink)}
+.tabs button[aria-selected=true]{background:var(--accent);color:#fff}
+.tabs :focus-visible{outline-offset:-6px;outline-color:var(--ink)}
+[hidden]{display:none!important}
+.screen{padding:24px 18px 26px}
+
+.primary-button,.secondary-button{width:100%;min-height:56px;display:flex;align-items:center;justify-content:center;gap:10px;border:2px solid var(--ink);font-size:17px;font-weight:900;transition:transform .14s var(--out),box-shadow .14s var(--out)}
+.primary-button{color:#fff;background:var(--accent);box-shadow:4px 4px 0 var(--ink)}
+.secondary-button{background:var(--lavender)}
+.primary-button:active,.secondary-button:active{transform:translate(3px,3px);box-shadow:none}
+.primary-button:disabled,.secondary-button:disabled{opacity:.45;cursor:default;transform:none}
+.text-button{min-height:44px;width:100%;font-size:14px;text-decoration:underline;text-underline-offset:4px}
+button svg{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+/* 뽑기 시작 */
+#draw{text-align:center}
+#draw h1{font:400 clamp(43px,13vw,52px)/1.05 var(--han);letter-spacing:-.04em}
+.ko-name{margin-top:8px;font:400 23px/1.25 var(--han);letter-spacing:-.03em;color:var(--accent)}
+.what{margin:10px auto 0;max-width:22em;font-size:15px;line-height:1.6;text-wrap:balance}
+.tube-button{display:block;width:100%;height:300px;margin:8px 0 4px;touch-action:manipulation}
+.tube-button svg{display:block;width:100%;height:100%;overflow:visible;stroke:none;fill:none}
+.tube-g,.stick{transform-box:view-box;transform-origin:180px 158px}
+.stick{transform:translateY(0)}
+@media (hover:hover) and (pointer:fine){.tube-button:hover .tube-g{transform:rotate(-4deg)}}
+.tube-g{transition:transform .2s var(--out)}
+.tube-button:active .tube-g{transform:scale(.97)}
+.draw-msg{min-height:30px;margin-bottom:12px;font-size:15px;line-height:1.6}
+.draw-msg b{font:400 24px/1 var(--han);color:var(--accent)}
+.actions{display:grid;gap:12px}
+.fine{margin-top:14px;font-size:13px;line-height:1.6;color:var(--soft)}
+.is-drawing .tube-g{animation:rattle 1.15s linear,tip .5s 1.15s var(--inout) forwards}
+.is-drawing .stick{animation:slide .55s 1.6s var(--out) forwards}
+@keyframes rattle{0%,100%{transform:rotate(0)}10%{transform:translateY(-10px) rotate(-11deg)}20%{transform:translateY(4px) rotate(9deg)}30%{transform:translateY(-12px) rotate(-12deg)}40%{transform:translateY(4px) rotate(11deg)}50%{transform:translateY(-12px) rotate(-12deg)}60%{transform:translateY(4px) rotate(11deg)}70%{transform:translateY(-10px) rotate(-9deg)}80%{transform:translateY(3px) rotate(7deg)}90%{transform:rotate(-4deg)}}
+@keyframes tip{to{transform:translateY(-34px) rotate(140deg)}}
+@keyframes slide{to{transform:translateY(-84px)}}
+
+/* 종이 */
+.slip{position:relative;border:2px solid var(--ink);background:#fffdf8;transform-origin:50% 0}
+.slip.unfold{animation:unfold .75s var(--out)}
+@keyframes unfold{from{clip-path:inset(0 0 92% 0)}to{clip-path:inset(0 0 0 0)}}
+.slip-top{display:grid;grid-template-columns:132px 1fr;min-height:252px;border-bottom:2px solid var(--ink)}
+.slip-kanji{display:flex;flex-direction:column;align-items:center;justify-content:center;border-right:2px solid var(--ink);background:var(--yellow);font-family:var(--kanji);font-weight:800;font-size:98px;line-height:1.06}
+.slip-kanji.one{font-size:112px}
+.slip[data-lv="2"] .slip-kanji,.slip[data-lv="3"] .slip-kanji{background:#ffe9a8}
+.slip[data-lv="4"] .slip-kanji,.slip[data-lv="5"] .slip-kanji{background:var(--lavender)}
+.slip-copy{padding:18px 16px;display:flex;flex-direction:column;justify-content:space-between;gap:14px}
+.slip-no{font-size:13px;color:var(--soft)}
+.slip-ko{margin-top:4px;font:400 46px/1.1 var(--han);letter-spacing:-.03em}
+.slip-lead{font-size:17px;line-height:1.6}
+.slip-rows{display:grid}
+.slip-row{display:grid;grid-template-columns:58px 1fr;align-items:center;min-height:62px}
+.slip-row+.slip-row{border-top:1px dotted rgba(37,35,33,.45)}
+.slip-row dt{display:grid;justify-items:center;gap:1px;font-size:13px;line-height:1.2}
+.slip-row dt b{font-size:17px}
+.slip-row dd{padding:9px 14px 9px 4px;font-size:16px;line-height:1.5}
+.kyo-note{margin-top:14px;padding:13px 14px;background:var(--lavender);font-size:15px;line-height:1.6}
+.kyo-note button{min-height:44px;text-decoration:underline;text-underline-offset:4px;font-weight:700}
+#result .actions{margin-top:20px}
+.next-time{margin:0 0 14px;text-align:center;font-size:14px}
+
+/* 저장 카드 */
+#card{background:var(--lavender);display:flex;flex-direction:column;align-items:center;gap:14px}
+#card[hidden]{display:none}
+#cardImg{display:block;width:auto;max-width:100%;height:560px;aspect-ratio:9/16;border:2px solid var(--ink);box-shadow:5px 5px 0 var(--ink);background:var(--paper)}
+#card p{font-size:14px;text-align:center}
+#card .actions{width:100%}
+.save-msg{min-height:20px;color:#4a2fe0}
+
+/* 해석기 */
+.read-intro h1{font:400 34px/1.15 var(--han);letter-spacing:-.04em}
+.read-intro p{margin-top:8px;font-size:15px;line-height:1.65}
+.search{position:relative;margin-top:18px}
+.search input{width:100%;height:54px;padding:0 44px 0 14px;border:2px solid var(--ink);border-radius:0;background:#fffdf8;font-size:16px;-webkit-appearance:none;appearance:none;caret-color:var(--accent)}
+.search input::placeholder{color:#6b655f;opacity:1}
+.search input::-webkit-search-cancel-button{display:none}
+.search button{position:absolute;right:4px;top:5px;width:44px;height:44px;display:grid;place-items:center}
+.search button[hidden]{display:none}
+.jump{display:grid;grid-template-columns:repeat(4,1fr);margin-top:12px;gap:6px}
+.jump button{min-height:46px;padding:0 4px;border:1.5px solid var(--ink);font-size:14px;font-weight:700;transition:background-color .16s ease}
+.jump button:active{background:var(--yellow)}
+@media (hover:hover) and (pointer:fine){.jump button:hover{background:var(--lavender)}}
+.sec{padding-top:36px;scroll-margin-top:0}
+.sec[hidden]{display:none}
+.sec h2{font:400 26px/1.25 var(--han);letter-spacing:-.03em}
+.sec>p{margin-top:8px;font-size:15px;line-height:1.7}
+.sec h3{margin:24px 0 4px;font:400 18px/1.3 var(--han);letter-spacing:-.02em;color:#4a2fe0}
+.rank{list-style:none;padding:0;margin-top:14px;border:2px solid var(--ink)}
+.rank li{display:grid;grid-template-columns:78px 56px 1fr;align-items:center;min-height:74px;padding:10px 12px;font-size:14.5px;line-height:1.5}
+.rank li+li{border-top:1.5px solid var(--ink)}
+.rank li>span:first-child{align-self:stretch;display:grid;place-items:center;min-height:52px;font-size:27px;font-weight:800;background:var(--yellow)}
+.rank li:nth-child(3)>span:first-child,.rank li:nth-child(4)>span:first-child{background:#ffe9a8}
+.rank li:nth-child(5)>span:first-child,.rank li:nth-child(6)>span:first-child{background:var(--lavender)}
+.rank b{text-align:center;font:400 18px/1 var(--han)}
+.alt-rank{margin-top:14px;padding:13px 14px;background:var(--lavender);font-size:15px;line-height:1.7}
+.alt-rank [lang=ja]{white-space:nowrap}
+.term{border-bottom:1px dotted rgba(37,35,33,.5)}
+.term summary{display:grid;grid-template-columns:104px 1fr 22px;align-items:center;min-height:56px;padding:6px 0;cursor:pointer;list-style:none}
+.term summary::-webkit-details-marker{display:none}
+.term summary [lang=ja]{font-size:25px;line-height:1.2}
+.term summary b{font-size:17px;line-height:1.35}
+.term svg{width:20px;height:20px;fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .18s var(--out)}
+.term[open] svg{transform:rotate(180deg)}
+.term div{padding:2px 0 16px;font-size:15px;line-height:1.7}
+.term div span{display:block;font-size:14px;color:var(--soft)}
+.words{margin-top:12px}
+.words>div{display:grid;grid-template-columns:128px 1fr;gap:4px;align-items:center;min-height:56px;padding:8px 0;border-bottom:1px dotted rgba(37,35,33,.5)}
+.words dt [lang=ja]{display:block;font-size:21px;line-height:1.25}
+.words dt small{font-size:13px;color:var(--soft)}
+.words dd{font-size:16px;line-height:1.5}
+.words>div[hidden],.term[hidden],.grp[hidden]{display:none}
+.steps{padding:0;margin-top:14px;list-style:none;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:34px 1fr;padding:12px 0;border-bottom:1px dotted rgba(37,35,33,.5);font-size:15.5px;line-height:1.65}
+.steps li::before{content:counter(s);font:400 24px/1.1 var(--han);color:var(--accent)}
+.empty{padding:34px 0 6px;font-size:16px;line-height:1.7;text-align:center}
+.empty[hidden]{display:none}
+
+/* 설명 글 */
+.info{position:relative;width:min(100%,390px);margin:0 auto;padding:34px 20px 34px;background:var(--paper);border-top:2px solid var(--ink);line-height:1.75}
+.info h2{margin:34px 0 8px;font:400 22px/1.3 var(--han);letter-spacing:-.03em}
+.info h2:first-child{margin-top:0}
+.info p,.info li{font-size:15px}
+.info p+p{margin-top:10px}
+.info ul{padding-left:20px;margin-top:8px}
+.info .ref{font-size:13px;color:var(--soft)}
+.info a{color:#4a2fe0;text-underline-offset:3px}
+footer.site{position:relative;width:min(100%,390px);margin:0 auto;padding:18px;text-align:center;background:var(--paper);border-top:1.5px dashed var(--ink);font-size:14px}
+footer.site a{color:var(--ink);font-weight:700}
+@media (min-width:600px){.phone{margin-top:24px;border:2px solid var(--ink)}.info,footer.site{border-left:2px solid var(--ink);border-right:2px solid var(--ink)}footer.site{margin-bottom:24px;border-bottom:2px solid var(--ink)}.is-embed .info{border-bottom:2px solid var(--ink);margin-bottom:24px}}
+@media (max-width:345px){.slip-top{grid-template-columns:104px 1fr}.slip-kanji{font-size:80px}.slip-kanji.one{font-size:90px}.slip-ko{font-size:38px}.term summary{grid-template-columns:88px 1fr 22px}.jump button{font-size:13px}.rank li{grid-template-columns:66px 48px 1fr}}
+@media (prefers-reduced-motion:reduce){.is-drawing .tube-g,.is-drawing .stick{animation:none}.slip.unfold{animation:fade .2s ease}@keyframes fade{from{opacity:.2}}.primary-button,.secondary-button,.tube-g{transition:none}}
+</style>
+</head>
+<body>
+<section class="phone" id="phone">
+  <div class="tabs" role="tablist" aria-label="오미쿠지">
+    <button type="button" role="tab" id="tabDraw" aria-controls="panelDraw" aria-selected="true">뽑기</button>
+    <button type="button" role="tab" id="tabRead" aria-controls="panelRead" aria-selected="false" tabindex="-1">해석기</button>
+  </div>
+
+  <div class="panel" id="panelDraw" role="tabpanel" aria-labelledby="tabDraw">
+    <div class="screen" id="draw">
+      <h1>오늘의 오미쿠지</h1>
+      <p class="ko-name">매일 종이운세 뽑기</p>
+      <p class="what">통을 흔들어 번호를 뽑고, 그 번호가 적힌 종이로 오늘의 운을 봐요.</p>
+      <button class="tube-button" id="tubeBtn" type="button" aria-label="통을 흔들어 오미쿠지 뽑기">
+        <svg viewBox="0 0 360 300" aria-hidden="true">
+          <defs><clipPath id="hole"><path d="M120-60h120V66h-47a13 7 0 0 1-26 0h-47z"/></clipPath></defs>
+          <g class="tube-g">
+            <path d="M118 66 148 46h64l30 20-30 20h-64z" fill="#FFE9A8" stroke="#252321" stroke-width="4" stroke-linejoin="round"/>
+            <ellipse cx="180" cy="66" rx="13" ry="7" fill="#252321"/>
+            <g clip-path="url(#hole)"><g class="stick"><rect x="172" y="72" width="16" height="130" fill="#FFF9EE" stroke="#252321" stroke-width="3"/><rect x="172" y="72" width="16" height="24" fill="#FF5F73" stroke="#252321" stroke-width="3"/></g></g>
+            <path d="M118 66v172l30 22V86z" fill="#E3B238" stroke="#252321" stroke-width="4" stroke-linejoin="round"/>
+            <path d="M242 66v172l-30 22V86z" fill="#E3B238" stroke="#252321" stroke-width="4" stroke-linejoin="round"/>
+            <path d="M148 86h64v174h-64z" fill="#FFCF4A" stroke="#252321" stroke-width="4" stroke-linejoin="round"/>
+            <path d="M118 92l30 20h64l30-20v16l-30 20h-64l-30-20z" fill="#FF5F73" stroke="#252321" stroke-width="3" stroke-linejoin="round"/>
+            <path d="M118 210l30 21h64l30-21v16l-30 21h-64l-30-21z" fill="#FF5F73" stroke="#252321" stroke-width="3" stroke-linejoin="round"/>
+            <g fill="#252321" font-family="'Shippori Mincho B1','Hiragino Mincho ProN',serif" font-weight="800" font-size="22" text-anchor="middle"><text x="180" y="152">お</text><text x="180" y="175">み</text><text x="180" y="198">く</text><text x="180" y="221">じ</text></g>
+          </g>
+        </svg>
+      </button>
+      <p class="draw-msg" id="drawMsg" aria-live="polite">통을 누르면 막대가 하나 나와요.</p>
+      <div class="actions">
+        <button class="primary-button" id="drawBtn" type="button">통 흔들어 뽑기</button>
+        <button class="secondary-button" id="shakeBtn" type="button" hidden>폰을 흔들어 뽑기</button>
+      </div>
+      <p class="fine">하루에 한 번만 뽑을 수 있어요. 재미로 보는 운세예요.</p>
+    </div>
+
+    <div class="screen" id="result" hidden>
+      <article class="slip" id="slip" data-lv="0">
+        <div class="slip-top">
+          <div class="slip-kanji" id="slipKanji" lang="ja"></div>
+          <div class="slip-copy">
+            <div><p class="slip-no" id="slipNo"></p><h1 class="slip-ko" id="slipKo"></h1></div>
+            <p class="slip-lead" id="slipLead"></p>
+          </div>
+        </div>
+        <dl class="slip-rows" id="slipRows"></dl>
+      </article>
+      <div class="kyo-note" id="kyoNote" hidden>흉은 조심하라는 뜻이에요. 일본에서는 신사에 묶어 두고 오기도 해요.<br><button type="button" id="kyoBtn">흉이 나왔을 때 하는 법 보기</button></div>
+      <div class="actions">
+        <p class="next-time" id="nextTime"></p>
+        <button class="primary-button" id="toCardBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14"/></svg> 종이 이미지로 저장</button>
+        <button class="secondary-button" id="linkBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.5M8.2 13.2l7.6 4.5"/></svg> <span id="linkText">친구한테 보내기</span></button>
+        <button class="text-button" id="toReadBtn" type="button">일본에서 뽑은 종이 해석하기</button>
+      </div>
+    </div>
+
+    <div class="screen" id="card" hidden>
+      <img id="cardImg" src="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=" alt="오늘의 오미쿠지 결과 카드">
+      <p>이미지를 길게 눌러도 저장돼요.</p>
+      <div class="actions">
+        <button class="primary-button" id="saveBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14"/></svg> 저장하기</button>
+        <button class="secondary-button" id="shareImgBtn" type="button" hidden>인스타·카톡으로 공유하기</button>
+        <button class="text-button" id="backBtn" type="button">결과로 돌아가기</button>
+      </div>
+      <p class="save-msg" id="saveMsg" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="panel" id="panelRead" role="tabpanel" aria-labelledby="tabRead" hidden>
+    <div class="screen">
+      <div class="read-intro">
+        <h1>오미쿠지 해석기</h1>
+        <p>일본에서 뽑은 종이 운세(오미쿠지)와 같은 글자를 찾아 눌러 보세요.</p>
+      </div>
+      <div class="search">
+        <input id="q" type="search" placeholder="한자나 한국어로 찾기" aria-label="한자나 한국어로 찾기" autocomplete="off" enterkeyhint="search">
+        <button type="button" id="qClear" aria-label="검색어 지우기" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      </div>
+      <div class="jump" id="jump">
+        <button type="button" data-to="secRank">길흉 순서</button><button type="button" data-to="secTerm">한자 항목</button><button type="button" data-to="secWord">짧은 답</button><button type="button" data-to="secKyo">흉일 때</button>
+      </div>
+      <p class="empty" id="empty" hidden></p>
+
+      <section class="sec" id="secRank">
+        <h2>오미쿠지 길흉 순서</h2>
+        <p>가장 많이 쓰는 순서예요. 위로 갈수록 좋아요.</p>
+        <ol class="rank">
+          <li><span lang="ja">大吉</span><b>대길</b><span>가장 좋은 운</span></li>
+          <li><span lang="ja">吉</span><b>길</b><span>좋은 운. 중길보다 위로 보는 곳이 많아요</span></li>
+          <li><span lang="ja">中吉</span><b>중길</b><span>꽤 좋은 운</span></li>
+          <li><span lang="ja">小吉</span><b>소길</b><span>작게 좋은 운</span></li>
+          <li><span lang="ja">末吉</span><b>말길</b><span>나중에 차차 좋아질 운</span></li>
+          <li><span lang="ja">凶</span><b>흉</b><span>조심해야 하는 운</span></li>
+        </ol>
+        <p class="alt-rank">순서에 정답은 없어요. 길을 소길 아래에 두어 <span lang="ja">大吉 › 中吉 › 小吉 › 吉 › 末吉 › 凶</span> 순서로 보는 곳도 있어요. 반길(<span lang="ja">半吉</span>), 말소길(<span lang="ja">末小吉</span>), 대흉(<span lang="ja">大凶</span>)이 있는 곳도 있으니, 뽑은 신사나 절의 안내를 먼저 봐 주세요.</p>
+      </section>
+
+      <section class="sec" id="secTerm">
+        <h2>한자 항목 25개</h2>
+        <p>글자를 누르면 읽는 법과 뜻이 나와요. <span lang="ja">失物</span>와 <span lang="ja">失せ物</span>처럼 글자가 조금 달라도 뜻은 같아요.</p>
+        <div id="terms"></div>
+      </section>
+
+      <section class="sec" id="secWord">
+        <h2>자주 나오는 짧은 답</h2>
+        <p>항목 아래에 적힌 옛말이에요. 어느 항목에 붙었는지에 따라 느낌이 조금 달라져요.</p>
+        <dl class="words" id="words"></dl>
+      </section>
+
+      <section class="sec" id="secKyo">
+        <h2>흉이 나왔을 때</h2>
+        <p>묶고 와도 되고 가져가도 돼요. 정해진 규칙은 없어요.</p>
+        <ol class="steps">
+          <li><span>끝까지 읽어요. 흉이어도 조심할 점과 조언이 적혀 있어요.</span></li>
+          <li><span>묶고 싶다면 세로로 두 번 접어 가늘고 길게 만들어요.</span></li>
+          <li><span>신사나 절이 정해 둔 묶는 자리에 한 번만 살살 묶어요. 나뭇가지에 묶으면 나무가 다쳐요.</span></li>
+          <li><span>가져왔다면 지니고 다니며 가끔 읽어요. 나중에 돌려줄 때는 신사 것은 신사에, 절 것은 절에 돌려줘요.</span></li>
+        </ol>
+        <p class="alt-rank">“평소 안 쓰는 손으로 묶으면 흉이 길로 바뀐다”는 말도 있어요. 예부터 전해지는 속설이에요.</p>
+      </section>
+    </div>
+  </div>
+</section>
+
+<article class="info" id="info">
+  <h2>오미쿠지가 뭐예요?</h2>
+  <p>오미쿠지(おみくじ)는 일본 신사나 절에서 뽑는 종이 운세예요. 통을 흔들어 막대를 뽑고, 막대에 적힌 번호의 종이를 받아요. 종이에는 대길이나 흉 같은 길흉과 함께 소원, 연애, 금전, 여행, 건강에 대한 짧은 조언이 적혀 있어요. 새해 첫 참배인 하쓰모데 때 많이 뽑아요.</p>
+
+  <h2>일본에서 오미쿠지 뽑는 법</h2>
+  <ul>
+    <li>참배를 먼저 하고 그다음에 뽑아요.</li>
+    <li>알고 싶은 일 하나를 떠올리며 통을 흔들어요.</li>
+    <li>결과가 아쉬워도 다시 뽑지 않는 것이 예의예요.</li>
+    <li>길흉보다 안에 적힌 글이 더 중요해요.</li>
+  </ul>
+
+  <h2>이 뽑기의 확률은 얼마예요?</h2>
+  <p>막대 100개 가운데 대길 16개, 길 24개, 중길 20개, 소길 18개, 말길 14개, 흉 8개가 들어 있어요. 픽툴이 정한 비율이고, 실제 비율은 신사와 절마다 달라요. 도쿄 센소지는 흉이 약 30%로 알려져 있어요.</p>
+
+  <h2>하루에 몇 번 뽑을 수 있어요?</h2>
+  <p>하루에 한 번이에요. 밤 12시가 지나면 새로 뽑을 수 있어요. 결과는 지금 쓰는 브라우저 안에만 남고 다른 곳으로 보내지 않아요.</p>
+
+  <h2>확인한 자료</h2>
+  <p class="ref">길흉 순서와 묶는 법, 항목 뜻: <a href="https://allabout.co.jp/gm/gc/220579/" target="_blank" rel="noopener">All About 생활 세시기</a>(일본 신사본청 문의 내용 포함), <a href="https://lovezow.jp/naiyou/" target="_blank" rel="noopener">LOVEZOW</a>. 짧은 답: <a href="https://omikuji-sando.com/column/2196/" target="_blank" rel="noopener">오미쿠지 산도</a>, <a href="https://wadaiblo.com/4035.html" target="_blank" rel="noopener">와다이블로</a>. 센소지 비율: <a href="https://tabi-mag.jp/unknown-japan78/" target="_blank" rel="noopener">닛폰 다비 매거진</a>. 2026년 11월 24일 확인. 운세 문구는 픽툴이 새로 쓴 글이에요.</p>
+</article>
+<footer class="site"><a href="../">다른 웹툴 보기</a></footer>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+// 길흉 단계: 한자, 한국어, 막대 100개 가운데 몇 개
+const LV=[{k:"大吉",n:"대길",c:16},{k:"吉",n:"길",c:24},{k:"中吉",n:"중길",c:20},{k:"小吉",n:"소길",c:18},{k:"末吉",n:"말길",c:14},{k:"凶",n:"흉",c:8}];
+const TOPICS=[["願望","소원"],["恋愛","연애"],["金運","금전"],["旅行","여행"],["健康","건강"],["仕事","일"]];
+// 문구: 단계마다 총운·소원·연애·금전·여행·건강·일, 각 3가지
+const T=[
+ [["미뤄 둔 일, 오늘 꺼내면 풀려요.","먼저 움직이는 쪽에 운이 붙어요.","기다리던 소식이 가까이 와 있어요."],
+  ["이루어져요. 먼저 말로 꺼내 보세요","생각보다 빨리 이루어져요","도와줄 사람이 이미 곁에 있어요"],
+  ["먼저 연락하면 답이 빨라요","마음이 그대로 전해져요","우연한 만남을 그냥 지나치지 마세요"],
+  ["뜻밖의 돈이 들어와요","쓴 만큼 좋은 일로 돌아와요","묵혀 둔 물건이 돈이 돼요"],
+  ["어디로 가도 좋아요","처음 가는 동네에서 좋은 일이 있어요","계획 없이 떠나도 술술 풀려요"],
+  ["몸이 가벼워요","밀린 피로가 풀려요","새 운동을 시작하기 좋아요"],
+  ["하던 대로 밀고 가세요","내 의견이 통하는 날이에요","어려운 부탁도 오늘은 들어줘요"]],
+ [["바람이 등 뒤에서 불어요.","하던 일을 꾸준히 하면 좋은 끝이 와요.","작은 친절이 큰 복으로 돌아와요."],
+  ["이루어져요. 서두르지만 않으면 돼요","바라던 모양과 조금 달라도 이루어져요","정성을 들인 만큼 이루어져요"],
+  ["웃는 얼굴이 가장 큰 무기예요","오래 알던 사람을 다시 보게 돼요","솔직한 한마디가 통해요"],
+  ["들어오는 돈이 나가는 돈보다 많아요","필요한 것을 좋은 값에 사요","모으기 시작하기 좋은 날이에요"],
+  ["동행이 있으면 더 좋아요","맛집 운이 좋아요","미뤄 둔 여행을 예약해 보세요"],
+  ["잘 먹고 잘 자는 날이에요","걷기만 해도 기운이 나요","걱정하던 곳이 괜찮아져요"],
+  ["맡은 일이 깔끔하게 끝나요","칭찬을 들어요","새로운 일을 맡아도 잘 해내요"]],
+ [["중간까지 왔어요. 조금만 더 가면 돼요.","욕심을 조금 덜면 전부 잘돼요.","좋은 일과 바쁜 일이 같이 와요."],
+  ["반은 이루어졌어요. 나머지도 곧이에요","한 가지로 좁히면 이루어져요","주위에 말해 두면 길이 열려요"],
+  ["서로 조금씩 다가가요","약속을 잡으면 분위기가 좋아요","상대의 말에 힌트가 있어요"],
+  ["큰돈은 아니어도 모자라지 않아요","계획대로 쓰면 남아요","빌려준 것을 돌려받아요"],
+  ["한 시간 일찍 나서면 좋아요","물가 쪽이 좋아요","가 본 곳에 다시 가도 새로워요"],
+  ["물을 자주 마셔요","무리만 안 하면 좋아요","저녁 산책이 잘 맞아요"],
+  ["여럿이 하면 더 잘돼요","정리만 해도 반은 끝나요","점심 뒤에 일이 잘 풀려요"]],
+ [["작은 일이 하나씩 맞아떨어져요.","평범해서 다행인 하루예요.","눈앞의 것부터 하면 충분해요."],
+  ["조금 늦지만 이루어져요","작은 소원부터 이루어져요","한 번 더 부탁해 보세요"],
+  ["천천히 가까워져요","짧은 안부부터 시작해요","친구로 두면 더 깊어져요"],
+  ["아낀 만큼 남아요","커피 한 잔 값은 벌어요","가계부를 쓰면 구멍이 보여요"],
+  ["가까운 곳이 좋아요","짐은 가볍게 챙겨요","우산을 챙기면 쓸 일이 있어요"],
+  ["잠을 30분 더 자요","따뜻한 것을 먹어요","스트레칭을 자주 해요"],
+  ["도와주는 사람이 나타나요","쉬운 일부터 끝내요","메모해 두면 나중에 써먹어요"]],
+ [["지금은 씨를 뿌리는 때예요.","느려도 방향은 맞아요.","오늘의 답은 며칠 뒤에 나와요."],
+  ["때가 되면 이루어져요","지금은 준비할 시간이에요","포기만 안 하면 이루어져요"],
+  ["상대에게 시간을 줘요","서두르면 멀어져요","나를 먼저 챙기면 인연이 와요"],
+  ["지금은 모을 때예요","큰 지출은 다음 달로 미뤄요","작은 할인부터 챙겨요"],
+  ["출발 전에 시간표를 다시 봐요","다음 여행을 계획하기 좋아요","익숙한 길이 편해요"],
+  ["무리한 약속은 줄여요","일찍 눕는 게 약이에요","배를 따뜻하게 해요"],
+  ["지금은 배우는 때예요","결과는 조금 늦게 나와요","서두르지 않으면 실수도 없어요"]],
+ [["오늘은 속도를 줄이는 날이에요.","바닥을 봤으니 이제 올라갈 차례예요.","조심한 만큼 무사히 지나가요."],
+  ["지금은 일러요. 때를 기다려요","바람을 조금 바꿔 보세요","욕심을 내려놓으면 길이 보여요"],
+  ["말보다 들어 주는 쪽이 이겨요","오늘은 답장을 재촉하지 마세요","오해는 하루 자고 풀어요"],
+  ["충동구매만 참으면 괜찮아요","지갑을 한 번 더 확인해요","빌려주지도 빌리지도 마세요"],
+  ["일정에 여유를 둬요","막차 시간을 미리 봐 둬요","오늘은 집이 제일 좋아요"],
+  ["무리하지 말고 쉬어요","찬 것보다 따뜻한 것을 먹어요","계단에서는 폰을 넣어요"],
+  ["보내기 전에 한 번 더 확인해요","중요한 결정은 내일 해요","모르면 물어보는 게 빨라요"]]
+];
+// 해석기: [묶음, [[한자, 읽기, 뜻, 설명, 같은 뜻 글자]]]
+const TERMS=[
+ ["소원·사람",[
+  ["願望","간보·네가이고토","소원","바라는 일이 이루어지는지 적혀 있어요.","願事, 願い事"],
+  ["待人","마치비토","기다리는 사람","연애 상대만 뜻하지 않아요. 내 인생에 중요한 사람이나 반가운 소식이 오는지 봐요.","待ち人"],
+  ["走人","하시리비토","떠나간 사람","곁을 떠난 사람이나 집을 나간 사람에 대한 항목이에요.","走り人"],
+  ["悦事","요로코비고토","기쁜 일","소원과 달리 생각하지 못한 기쁜 일을 말해요.","悦び事, 喜び事"]]],
+ ["사랑·가족",[
+  ["恋愛","렌아이","연애","사귀는 사람이나 좋아하는 사람과의 일이에요.","愛情"],
+  ["縁談","엔단","혼담","결혼 이야기, 결혼 상대와의 만남이에요.","婚姻"],
+  ["交際","고사이","교제","사람을 사귀는 일이에요. 친구 사이까지 넓게 보기도 해요.","交友"],
+  ["出産","슛산","출산","아이를 낳는 일이에요.","お産, 産児, 出生"],
+  ["家庭","가테이","가정","가족과의 관계예요.",""]]],
+ ["일·공부·돈",[
+  ["商売","쇼바이·아키나이","장사, 일","장사뿐 아니라 지금 하는 일 전반을 봐요.","商法"],
+  ["事業","지교","사업","하고 있는 사업이나 새로 벌일 일이에요.","仕事"],
+  ["求人","규진","사람 구하기","일할 사람이나 도와줄 사람을 구하는 일이에요.","雇人, 人雇, 抱人"],
+  ["学問","가쿠몬","공부","공부와 배움에 대한 항목이에요.","学業"],
+  ["試験","시켄","시험","시험과 입학에 대한 항목이에요.","受験, 入学"],
+  ["売買","우리카이·바이바이","사고팔기","물건을 사고파는 일이에요.","取引"],
+  ["相場","소바","시세, 투자","시세와 돈의 흐름이에요. 주식 같은 투자로 읽기도 해요.",""]]],
+ ["생활",[
+  ["旅立","다비다치","여행, 떠남","먼 여행뿐 아니라 가까운 외출도 포함해요.","旅行"],
+  ["方角","호가쿠","방향","좋은 방향이 적혀 있어요. 보통 지금 사는 집에서 본 방향이에요.","方向, 吉方"],
+  ["転居","덴쿄","이사","이사처럼 사는 곳을 옮기는 일이에요.","引越し, 家移, 住居"],
+  ["普請","후신","집 짓기, 수리","집을 짓거나 고치는 일이에요.","家造り, 造作, 建築"],
+  ["病気","뵤키","병, 건강","몸 상태에 대한 항목이에요.","健康, 疾病, 病ひ"],
+  ["本復","혼푸쿠","회복","몸이 낫는 것, 잃은 명예를 되찾는 것을 말해요.",""],
+  ["失物","우세모노","잃어버린 것","잃어버렸거나 찾고 있는 것이 나오는지 봐요. 물건이 아닌 것도 포함해요.","失せ物, 探し物"],
+  ["争事","아라소이고토","다툼, 소송","말다툼이나 재판 같은 다툼이에요.","争い事, 訴訟"],
+  ["勝負","쇼부","승부","경기나 경쟁에서 이기고 지는 일이에요.","競争"]]]
+];
+const WORDS=[
+ ["叶う","가나우","이루어져요"],["叶い難し","가나이가타시","이루어지기 어려워요"],
+ ["来る","기타루","와요"],["来ず","고즈","오지 않아요"],["遅く来る","오소쿠 기타루","늦게 와요"],["音信あり","오토즈레 아리","소식이 있어요"],
+ ["出る","데루","나와요. 잃어버린 것을 찾아요"],["出難し","이데가타시","나오기 어려워요. 찾기 힘들어요"],
+ ["障りなし","사와리 나시","문제없어요"],["障りあり","사와리 아리","막히는 일이 있어요"],
+ ["利あり","리 아리","이익이 있어요"],["損あり","손 아리","손해가 있어요"],
+ ["安し","야스시","쉽게 풀려요. 출산에서는 순산이에요"],["見合わせよ","미아와세요","지금은 미루세요"],["控えよ","히카에요","삼가세요"],
+ ["急ぐな","이소구나","서두르지 마세요"],["待てば利あり","마테바 리 아리","기다리면 이익이 있어요"],["信心せよ","신진세요","정성껏 빌어요"]
+];
+
+// 막대 번호(1~100)마다 길흉이 정해져 있다. 실제 오미쿠지처럼 번호가 같으면 길흉도 같다.
+const STICKS=(function(){
+  const a=[];LV.forEach((l,i)=>{for(let n=0;n<l.c;n++)a.push(i);});
+  let s=20270101;const rnd=()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296;};
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+})();
+const rand=n=>{try{const u=new Uint32Array(1);crypto.getRandomValues(u);return u[0]%n;}catch(e){return Math.floor(Math.random()*n);}};
+const KEY="picktool-omikuji";
+let mem=null,cur=null,busy=false;
+const dayKey=(d=new Date())=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+function load(){
+  let r=mem;
+  try{r=JSON.parse(localStorage.getItem(KEY))||mem;}catch(e){}
+  return r&&r.day===dayKey()&&r.no>=1&&r.no<=100&&Array.isArray(r.pick)&&r.pick.length===7&&r.pick.every(p=>p>=0&&p<3)?r:null;
+}
+function store(r){mem=r;try{localStorage.setItem(KEY,JSON.stringify(r));}catch(e){}}
+
+// 화면 바꾸기
+function toTop(){
+  const top=$("phone").getBoundingClientRect().top+scrollY;
+  if(scrollY>top)scrollTo({top});
+}
+function show(id){["draw","result","card"].forEach(s=>$(s).hidden=s!==id);toTop();}
+function tab(name,focus){
+  const d=name==="draw";
+  $("panelDraw").hidden=!d;$("panelRead").hidden=d;
+  [["tabDraw",d],["tabRead",!d]].forEach(([id,on])=>{$(id).setAttribute("aria-selected",on);$(id).tabIndex=on?0:-1;if(on&&focus)$(id).focus();});
+  toTop();
+}
+$("tabDraw").onclick=()=>tab("draw");
+$("tabRead").onclick=()=>tab("read");
+document.querySelector(".tabs").addEventListener("keydown",e=>{
+  if(e.key==="ArrowLeft"||e.key==="ArrowRight"){e.preventDefault();tab($("tabDraw").getAttribute("aria-selected")==="true"?"read":"draw",true);}
+});
+$("toReadBtn").onclick=()=>tab("read");
+$("kyoBtn").onclick=()=>{tab("read");$("secKyo").scrollIntoView();};
+
+// 뽑기
+const calm=()=>matchMedia("(prefers-reduced-motion:reduce)").matches;
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+async function draw(){
+  if(busy)return;
+  const had=load();
+  if(had){cur=had;render(false);show("result");return;}
+  busy=true;stopShake();
+  $("drawBtn").disabled=$("shakeBtn").disabled=true;
+  const no=rand(100)+1;
+  const r={day:dayKey(),no,pick:Array.from({length:7},()=>rand(3))};
+  store(r);cur=r;
+  $("drawMsg").textContent="달그락달그락…";
+  if(!calm()){
+    $("draw").classList.add("is-drawing");
+    if(navigator.vibrate)try{navigator.vibrate([60,60,60,60,60]);}catch(e){}
+    await wait(2000);
+  }
+  $("drawMsg").innerHTML="<b>"+no+"번</b> 막대가 나왔어요";
+  await wait(calm()?700:1100);
+  render(true);show("result");
+  $("draw").classList.remove("is-drawing");
+  $("drawBtn").disabled=$("shakeBtn").disabled=false;resetDraw();busy=false;
+}
+function resetDraw(){
+  $("drawMsg").textContent="통을 누르면 막대가 하나 나와요.";
+  $("shakeBtn").hidden=!canShake;$("shakeBtn").textContent="폰을 흔들어 뽑기";
+}
+$("drawBtn").onclick=draw;$("tubeBtn").onclick=draw;
+
+// 흔들어 뽑기 (아이폰은 허락을 물어봄)
+const canShake="DeviceMotionEvent" in window&&navigator.maxTouchPoints>0;
+let shaking=false,hits=0,last=0,timer=0;
+function onMotion(e){
+  const a=e.accelerationIncludingGravity;if(!a||a.x===null)return;
+  const f=Math.abs(Math.hypot(a.x,a.y,a.z)-9.8),t=Date.now();
+  if(f>9&&t-last>120){last=t;if(++hits>=3)draw();}
+}
+function stopShake(){if(!shaking)return;shaking=false;clearTimeout(timer);removeEventListener("devicemotion",onMotion);}
+const noShake=()=>{stopShake();$("shakeBtn").textContent="폰을 흔들어 뽑기";$("drawMsg").textContent="흔들기가 안 되면 통을 눌러 주세요.";};
+$("shakeBtn").onclick=async()=>{
+  if(busy||shaking)return;
+  try{if(DeviceMotionEvent.requestPermission&&await DeviceMotionEvent.requestPermission()!=="granted")return noShake();}catch(e){return noShake();}
+  if(busy||shaking)return;
+  shaking=true;hits=0;addEventListener("devicemotion",onMotion);
+  $("shakeBtn").textContent="이제 흔들어 주세요";$("drawMsg").textContent="폰을 좌우로 세게 흔들어 보세요.";
+  timer=setTimeout(noShake,8000);
+};
+
+// 결과
+function data(){
+  const lv=STICKS[cur.no-1],t=T[lv],[y,m,d]=cur.day.split("-").map(Number);
+  return {lv,L:LV[lv],lead:t[0][cur.pick[0]],rows:TOPICS.map((p,i)=>[p[0],p[1],t[i+1][cur.pick[i+1]]]),date:`${y}년 ${m}월 ${d}일`};
+}
+function render(fresh){
+  const r=data(),s=$("slip");
+  s.dataset.lv=r.lv;
+  $("slipKanji").innerHTML=[...r.L.k].map(c=>`<span>${c}</span>`).join("");
+  $("slipKanji").classList.toggle("one",r.L.k.length===1);
+  $("slipNo").textContent=r.date+", "+cur.no+"번";
+  $("slipKo").textContent=r.L.n;$("slipLead").textContent=r.lead;
+  $("slipRows").innerHTML=r.rows.map(x=>`<div class="slip-row"><dt><b lang="ja">${x[0]}</b>${x[1]}</dt><dd>${x[2]}</dd></div>`).join("");
+  $("kyoNote").hidden=r.lv!==5;
+  $("linkText").textContent="친구한테 보내기";
+  nextTime();
+  s.classList.remove("unfold");
+  if(fresh){void s.offsetWidth;s.classList.add("unfold");}
+}
+function nextTime(){
+  const n=new Date(),mid=new Date(n.getFullYear(),n.getMonth(),n.getDate()+1),min=Math.ceil((mid-n)/60000);
+  $("nextTime").textContent=min>=60?`다음 뽑기까지 ${Math.floor(min/60)}시간 ${min%60}분`:`다음 뽑기까지 ${min}분`;
+}
+// 밤 12시가 지나면 다시 뽑는 화면으로
+function checkDay(){
+  if(busy||!cur)return;
+  if(cur.day!==dayKey()){cur=null;resetDraw();show("draw");}else nextTime();
+}
+setInterval(checkDay,30000);
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)checkDay();});
+
+// 공유
+$("linkBtn").onclick=async()=>{
+  const url="https://tools.irukabloom.com/omikuji/",text=`오늘 내 오미쿠지(종이운세)는 ${data().L.n}! 너도 뽑아 봐`;
+  try{
+    if(navigator.share)await navigator.share({text,url});
+    else{await navigator.clipboard.writeText(text+" "+url);$("linkText").textContent="링크를 복사했어요";setTimeout(()=>$("linkText").textContent="친구한테 보내기",1800);}
+  }catch(e){if(!e||e.name!=="AbortError")$("linkText").textContent="이 브라우저에서는 보낼 수 없어요";}
+};
+
+// 저장 카드 1080×1920
+let lastBlob=null,cardUrl=null,shareFile=null;
+function wrap(x,s,w){
+  const out=[];let line="";
+  s.split(" ").forEach(p=>{const t=line?line+" "+p:p;if(x.measureText(t).width>w&&line){out.push(line);line=p;}else line=t;});
+  out.push(line);return out;
+}
+function drawCard(){
+  const W=1080,H=1920,c=document.createElement("canvas");c.width=W;c.height=H;
+  const x=c.getContext("2d"),r=data(),INK="#252321",HAN='"Black Han Sans", sans-serif',GO='"Gowun Dodum", sans-serif',JA='"Shippori Mincho B1", "Hiragino Mincho ProN", serif';
+  const txt=(s,px,py,f,col=INK,al="left")=>{x.font=f;x.fillStyle=col;x.textAlign=al;x.fillText(s,px,py);};
+  x.fillStyle="#7357FF";x.fillRect(0,0,W,H);
+  txt("오늘의 오미쿠지",540,225,`86px ${HAN}`,"#FFF9EE","center");
+  txt("매일 종이운세 뽑기",540,290,`44px ${HAN}`,"#FFCF4A","center");
+  const X=90,Y=345,SW=900,TH=560,RH=132,SH=TH+RH*6;
+  x.fillStyle=INK;x.fillRect(X+12,Y+12,SW,SH);
+  x.fillStyle="#FFFDF8";x.fillRect(X,Y,SW,SH);
+  const KW=340;
+  x.fillStyle=r.lv<2?"#FFCF4A":r.lv<4?"#FFE9A8":"#EEE9FF";x.fillRect(X,Y,KW,TH);
+  x.strokeStyle=INK;x.lineWidth=5;x.strokeRect(X,Y,SW,SH);
+  x.beginPath();x.moveTo(X+KW,Y);x.lineTo(X+KW,Y+TH);x.moveTo(X,Y+TH);x.lineTo(X+SW,Y+TH);x.stroke();
+  x.textBaseline="middle";
+  const ks=[...r.L.k];
+  if(ks.length===1)txt(ks[0],X+KW/2,Y+TH/2,`800 262px ${JA}`,INK,"center");
+  else ks.forEach((k,i)=>txt(k,X+KW/2,Y+TH/2+(i?128:-128),`800 246px ${JA}`,INK,"center"));
+  x.textBaseline="alphabetic";
+  const TX=X+KW+48;
+  txt(`${r.date}, ${cur.no}번`,TX,Y+88,`36px ${GO}`,"#5d5853");
+  txt(r.L.n,TX-4,Y+222,`128px ${HAN}`);
+  x.font=`48px ${GO}`;
+  const ll=wrap(x,r.lead,SW-KW-90);
+  ll.forEach((s,i)=>txt(s,TX,Y+TH-62-(ll.length-1-i)*72,`48px ${GO}`));
+  r.rows.forEach((w,i)=>{
+    const y=Y+TH+RH*i;
+    if(i){x.lineWidth=2;x.strokeStyle="rgba(37,35,33,.45)";x.setLineDash([3,7]);x.beginPath();x.moveTo(X+30,y);x.lineTo(X+SW-30,y);x.stroke();x.setLineDash([]);}
+    txt(w[0],X+100,y+62,`700 46px ${JA}`,INK,"center");
+    txt(w[1],X+100,y+106,`32px ${GO}`,"#5d5853","center");
+    let sz=44;x.font=`${sz}px ${GO}`;while(x.measureText(w[2]).width>SW-230&&sz>34)x.font=`${--sz}px ${GO}`;
+    txt(w[2],X+192,y+RH/2+16,`${sz}px ${GO}`);
+  });
+  txt("픽툴 PickTool",540,1812,`40px ${HAN}`,"#FFF9EE","center");
+  return c;
+}
+async function makeCard(){
+  const r=data(),all=r.lead+r.L.n+r.date+"번오늘의오미쿠지매일종이운세뽑기픽툴PickTool0123456789, "+r.rows.map(a=>a[1]+a[2]).join("");
+  const ja=r.L.k+r.rows.map(a=>a[0]).join("");
+  try{await Promise.race([Promise.all([document.fonts.load('40px "Black Han Sans"',all),document.fonts.load('40px "Gowun Dodum"',all),document.fonts.load('800 40px "Shippori Mincho B1"',ja),document.fonts.load('700 40px "Shippori Mincho B1"',ja)]),wait(5000)]);}catch(e){}
+  lastBlob=await new Promise(res=>drawCard().toBlob(res,"image/png"));
+  if(cardUrl)URL.revokeObjectURL(cardUrl);
+  cardUrl=URL.createObjectURL(lastBlob);$("cardImg").src=cardUrl;
+  shareFile=null;$("shareImgBtn").hidden=true;
+  if(navigator.canShare){const f=new File([lastBlob],fileName(),{type:"image/png"});try{if(navigator.canShare({files:[f]})){shareFile=f;$("shareImgBtn").hidden=false;}}catch(e){}}
+}
+const fileName=()=>`오미쿠지-${cur.day}-${data().L.n}.png`;
+$("toCardBtn").onclick=async()=>{$("saveMsg").textContent="";$("cardImg").removeAttribute("src");show("card");await makeCard();};
+$("backBtn").onclick=()=>show("result");
+$("saveBtn").onclick=()=>{
+  if(!lastBlob)return;
+  try{
+    const u=URL.createObjectURL(lastBlob),a=document.createElement("a");a.href=u;a.download=fileName();
+    document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),3000);
+    $("saveMsg").textContent="저장했어요. 안 보이면 이미지를 길게 눌러 저장하세요.";
+  }catch(e){$("saveMsg").textContent="저장이 안 되면 이미지를 길게 눌러 저장하세요.";}
+};
+$("shareImgBtn").onclick=async()=>{if(!shareFile)return;try{await navigator.share({files:[shareFile],title:"오늘의 오미쿠지"});}catch(e){}};
+
+// 해석기
+const chev='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+$("terms").innerHTML=TERMS.map(g=>`<div class="grp"><h3>${g[0]}</h3>`+g[1].map(t=>`<details class="term" data-q="${(t[0]+" "+t[1]+" "+t[2]+" "+t[4]).toLowerCase()}"><summary><span lang="ja">${t[0]}</span><b>${t[2]}</b>${chev}</summary><div>${t[3]}<span>읽는 법: ${t[1]}</span>${t[4]?`<span>같은 뜻으로 쓰는 글자: ${t[4]}</span>`:""}</div></details>`).join("")+"</div>").join("");
+$("words").innerHTML=WORDS.map(w=>`<div data-q="${w.join(" ")}"><dt><span lang="ja">${w[0]}</span><small>${w[1]}</small></dt><dd>${w[2]}</dd></div>`).join("");
+function search(){
+  const q=$("q").value.trim().toLowerCase(),on=!!q,hit=el=>!on||el.dataset.q.includes(q);
+  $("qClear").hidden=!on;$("jump").hidden=on;$("secRank").hidden=on;$("secKyo").hidden=on;
+  let a=0,b=0;
+  document.querySelectorAll(".term").forEach(t=>{const h=hit(t);t.hidden=!h;t.open=on&&h;if(h)a++;});
+  document.querySelectorAll(".grp").forEach(g=>g.hidden=on&&!g.querySelector(".term:not([hidden])"));
+  document.querySelectorAll(".words>div").forEach(w=>{const h=hit(w);w.hidden=!h;if(h)b++;});
+  $("secTerm").hidden=!a;$("secWord").hidden=!b;
+  const rank=on&&LV.find(l=>l.k===q||l.n===q);
+  if(rank)$("secRank").hidden=false;
+  if(on&&(q==="흉"||q==="凶"))$("secKyo").hidden=false;
+  $("empty").hidden=!on||a+b>0||!!rank;
+  $("empty").textContent="찾는 글자가 없어요. 한 글자만 넣거나 지우고 목록에서 찾아보세요.";
+}
+$("q").addEventListener("input",search);
+$("qClear").onclick=()=>{$("q").value="";search();$("q").focus();};
+$("jump").addEventListener("click",e=>{const b=e.target.closest("button");if(b)$(b.dataset.to).scrollIntoView({behavior:calm()?"auto":"smooth"});});
+
+// 시작: 오늘 뽑았으면 그 결과부터
+$("shakeBtn").hidden=!canShake;
+cur=load();
+if(cur){render(false);show("result");}
+})();
+</script>
+
+<!-- 블로그 글 안에 끼워 넣을 때(?embed=1): 높이를 글에 알려 줌 -->
+<style>.is-embed footer{display:none}</style>
+<script>(function(){if(!/[?&]embed=1/.test(location.search)||window.parent===window)return;document.documentElement.classList.add("is-embed");function s(){parent.postMessage({type:"iruka-tool-height",height:Math.ceil(document.documentElement.scrollHeight)},"*")}addEventListener("load",s);if(window.ResizeObserver)new ResizeObserver(s).observe(document.body);setTimeout(s,300)})();</script>
+</body>
+</html>
