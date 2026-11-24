@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<!-- 직접 열면 블로그 글로 넘김(blog-redirect). ?embed=1 로 블로그 안에 끼워 넣었을 때만 웹툴이 보임 -->
+<script>if(!/[?&]embed=1(&|#|$)/.test(location.search))location.replace("https://haeminlog.com/category/life-webtools/");</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>월급날까지 생존 계산기 | 하루에 얼마 쓸 수 있을까</title>
+<meta name="description" content="통장 잔액과 월급날을 넣으면 월급날까지 남은 날과 하루에 쓸 수 있는 돈을 계산해요. 비상벨 모드부터 태평성대 모드까지 생존 등급과 그 돈으로 먹을 수 있는 메뉴, 결과 이미지 저장.">
+<link rel="canonical" href="https://tools.irukabloom.com/payday/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="월급날까지 버틸 수 있을까?">
+<meta property="og:description" content="잔액과 월급날을 넣으면 하루 쓸 돈과 생존 등급이 나와요">
+<meta property="og:url" content="https://tools.irukabloom.com/payday/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#FFF9EE;--ink:#252321;--accent:#7357FF;--lavender:#EEE9FF;--red:#FF5F73;--yellow:#FFCF4A;--soft:#5d5853;
+  --han:'Black Han Sans',sans-serif;--out:cubic-bezier(.23,1,.32,1)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+::selection{background:var(--yellow);color:var(--ink)}
+html{background:var(--lavender);-webkit-text-size-adjust:100%}
+body{margin:0;display:flow-root;min-width:0;overflow-x:hidden;color:var(--ink);font-family:'Gowun Dodum',sans-serif;font-synthesis:none;word-break:keep-all;overflow-wrap:anywhere;
+  background:linear-gradient(135deg,var(--lavender) 25%,transparent 25%) 0 0/18px 18px,var(--paper)}
+button,input{font-family:inherit;color:inherit;font-size:inherit}
+button{cursor:pointer;background:none;border:0;padding:0}
+h1,h2,h3,p,ul,fieldset{margin:0}
+fieldset{border:0;padding:0;min-width:0}
+legend{padding:0}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+.phone{position:relative;width:min(100%,390px);margin:0 auto;overflow:hidden;background:var(--paper);box-shadow:0 18px 70px rgba(37,35,33,.2);scroll-margin-top:8px}
+.screen{padding:26px 18px 26px}
+.screen h1:focus{outline:none}
+
+.primary-button,.secondary-button{width:100%;min-height:56px;display:flex;align-items:center;justify-content:center;gap:10px;border:2px solid var(--ink);font-size:17px;transition:transform .14s var(--out),box-shadow .14s var(--out)}
+.primary-button{color:#fff;background:var(--accent);box-shadow:4px 4px 0 var(--ink);font-family:var(--han);font-size:20px;letter-spacing:-.02em}
+.secondary-button{background:var(--lavender);font-weight:400}
+.primary-button:active,.secondary-button:active{transform:translate(3px,3px);box-shadow:none}
+.text-button{min-height:44px;width:100%;font-size:15px;text-decoration:underline;text-underline-offset:4px}
+button svg{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+/* 입력 */
+.head{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:end;gap:8px;margin-bottom:26px}
+.head h1{font:400 clamp(38px,11.4vw,45px)/1.1 var(--han);letter-spacing:-.04em}
+.head svg{width:100%;max-width:132px;height:auto;display:block;justify-self:end}
+.field{margin-top:24px}
+.field>label,.field legend,.out-head{display:block;font:400 20px/1.3 var(--han);letter-spacing:-.02em}
+.out-head span{font:400 14px/1.3 'Gowun Dodum',sans-serif;letter-spacing:0;color:var(--soft);margin-left:6px}
+.money{display:flex;align-items:center;margin-top:9px;border:2px solid var(--ink);background:#fff;transition:background-color .16s ease}
+.money:focus-within{background:var(--lavender);outline:3px solid var(--accent);outline-offset:2px}
+.money input{flex:1;min-width:0;height:60px;padding:0 4px 0 14px;border:0;background:none;text-align:right;font:400 30px/1 var(--han);letter-spacing:-.02em;caret-color:var(--accent);outline:none}
+.money input::placeholder{color:#8a847c;opacity:1}
+.money i{flex:none;padding-right:14px;font-style:normal;font-size:17px}
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:9px}
+.quick button,.chip span{display:flex;align-items:center;justify-content:center;min-height:44px;border:1.5px solid var(--ink);background:var(--paper);font-size:15px;transition:background-color .16s ease,color .16s ease,transform .14s var(--out)}
+.quick button:active{transform:scale(.97);background:var(--yellow)}
+.quick .clear{border-style:dashed}
+.chips{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:9px}
+.chip{position:relative;display:block;cursor:pointer}
+.chip input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.chip span{font-size:16px}
+.chip input:checked+span{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip input:focus-visible+span{outline:3px solid var(--accent);outline-offset:3px}
+@media (hover:hover) and (pointer:fine){.quick button:hover,.chip:hover input:not(:checked)+span{background:var(--yellow)}.primary-button:hover{transform:translate(1px,1px);box-shadow:3px 3px 0 var(--ink)}.primary-button:hover:active{transform:translate(3px,3px);box-shadow:none}.secondary-button:hover{background:var(--yellow)}}
+.day-row{display:flex;align-items:center;gap:10px;margin-top:9px;font-size:16px}
+.day-row .money{margin:0;width:118px}
+.day-row .money input{height:50px;font-size:24px}
+.next-pay{margin-top:11px;padding:11px 13px;background:var(--lavender);font-size:15px;line-height:1.5}
+.next-pay b{font:400 18px/1.3 var(--han);color:var(--accent)}
+.adj{margin-top:14px}
+.adj legend{font:400 15px/1.5 'Gowun Dodum',sans-serif;letter-spacing:0}
+.adj .chips{margin-top:8px}
+.adj .chip span{font-size:14px;line-height:1.25;text-align:center;padding:4px}
+.outs{margin-top:9px;border:2px solid var(--ink);background:#fff}
+.outs label{display:flex;align-items:center;padding-left:14px;font-size:16px}
+.outs label+label{border-top:1.5px dashed var(--ink)}
+.outs label>span{flex:none;width:72px}
+.outs .money{flex:1;min-width:0;margin:0;border:0;background:none}
+.outs .money:focus-within{background:var(--lavender);outline-offset:-3px}
+.outs .money input{height:50px;font-size:21px}
+.error{margin-top:9px;color:#b8172f;font-size:15px;line-height:1.45}
+.money.bad{border-color:#b8172f}
+#goBtn{margin-top:28px}
+.privacy{margin-top:16px;text-align:center;font-size:13.5px;line-height:1.5;color:var(--soft)}
+
+/* 결과 */
+.result-head{text-align:center}
+.result-head h1{font:400 25px/1.25 var(--han);letter-spacing:-.02em}
+.result-head h1 em{font-style:normal;color:var(--accent)}
+.daily{margin-top:8px;font:400 clamp(46px,14.6vw,60px)/1.05 var(--han);letter-spacing:-.04em;color:var(--accent);white-space:nowrap}
+.daily small{font-size:.5em;letter-spacing:-.02em;color:var(--ink);margin-right:.18em}
+.calc{margin-top:8px;font-size:14.5px;line-height:1.5;color:var(--soft)}
+.mode-art{width:172px;margin:14px auto 0}
+.mode-art svg{display:block;width:100%;height:auto}
+.stamp{display:inline-block;margin-top:10px;padding:9px 18px 8px;color:#fff;background:var(--accent);font:400 27px/1.15 var(--han);letter-spacing:-.02em;transform:rotate(-2deg)}
+.stamp.danger{background:var(--ink);color:var(--yellow)}
+.line{margin-top:13px;font-size:17px;line-height:1.55;text-wrap:balance}
+.ladder{display:grid;grid-template-columns:repeat(9,1fr);gap:4px;margin-top:18px}
+.ladder i{height:14px;border:1.5px solid var(--ink);background:#fff}
+.ladder i.on{background:var(--yellow)}
+.ladder i.me{background:var(--accent)}
+.ladder-label{display:flex;justify-content:space-between;margin-top:6px;font-size:13.5px;color:var(--soft)}
+.receipt{position:relative;margin-top:24px;padding:18px 16px 16px;border:1.5px solid var(--ink);border-bottom:0;background:var(--lavender)}
+.receipt::after{content:'';position:absolute;top:100%;left:-1.5px;right:-1.5px;height:10px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='10'%3E%3Cpath d='M0 0 8 8.5 16 0' fill='%23EEE9FF' stroke='%23252321' stroke-width='1.5'/%3E%3C/svg%3E") 0 0/16px 10px repeat-x}
+.receipt h2{padding-bottom:11px;border-bottom:1.5px dashed var(--ink);font:400 19px/1.3 var(--han);letter-spacing:-.02em}
+.row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px dotted rgba(37,35,33,.4);font-size:16px;font-variant-numeric:tabular-nums}
+.row span:last-child{flex:none}
+.row.sum{border-bottom:1.5px dashed var(--ink);font:400 18px/1.4 var(--han)}
+.row.left{border-bottom:0;padding-bottom:0;font:400 18px/1.4 var(--han);color:#5a3fe0}
+.receipt .empty{padding-top:13px;font-size:16px;line-height:1.6}
+.result-actions{display:grid;gap:11px;margin-top:30px}
+@media (prefers-reduced-motion:no-preference){
+  .stamp.press{animation:press .28s var(--out) .12s backwards}
+  @keyframes press{from{opacity:0;transform:rotate(-7deg) scale(1.35)}}
+}
+
+/* 저장 카드 */
+#card{display:flex;flex-direction:column;align-items:center;gap:14px;background:var(--lavender)}
+#card h1{font:400 24px/1.25 var(--han);letter-spacing:-.02em}
+.card-box{width:100%;max-width:310px;aspect-ratio:9/16;border:2px solid var(--ink);background:var(--paper)}
+.card-box img{display:block;width:100%;height:100%}
+.card-tip{font-size:14.5px;text-align:center;color:var(--soft)}
+.card-actions{width:100%;display:grid;gap:10px}
+#card .secondary-button{background:var(--paper)}
+.save-msg{min-height:20px;font-size:14.5px;text-align:center;color:#5a3fe0}
+
+/* 설명 글 */
+.info{position:relative;width:min(100%,390px);margin:0 auto;padding:34px 20px 30px;background:var(--paper);border-top:2px solid var(--ink);line-height:1.75}
+.info h2{margin:32px 0 10px;font:400 22px/1.3 var(--han);letter-spacing:-.02em}
+.info h2:first-child{margin-top:0}
+.info h3{margin:18px 0 4px;font-size:16px}
+.info p,.info li{font-size:15px}
+.info ul{padding-left:20px;margin:8px 0}
+.info .ref{font-size:13.5px;color:var(--soft)}
+.info table{width:100%;border-collapse:collapse;font-size:14.5px;line-height:1.45}
+.info th,.info td{padding:8px 4px;border-bottom:1px dotted rgba(37,35,33,.45);text-align:left;vertical-align:top}
+.info th:first-child,.info td:first-child{white-space:nowrap}
+.info td.n{text-align:right;white-space:nowrap}
+.info a{color:#5a3fe0}
+footer.site{width:min(100%,390px);margin:0 auto;padding:18px;text-align:center;background:var(--paper);border-top:1.5px dashed var(--ink);font-size:15px}
+footer.site a{color:var(--ink)}
+@media (min-width:600px){.phone{margin-top:24px;border:2px solid var(--ink)}footer.site{margin-bottom:24px}}
+</style>
+</head>
+<body>
+<main class="phone" id="phone">
+
+  <form class="screen" id="input" novalidate>
+    <div class="head">
+      <h1 id="inputTitle">월급날까지<br>버틸 수<br>있을까?</h1>
+      <svg id="headArt" viewBox="0 0 200 200" aria-hidden="true"></svg>
+    </div>
+
+    <div class="field" style="margin-top:0">
+      <label for="bal">지금 통장 잔액</label>
+      <div class="money" id="balBox"><input id="bal" type="text" inputmode="numeric" autocomplete="off" placeholder="0" aria-describedby="balErr"><i>원</i></div>
+      <div class="quick">
+        <button type="button" data-add="10000">+1만</button>
+        <button type="button" data-add="50000">+5만</button>
+        <button type="button" data-add="100000">+10만</button>
+        <button type="button" class="clear" data-add="0">지우기</button>
+      </div>
+      <p class="error" id="balErr" hidden></p>
+    </div>
+
+    <fieldset class="field">
+      <legend>월급날</legend>
+      <div class="chips" id="dayChips">
+        <label class="chip"><input type="radio" name="day" value="10"><span>10일</span></label>
+        <label class="chip"><input type="radio" name="day" value="15"><span>15일</span></label>
+        <label class="chip"><input type="radio" name="day" value="20"><span>20일</span></label>
+        <label class="chip"><input type="radio" name="day" value="25"><span>25일</span></label>
+        <label class="chip"><input type="radio" name="day" value="31"><span>말일</span></label>
+        <label class="chip"><input type="radio" name="day" value="custom"><span>직접 입력</span></label>
+      </div>
+      <div class="day-row" id="dayRow" hidden>
+        <label for="dayNum">매달</label>
+        <div class="money"><input id="dayNum" type="text" inputmode="numeric" maxlength="2" autocomplete="off" placeholder="1~31"><i>일</i></div>
+      </div>
+      <p class="next-pay" id="nextPay" aria-live="polite" hidden></p>
+      <p class="error" id="dayErr" hidden></p>
+      <fieldset class="adj" id="adj" hidden>
+        <legend>월급날이 쉬는 날이에요. 회사는 언제 줘요?</legend>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="adj" value="before" checked><span>앞 평일</span></label>
+          <label class="chip"><input type="radio" name="adj" value="after"><span>다음 평일</span></label>
+          <label class="chip"><input type="radio" name="adj" value="same"><span>그대로</span></label>
+        </div>
+      </fieldset>
+    </fieldset>
+
+    <div class="field" role="group" aria-labelledby="outHead">
+      <p class="out-head" id="outHead">그 전에 빠져나갈 돈<span>없으면 비워 두세요</span></p>
+      <div class="outs">
+        <label><span>월세</span><span class="money"><input class="out" type="text" inputmode="numeric" autocomplete="off" placeholder="0"><i>원</i></span></label>
+        <label><span>카드값</span><span class="money"><input class="out" type="text" inputmode="numeric" autocomplete="off" placeholder="0"><i>원</i></span></label>
+        <label><span>기타</span><span class="money"><input class="out" type="text" inputmode="numeric" autocomplete="off" placeholder="0"><i>원</i></span></label>
+      </div>
+    </div>
+
+    <button class="primary-button" id="goBtn" type="submit">내 생존 등급 보기</button>
+    <p class="privacy">입력한 돈은 이 화면에서만 계산하고<br>어디에도 저장하지 않아요</p>
+  </form>
+
+  <section class="screen" id="result" hidden>
+    <div class="result-head">
+      <h1 id="resTitle" tabindex="-1"></h1>
+      <p class="daily" id="resDaily"></p>
+      <p class="calc" id="resCalc"></p>
+      <div class="mode-art" id="resArt" aria-hidden="true"></div>
+      <span class="stamp" id="resMode"></span>
+      <p class="line" id="resLine"></p>
+      <div class="ladder" id="ladder" aria-hidden="true"></div>
+      <div class="ladder-label"><span>비상벨</span><span id="ladderPos"></span><span>태평성대</span></div>
+    </div>
+    <div class="receipt" id="receipt"></div>
+    <div class="result-actions">
+      <button class="primary-button" id="toCardBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14"/></svg>이미지 저장</button>
+      <button class="secondary-button" id="linkBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.5M8.2 13.2l7.6 4.5"/></svg><span id="linkText" aria-live="polite">친구한테 보내기</span></button>
+      <button class="text-button" id="againBtn" type="button">다시 하기</button>
+    </div>
+  </section>
+
+  <section class="screen" id="card" hidden>
+    <h1 id="cardTitle" tabindex="-1">생존 카드가 나왔어요</h1>
+    <div class="card-box" id="cardBox"></div>
+    <p class="card-tip">통장 잔액은 카드에 안 나와요.<br>이미지를 길게 눌러도 저장돼요.</p>
+    <div class="card-actions">
+      <button class="primary-button" id="saveBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14"/></svg>저장하기</button>
+      <button class="secondary-button" id="shareImgBtn" type="button" hidden>인스타·카톡으로 공유하기</button>
+      <button class="text-button" id="backBtn" type="button">결과로 돌아가기</button>
+    </div>
+    <p class="save-msg" id="saveMsg" aria-live="polite"></p>
+  </section>
+</main>
+
+<article class="info" id="info">
+  <h2>하루 쓸 돈은 이렇게 계산해요</h2>
+  <p>통장 잔액에서 월급날 전에 빠져나갈 돈을 빼고, 월급날까지 남은 날로 나눠요. 오늘은 세고 월급날은 빼요. 잔액 48만 원, 빠져나갈 돈 28만 원, 남은 날이 16일이면 20만 원 ÷ 16일이라 하루 12,500원이에요. 100원 아래는 버려요.</p>
+  <p>월급날이 주말이나 공휴일과 겹치면 앞 평일, 다음 평일, 그대로 중에서 골라요. 회사마다 주는 날이 달라서 급여 규정을 확인하는 게 정확해요. 말일이 월급날이거나 29~31일인 사람은 그 달의 마지막 날에 맞춰요.</p>
+
+  <h2>생존 등급 9단계</h2>
+  <table><thead><tr><th scope="col">하루 쓸 돈</th><th scope="col">등급</th></tr></thead><tbody id="gradeTable"></tbody></table>
+
+  <h2>메뉴 가격은 어디서 가져왔나요?</h2>
+  <table><thead><tr><th scope="col">메뉴</th><th scope="col">기준</th><th scope="col">가격</th></tr></thead><tbody id="priceTable"></tbody></table>
+  <p class="ref">김밥·짜장면·김치찌개 백반·냉면·삼겹살은 한국소비자원 참가격 서울 평균(2026년 9월)이에요. 삼각김밥은 서울경제(2026.7.2), 구내식당은 식신e식권 2026년 2분기 평균을 실은 메트로신문(2026.9.17), 치킨은 머니투데이(2026.10.7) 기사에 나온 가격이고 배달비는 뺐어요. 2026년 11월에 확인했고 가게마다 달라서 참고용이에요.</p>
+
+  <h2>자주 묻는 질문</h2>
+  <h3>입력한 잔액이 어딘가에 저장되나요?</h3>
+  <p>아니요. 계산은 지금 보고 있는 화면 안에서만 해요. 다음에 편하게 쓰도록 월급날만 이 기기에 기억하고, 잔액과 빠져나갈 돈은 기억하지 않아요. 저장하는 카드에도 잔액은 안 나와요.</p>
+  <h3>오늘이 월급날이면요?</h3>
+  <p>다음 월급날까지 계산해요. 오늘 들어온 월급까지 더한 잔액을 넣으면 한 달을 하루 얼마로 살 수 있는지 알 수 있어요.</p>
+  <h3>2028년 공휴일도 들어 있나요?</h3>
+  <p>공휴일은 2027년 12월까지 넣었어요. 그 뒤는 주말만 확인해요.</p>
+</article>
+<footer class="site"><a href="../">다른 웹툴 보기</a></footer>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const won=v=>v.toLocaleString("ko-KR")+"원";
+const URL_TOOL="https://tools.irukabloom.com/payday/";
+
+// ── 메뉴 가격 (#06 물가 테스트 + 2026년 기사)
+const MENU={
+ S:{n:"삼각김밥",p:1400,b:"편의점",u:"개"},
+ K:{n:"김밥",p:3923,b:"서울 평균",u:"줄"},
+ A:{n:"아메리카노",p:4700,b:"스타벅스 톨",u:"잔"},
+ J:{n:"짜장면",p:7808,b:"서울 평균",u:"그릇"},
+ G:{n:"구내식당",p:7919,b:"전국 평균",u:"끼"},
+ Z:{n:"김치찌개 백반",p:8846,b:"서울 평균",u:"그릇"},
+ N:{n:"물냉면",p:12692,b:"서울 평균",u:"그릇"},
+ P:{n:"삼겹살",p:21321,b:"서울 평균, 200g",u:"인분"},
+ C:{n:"치킨",p:23000,b:"황금올리브, 배달비 별도",u:"마리"}
+};
+// ── 등급: max = 하루 쓸 돈이 이 값까지. menus 는 글자 하나가 메뉴 하나
+const GRADES=[
+ {id:"alarm",name:"비상벨 모드",range:"0원 이하",max:0,line:"빠져나갈 돈이 더 많아요. 미룰 수 있는 것부터 찾아봐요.",menus:[]},
+ {id:"fridge",name:"냉장고 파먹기 모드",range:"1,399원까지",max:1399,line:"삼각김밥도 사치. 냉동실을 믿어요.",menus:[]},
+ {id:"onigiri",name:"삼각김밥 모드",range:"5,000원까지",max:5000,line:"참치마요와 깊은 사이가 될 시간.",menus:["S","SS","SSS"]},
+ {id:"gimbap",name:"김밥 한 줄 모드",range:"9,999원까지",max:9999,line:"커피는 회사 탕비실에서.",menus:["K","KS","KSS","KK","KKS"]},
+ {id:"tray",name:"구내식당 모드",range:"1만 원대",max:19999,line:"오늘 메뉴가 뭔지 이미 알고 있죠?",menus:["GS","GA","GAS","GG","GGS","GGK"]},
+ {id:"stew",name:"점심 외식 모드",range:"2만 원대",max:29999,line:"찌개에 공깃밥 추가까지는 괜찮아요.",menus:["ZJS","ZJA","ZN","ZNS","ZJAK","ZNA"]},
+ {id:"chicken",name:"배달 가능 모드",range:"3~4만 원대",max:49999,line:"치킨 앱을 열어도 돼요. 단, 한 번만.",menus:["CK","CG","CKA","CZA","CNA","CZJA"]},
+ {id:"pork",name:"삼겹살 모드",range:"5~9만 원대",max:99999,line:"냉면까지 시켜도 안 흔들려요.",menus:["PNAZ","PPN","PPNA","PPNAZ","PPCNA"]},
+ {id:"crown",name:"태평성대 모드",range:"10만 원부터",max:Infinity,line:"월급날을 잊고 사는 사람.",menus:["PPCNA"]}
+];
+const sum=m=>[...m].reduce((s,k)=>s+MENU[k].p,0);
+function pickMenu(g,daily){
+  let best=null;
+  g.menus.forEach(m=>{const t=sum(m);if(t<=daily&&(!best||t>best.total))best={key:m,total:t};});
+  if(!best)return null;
+  const rows=[];
+  [...new Set(best.key)].forEach(k=>{const q=[...best.key].filter(x=>x===k).length,it=MENU[k];rows.push({name:`${it.n} ${q}${it.u}`,price:it.p*q});});
+  return {rows,total:best.total,left:daily-best.total};
+}
+
+// ── 그림 (200×200, 픽툴 색)
+const I="#252321",V="#7357FF",L="#EEE9FF",R="#FF5F73",Y="#FFCF4A",W="#fff";
+const bg=`<circle cx="100" cy="104" r="84" fill="${Y}" stroke="${I}" stroke-width="5"/>`;
+const g=(s)=>`<g stroke="${I}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">${s}</g>`;
+const ART={
+ alarm:g(`<path d="M62 142V108a38 38 0 0 1 76 0v34z" fill="${R}"/><rect x="48" y="142" width="104" height="22" fill="${W}"/><path d="M82 112a18 18 0 0 1 16-18" fill="none" stroke="${W}"/><path d="M100 54V38M56 68 44 56M144 68l12-12M40 106H24M160 106h16" fill="none"/>`),
+ fridge:g(`<rect x="62" y="42" width="76" height="126" fill="${L}"/><path d="M62 88h76M76 60v14M76 102v24" fill="none"/><rect x="92" y="104" width="34" height="26" fill="${W}"/><path d="M98 113h22M98 121h14" stroke-width="3.5" fill="none"/><path d="M74 168v8M126 168v8" fill="none"/>`),
+ onigiri:g(`<path d="M100 42c9 0 14 6 19 15l41 74c8 15 0 29-16 29H56c-16 0-24-14-16-29l41-74c5-9 10-15 19-15z" fill="${W}"/><path d="M70 112h60v48H70z" fill="${I}"/><circle cx="92" cy="90" r="2.5" fill="${I}" stroke="none"/><circle cx="110" cy="90" r="2.5" fill="${I}" stroke="none"/><path d="M96 98q5 5 10 0" fill="none" stroke-width="3.5"/>`),
+ gimbap:g(`<path d="M42 122 112 60l40 36-62 70z" fill="${I}"/><circle cx="66" cy="138" r="36" fill="${I}"/><circle cx="66" cy="138" r="28" fill="${W}" stroke="none"/><circle cx="58" cy="130" r="7" fill="${R}" stroke="none"/><circle cx="75" cy="131" r="7" fill="${Y}" stroke="none"/><circle cx="66" cy="147" r="7" fill="${V}" stroke="none"/><path d="M112 84l14 12M94 100l14 12" stroke="${L}" stroke-width="4" fill="none"/>`),
+ tray:g(`<rect x="28" y="66" width="144" height="92" rx="8" fill="${L}"/><rect x="40" y="78" width="36" height="24" fill="${R}"/><rect x="82" y="78" width="36" height="24" fill="${W}"/><rect x="124" y="78" width="36" height="24" fill="${V}"/><circle cx="66" cy="130" r="18" fill="${W}"/><circle cx="130" cy="130" r="18" fill="${Y}"/><path d="M58 126q8-8 16 0" fill="none" stroke-width="3.5"/>`),
+ stew:g(`<path d="M46 106h108v26c0 20-16 32-34 32H80c-18 0-34-12-34-32z" fill="${I}"/><path d="M34 112h12M154 112h12" fill="none"/><ellipse cx="100" cy="106" rx="54" ry="18" fill="${R}"/><rect x="80" y="96" width="20" height="12" fill="${W}" stroke-width="4"/><rect x="104" y="103" width="18" height="10" fill="${W}" stroke-width="4"/><path d="M78 76q-8-10 0-20t0-20M102 76q-8-10 0-20t0-20M126 76q-8-10 0-20t0-20" fill="none"/>`),
+ chicken:g(`<path d="M112 120 74 154" fill="none" stroke="${I}" stroke-width="22"/><path d="M112 120 74 154" fill="none" stroke="${W}" stroke-width="12"/><circle cx="66" cy="152" r="11" fill="${W}"/><circle cx="76" cy="163" r="11" fill="${W}"/><path d="M92 124c-16-24-4-66 34-74 30-5 46 20 36 46-10 28-44 46-70 28z" fill="${R}"/><path d="M122 70q14-6 22 6" fill="none" stroke="${W}"/>`),
+ pork:g(`<path d="M36 92q32-28 64-8t64-8v52q-32 28-64 8t-64 8z" fill="${R}"/><path d="M36 108q32-28 64-8t64-8M36 126q32-28 64-8t64-8" fill="none" stroke="${W}" stroke-width="9"/><path d="M36 92q32-28 64-8t64-8v52q-32 28-64 8t-64 8z" fill="none"/><path d="M60 60q-6-8 0-16M100 58q-6-8 0-16M140 52q-6-8 0-16" fill="none"/>`),
+ crown:g(`<path d="M40 136 32 68l36 28 32-48 32 48 36-28-8 68z" fill="${V}"/><rect x="40" y="136" width="120" height="24" fill="${W}"/><circle cx="100" cy="48" r="8" fill="${R}"/><circle cx="32" cy="66" r="8" fill="${R}"/><circle cx="168" cy="66" r="8" fill="${R}"/><circle cx="100" cy="148" r="5" fill="${R}" stroke="none"/><circle cx="70" cy="148" r="5" fill="${R}" stroke="none"/><circle cx="130" cy="148" r="5" fill="${R}" stroke="none"/>`)
+};
+const art=id=>`<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">${bg}${ART[id]}</svg>`;
+$("headArt").innerHTML=bg+ART.onigiri;
+
+// ── 날짜
+const HOL=new Set(["2026-12-25","2027-01-01","2027-02-06","2027-02-07","2027-02-08","2027-02-09","2027-03-01","2027-05-01","2027-05-03","2027-05-05","2027-05-13","2027-06-06","2027-07-17","2027-07-19","2027-08-15","2027-08-16","2027-09-14","2027-09-15","2027-09-16","2027-10-03","2027-10-04","2027-10-09","2027-10-11","2027-12-25","2027-12-27"]);
+const WD="일월화수목금토";
+const mk=(y,m,d)=>new Date(y,m,d);
+const key=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const isOff=d=>d.getDay()===0||d.getDay()===6||HOL.has(key(d));
+const diff=(a,b)=>Math.round((Date.UTC(b.getFullYear(),b.getMonth(),b.getDate())-Date.UTC(a.getFullYear(),a.getMonth(),a.getDate()))/864e5);
+function today(){const n=new Date();return mk(n.getFullYear(),n.getMonth(),n.getDate());}
+function payOf(y,m,day,adj){
+  const last=mk(y,m+1,0).getDate();
+  const d=mk(y,m,Math.min(day,last));
+  if(adj!=="same")while(isOff(d))d.setDate(d.getDate()+(adj==="after"?1:-1));
+  return d;
+}
+function nextPay(day,adj,t){
+  let isToday=false,next=null;
+  for(let i=-1;i<=3;i++){
+    const d=payOf(t.getFullYear(),t.getMonth()+i,day,adj),n=diff(t,d);
+    if(n===0)isToday=true;
+    if(n>0&&(!next||n<next.n))next={d,n};
+  }
+  return {isToday,date:next.d,n:next.n};
+}
+const dateText=d=>`${d.getMonth()+1}월 ${d.getDate()}일 (${WD[d.getDay()]})`;
+
+// ── 입력
+const num=el=>Number(el.value.replace(/\D/g,""))||0;
+function format(el){
+  const raw=el.value.replace(/\D/g,"").slice(0,10);
+  const atEnd=el.selectionStart===el.value.length,digitsBefore=el.value.slice(0,el.selectionStart).replace(/\D/g,"").length;
+  el.value=raw===""?"":Number(raw).toLocaleString("ko-KR");
+  if(!atEnd&&document.activeElement===el){let p=0,c=0;while(p<el.value.length&&c<digitsBefore){if(/\d/.test(el.value[p]))c++;p++;}el.setSelectionRange(p,p);}
+}
+document.querySelectorAll("#bal,.out").forEach(el=>el.addEventListener("input",()=>{format(el);if(el.id==="bal")clearErr("bal");}));
+document.querySelectorAll("[data-add]").forEach(b=>b.addEventListener("click",()=>{
+  const a=Number(b.dataset.add);
+  $("bal").value=a?Math.min(num($("bal"))+a,9999999999).toLocaleString("ko-KR"):"";
+  clearErr("bal");
+}));
+const getDayChoice=()=>{const r=document.querySelector("[name=day]:checked");return r?r.value:"";};
+const getAdj=()=>document.querySelector("[name=adj]:checked").value;
+function getDay(){
+  const c=getDayChoice();
+  if(c!=="custom")return c?Number(c):0;
+  const v=num($("dayNum"));return v>=1&&v<=31?v:0;
+}
+function updateDay(){
+  $("dayRow").hidden=getDayChoice()!=="custom";
+  const day=getDay(),t=today();
+  $("nextPay").hidden=!day;
+  let differs=false;
+  if(day){
+    const all=["before","after","same"].map(a=>nextPay(day,a,t));
+    differs=all.some(x=>x.n!==all[0].n||x.isToday!==all[0].isToday);
+    const p=nextPay(day,getAdj(),t);
+    $("nextPay").innerHTML=(p.isToday?"오늘 월급날! 다음 월급날은 ":"다음 월급날은 ")+dateText(p.date)+` <b>D-${p.n}</b>`;
+  }
+  $("adj").hidden=!differs;
+}
+document.querySelectorAll("[name=day],[name=adj]").forEach(r=>r.addEventListener("change",()=>{
+  clearErr("day");updateDay();
+  if(r.name==="day"&&r.value==="custom")$("dayNum").focus();
+}));
+$("dayNum").addEventListener("input",()=>{const e=$("dayNum");e.value=e.value.replace(/\D/g,"");clearErr("day");updateDay();});
+function setErr(k,msg){$(k+"Err").textContent=msg;$(k+"Err").hidden=false;if(k==="bal"){$("balBox").classList.add("bad");$("bal").setAttribute("aria-invalid","true");}}
+function clearErr(k){$(k+"Err").hidden=true;if(k==="bal"){$("balBox").classList.remove("bad");$("bal").removeAttribute("aria-invalid");}}
+
+// 월급날만 기억 (돈은 기억하지 않음)
+function save(){try{localStorage.setItem("picktool-payday",JSON.stringify({day:getDay(),adj:getAdj()}));}catch(e){}}
+(function load(){
+  try{
+    const s=JSON.parse(localStorage.getItem("picktool-payday")||"null");
+    if(s&&s.day>=1&&s.day<=31){
+      const r=document.querySelector(`[name=day][value="${s.day}"]`);
+      if(r)r.checked=true;else{document.querySelector("[name=day][value=custom]").checked=true;$("dayNum").value=s.day;}
+      const a=document.querySelector(`[name=adj][value="${s.adj}"]`);if(a)a.checked=true;
+    }
+  }catch(e){}
+  updateDay();
+})();
+
+// ── 화면 전환
+let res=null,lastBlob=null,cardUrl=null,shareFile=null;
+function show(id,focusId){
+  ["input","result","card"].forEach(s=>$(s).hidden=s!==id);
+  $("phone").scrollIntoView({block:"start"});
+  if(focusId)$(focusId).focus({preventScroll:true});
+}
+$("input").addEventListener("submit",e=>{
+  e.preventDefault();
+  clearErr("bal");clearErr("day");
+  let bad=null;
+  if($("bal").value===""){setErr("bal","통장 잔액을 숫자로 넣어 주세요. 없으면 0을 넣어요.");bad=$("bal");}
+  if(!getDay()){setErr("day",getDayChoice()==="custom"?"1부터 31 사이 날짜를 넣어 주세요.":"월급날을 골라 주세요.");bad=bad||(getDayChoice()==="custom"?$("dayNum"):document.querySelector("[name=day]"));}
+  if(bad){bad.focus();return;}
+  save();compute();renderResult();show("result","resTitle");
+});
+function compute(){
+  const t=today(),p=nextPay(getDay(),getAdj(),t);
+  const bal=num($("bal")),out=[...document.querySelectorAll(".out")].reduce((s,e)=>s+num(e),0);
+  const avail=bal-out,raw=avail/p.n;
+  const daily=avail<=0?0:(raw>=100?Math.floor(raw/100)*100:Math.floor(raw));
+  let gi=GRADES.findIndex(x=>daily<=x.max);
+  if(avail>0&&gi===0)gi=1;
+  const gr=GRADES[gi];
+  const line=gi===0&&avail===0?"쓸 수 있는 돈이 0원이에요. 미룰 수 있는 것부터 찾아봐요.":gr.line;
+  res={p,avail,bal,out,daily,gi,gr,line,menu:pickMenu(gr,daily)};
+}
+function renderResult(){
+  const {p,avail,daily,gi,gr,menu}=res;
+  $("resTitle").innerHTML=(p.isToday?"오늘 월급날! ":"")+(p.isToday?"다음 월급날까지 ":"월급날까지 ")+`<em>D-${p.n}</em>`;
+  $("resDaily").innerHTML=`<small>하루</small>${won(daily)}`;
+  $("resDaily").style.fontSize=daily>=1e8?"34px":daily>=1e6?"42px":"";
+  $("resCalc").textContent=avail<0?`${won(-avail)}이 모자라요`:`쓸 수 있는 돈 ${won(avail)} ÷ ${p.n}일`;
+  $("resArt").innerHTML=art(gr.id);
+  $("resMode").textContent=gr.name;
+  $("resMode").className="stamp"+(gi===0?" danger":"");
+  void $("resMode").offsetWidth;$("resMode").classList.add("press");
+  $("resLine").innerHTML=gi===0?res.line.replace(". ",".<br>"):res.line;
+  $("ladder").innerHTML=GRADES.map((x,i)=>`<i class="${i===gi?"me":i<gi?"on":""}"></i>`).join("");
+  $("ladderPos").textContent=`9단계 중 ${gi+1}단계`;
+  $("receipt").innerHTML=menu
+    ?`<h2>하루 ${won(daily)}이면 이렇게</h2>`+menu.rows.map(r=>`<div class="row"><span>${r.name}</span><span>${won(r.price)}</span></div>`).join("")
+      +`<div class="row sum"><span>합계</span><span>${won(menu.total)}</span></div><div class="row left"><span>남는 돈</span><span>${won(menu.left)}</span></div>`
+    :`<h2>오늘의 메뉴</h2><p class="empty">${gi===0?"집에 있는 것부터 먹어요. 카드값은 결제일을 미룰 수 있는지 카드사 앱에서 먼저 확인해요.":"냉동실에 잠든 만두와 떡을 깨워요. 삼각김밥 하나가 1,400원이에요."}</p>`;
+  $("linkText").textContent="친구한테 보내기";
+}
+$("againBtn").onclick=()=>{$("bal").value="";document.querySelectorAll(".out").forEach(e=>e.value="");updateDay();show("input");};
+$("linkBtn").onclick=async()=>{
+  const text=res.gi===0?"나 지금 비상벨 모드래. 너는 월급날까지 버틸 수 있어?":`나 하루 ${won(res.daily)}으로 ${res.p.n}일 버텨야 한대. ${res.gr.name}. 너는?`;
+  try{
+    if(navigator.share)await navigator.share({title:"월급날까지 버틸 수 있을까?",text,url:URL_TOOL});
+    else{await navigator.clipboard.writeText(text+" "+URL_TOOL);$("linkText").textContent="링크를 복사했어요";setTimeout(()=>$("linkText").textContent="친구한테 보내기",1800);}
+  }catch(e){if(e&&e.name!=="AbortError")$("linkText").textContent="주소창의 주소를 복사해 보내 주세요";}
+};
+
+// ── 저장 카드 1080×1920 (잔액은 안 넣음)
+function svgImg(id){return new Promise((ok,no)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=no;i.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(art(id));});}
+function fit(x,text,max,size,min){do{x.font=`${size}px "Black Han Sans", sans-serif`;if(x.measureText(text).width<=max)break;size-=2;}while(size>min);return size;}
+async function drawCard(){
+  const W=1080,H=1920,c=document.createElement("canvas");c.width=W;c.height=H;
+  const x=c.getContext("2d"),{p,daily,gr,gi,menu}=res;
+  const han=s=>`${s}px "Black Han Sans", sans-serif`,dod=s=>`${s}px "Gowun Dodum", sans-serif`;
+  x.fillStyle="#FFF9EE";x.fillRect(0,0,W,H);
+  x.strokeStyle=I;x.lineWidth=5;x.setLineDash([16,14]);x.strokeRect(54,54,W-108,H-108);x.setLineDash([]);
+  x.textAlign="center";x.textBaseline="alphabetic";
+  x.fillStyle=I;x.font=han(54);x.fillText("월급날까지",540,186);
+  x.fillStyle=V;const a=gi===0?"버틸 돈이 없음":`하루 ${won(daily)}으로`;fit(x,a,880,128,60);x.fillText(a,540,330);
+  x.fillStyle=I;x.font=han(92);x.fillText(`${p.n}일 버티기`,540,452);
+  try{x.drawImage(await svgImg(gr.id),355,492,370,370);}catch(e){}
+  fit(x,gr.name,760,80,50);
+  const tw=x.measureText(gr.name).width+96;
+  x.save();x.translate(540,948);x.rotate(-.03);x.fillStyle=gi===0?I:V;x.fillRect(-tw/2,-66,tw,128);x.fillStyle=gi===0?Y:"#fff";x.fillText(gr.name,0,27);x.restore();
+  x.fillStyle=I;x.font=dod(40);(x.measureText(res.line).width>860?res.line.split(/(?<=\.) /):[res.line]).forEach((l,i)=>x.fillText(l,540,1084+i*56));
+  // 단계 막대
+  const bx=120,bw=840,gap=10,cw=(bw-gap*8)/9;
+  for(let i=0;i<9;i++){x.fillStyle=i===gi?V:i<gi?Y:"#fff";x.fillRect(bx+i*(cw+gap),1188,cw,34);x.lineWidth=4;x.strokeStyle=I;x.strokeRect(bx+i*(cw+gap),1188,cw,34);}
+  // 영수증
+  const top=1272,bh=480,bottom=top+bh;
+  x.fillStyle="#EEE9FF";x.beginPath();x.moveTo(90,top);x.lineTo(990,top);x.lineTo(990,bottom);
+  for(let i=0;i<30;i++){x.lineTo(990-i*30-15,bottom+16);x.lineTo(990-i*30-30,bottom);}
+  x.closePath();x.fill();x.lineWidth=4;x.stroke();
+  const dash=y=>{x.lineWidth=3;x.setLineDash([10,8]);x.beginPath();x.moveTo(130,y);x.lineTo(950,y);x.stroke();x.setLineDash([]);};
+  x.fillStyle=I;x.textAlign="left";x.font=han(46);x.fillText(menu?"오늘 먹을 수 있는 것":"오늘의 메뉴",130,top+74);dash(top+104);
+  if(menu){
+    const area=264,n=menu.rows.length,rh=Math.min(92,(area-28)/n),start=top+104+(area-rh*n)/2;
+    menu.rows.forEach((m,i)=>{const y=start+rh*(i+.5)+15;x.fillStyle=I;x.textAlign="left";x.font=dod(n>3?40:46);x.fillText(m.name,130,y);x.textAlign="right";x.font=han(n>3?40:46);x.fillText(won(m.price),950,y);});
+    dash(bottom-112);
+    x.textAlign="left";x.font=han(50);x.fillText("남는 돈",130,bottom-38);x.textAlign="right";x.fillStyle="#5a3fe0";x.fillText(won(menu.left),950,bottom-38);
+  }else{
+    x.textAlign="center";x.font=dod(48);
+    const ls=gi===0?["집에 있는 것부터","먹어요."]:["냉동실에 잠든","만두와 떡을 깨워요."];
+    ls.forEach((l,i)=>x.fillText(l,540,top+276+i*74));
+  }
+  x.fillStyle=I;x.textAlign="center";x.font=dod(32);x.fillText("tools.irukabloom.com/payday",540,1826);
+  return c;
+}
+async function makeCard(){
+  const txt="월급날까지하루으로일버티기버틸돈이없음오늘먹을수있는것의메뉴남0123456789,원"+GRADES.map(x=>x.name+x.line).join("")+Object.values(MENU).map(m=>m.n+m.u).join("");
+  try{await Promise.all([document.fonts.load('400 40px "Black Han Sans"',txt),document.fonts.load('400 40px "Gowun Dodum"',txt+res.line+"tools.irukabloom.com/payday냉동실에 잠든 만두와 떡을 깨워요집있는것부터먹어요")]);}catch(e){}
+  const c=await drawCard();
+  lastBlob=await new Promise(r=>c.toBlob(r,"image/png"));
+  if(cardUrl)URL.revokeObjectURL(cardUrl);
+  cardUrl=URL.createObjectURL(lastBlob);
+  const img=new Image();img.id="cardImg";img.src=cardUrl;$("cardBox").replaceChildren(img);
+  img.alt=`월급날까지 하루 ${won(res.daily)}으로 ${res.p.n}일 버티기, ${res.gr.name}`;
+  shareFile=null;$("shareImgBtn").hidden=true;
+  if(navigator.canShare){const f=new File([lastBlob],fileName(),{type:"image/png"});try{if(navigator.canShare({files:[f]})){shareFile=f;$("shareImgBtn").hidden=false;}}catch(e){}}
+}
+const fileName=()=>`월급날생존-${res.gr.name.replace(/ /g,"")}.png`;
+$("toCardBtn").onclick=async()=>{$("saveMsg").textContent="";$("cardBox").replaceChildren();lastBlob=null;show("card","cardTitle");await makeCard();};
+$("backBtn").onclick=()=>show("result","resTitle");
+$("saveBtn").onclick=()=>{
+  if(!lastBlob)return;
+  try{
+    const u=URL.createObjectURL(lastBlob),a=document.createElement("a");a.href=u;a.download=fileName();
+    document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),3000);
+    $("saveMsg").textContent="저장했어요. 안 보이면 이미지를 길게 눌러 저장하세요";
+  }catch(e){$("saveMsg").textContent="저장이 안 되면 이미지를 길게 눌러 저장하세요";}
+};
+$("shareImgBtn").onclick=async()=>{if(!shareFile)return;try{await navigator.share({files:[shareFile],title:"월급날까지 버틸 수 있을까?"});}catch(e){}};
+
+// ── 설명 글 표
+$("gradeTable").innerHTML=GRADES.map(x=>`<tr><td>${x.range}</td><td>${x.name}</td></tr>`).join("");
+$("priceTable").innerHTML=Object.values(MENU).map(m=>`<tr><td>${m.n}</td><td>${m.b}</td><td class="n">${won(m.p)}</td></tr>`).join("");
+})();
+</script>
+
+<!-- 블로그 글 안에 끼워 넣을 때(?embed=1): 높이를 글에 알려 줌 -->
+<style>.is-embed footer{display:none}</style>
+<script>(function(){if(!/[?&]embed=1/.test(location.search)||window.parent===window)return;document.documentElement.classList.add("is-embed");function s(){parent.postMessage({type:"iruka-tool-height",height:Math.ceil(document.documentElement.scrollHeight)},"*")}addEventListener("load",s);if(window.ResizeObserver)new ResizeObserver(s).observe(document.body);setTimeout(s,300)})();</script>
+</body>
+</html>
