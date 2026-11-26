@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<!-- 직접 열면 블로그 글로 넘김(blog-redirect). ?embed=1 로 블로그 안에 끼워 넣었을 때만 웹툴이 보임 -->
+<script>if(!/[?&]embed=1(&|#|$)/.test(location.search))location.replace("https://haeminlog.com/webtool-10-deokjil/");</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>덕질 영수증 | 올해 최애에게 쓴 돈, 영수증으로 뽑아 드려요</title>
+<meta name="description" content="아이돌, 야구 직관, 애니·게임, 뮤지컬·공연 중 덕질 종류를 고르고 앨범·티켓·굿즈 개수를 넣으면 올해 덕질에 쓴 돈을 편의점 영수증 모양으로 뽑아 줘요. 합계, 치킨 몇 마리인지, 판정까지. 영수증 이미지 저장.">
+<link rel="canonical" href="https://haeminlog.com/webtool-10-deokjil/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="덕질 영수증">
+<meta property="og:description" content="올해 최애에게 쓴 돈, 영수증으로 뽑아 드려요">
+<meta property="og:url" content="https://haeminlog.com/webtool-10-deokjil/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#FFFDF7;--ink:#252321;--accent:#7357FF;--lavender:#EEE9FF;--red:#FF5F73;--yellow:#FFCF4A;--line:rgba(37,35,33,.12)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{background:var(--paper)}
+body{min-width:0;overflow-x:hidden;min-height:100vh;color:var(--ink);font-family:'Gowun Dodum',sans-serif;font-synthesis:none;
+  background:radial-gradient(circle at 85% 0%,rgba(115,87,255,.08),transparent 22rem),var(--paper)}
+button,input{font-family:inherit;color:inherit}
+button{cursor:pointer}
+[hidden]{display:none!important}
+
+.app-shell{position:relative;width:100%;max-width:520px;margin:0 auto;padding:20px 20px 42px;overflow:hidden}
+.topbar{position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:9px;font-size:14px;letter-spacing:-.02em;background:none;border:0;padding:0}
+.brand-mark{display:grid;width:28px;height:28px;place-items:center;border-radius:9px;color:#fff;background:var(--accent);font-family:'Black Han Sans',sans-serif;font-size:15px;box-shadow:0 4px 0 var(--ink)}
+.step-pill{border:1px solid var(--line);border-radius:99px;padding:7px 11px;background:rgba(255,255,255,.6);color:#756f68;font-size:11px}
+.step-pill b{color:var(--accent);font-family:Arial,sans-serif}
+
+.hero{position:relative;z-index:1;padding:54px 4px 26px}
+.eyebrow{color:var(--accent);font-family:Arial,sans-serif;font-size:10px;font-weight:800;letter-spacing:.2em}
+.hero h1,.result-intro h1{margin:7px 0 8px;font-family:'Black Han Sans',sans-serif;font-size:clamp(48px,14vw,68px);font-weight:400;line-height:.98;letter-spacing:-.055em}
+.hero>p:last-child{color:#6b6660;font-size:15px;letter-spacing:-.035em}
+.spark{position:absolute;color:var(--yellow);font-family:Arial,sans-serif;line-height:1;pointer-events:none}
+.spark.s1{top:40px;right:18px;font-size:44px;color:var(--accent)}
+.spark.s2{top:92px;right:76px;font-size:22px}
+.spark.s3{top:118px;right:8px;font-size:16px;color:var(--red)}
+
+/* 이런 결과가 나와요 */
+.preview{position:relative;z-index:1;margin:0 0 22px;border:1px solid var(--line);border-radius:18px;padding:16px 16px 18px;background:var(--lavender)}
+.preview-label{display:flex;align-items:center;gap:6px;margin-bottom:12px;color:var(--accent);font-size:12px;font-weight:700}
+.mini-receipt{width:210px;margin:0 auto;padding:16px 16px 20px;background:#fff;color:var(--ink);font-size:10.5px;line-height:1.5;transform:rotate(-2deg);
+  box-shadow:0 10px 22px rgba(60,45,120,.16);
+  -webkit-mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/10px 100%;
+          mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/10px 100%}
+.mini-receipt .mr-title{font-family:'Black Han Sans',sans-serif;font-size:15px;text-align:center}
+.mini-receipt .mr-sub{color:#8a837b;font-size:9px;text-align:center}
+.mini-receipt hr{margin:7px 0;border:0;border-top:1px dashed #bdb5aa}
+.mr-row{display:flex;justify-content:space-between}
+.mr-fav{font-family:'Black Han Sans',sans-serif;font-size:14px}
+.mr-total{display:flex;justify-content:space-between;align-items:baseline;font-family:'Black Han Sans',sans-serif;font-size:13px}
+.mr-total b{color:var(--red);font-weight:400;font-size:16px}
+.mr-chicken{color:var(--accent);text-align:right}
+.mr-verdict{margin-top:6px;border-radius:6px;padding:5px 6px;background:var(--lavender);text-align:center;font-weight:700}
+
+.fan-form{position:relative;z-index:2;border:1px solid var(--line);border-radius:20px;padding:22px 16px 18px;background:rgba(255,255,255,.75);box-shadow:0 18px 45px rgba(76,61,35,.07)}
+.form-section+.form-section{margin-top:26px}
+.field-label{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.field-label span{display:grid;width:25px;height:25px;place-items:center;border-radius:8px;color:var(--accent);background:var(--lavender);font-family:Arial,sans-serif;font-size:9px;font-weight:800}
+.field-label strong{font-size:14px;letter-spacing:-.04em}
+.kinds{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.kind{display:flex;min-height:62px;flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;border:1.5px solid #ded9d0;border-radius:16px;padding:10px 14px;background:#fffdfa;text-align:left;transition:160ms ease}
+.kind b{font-size:15px;letter-spacing:-.03em}
+.kind small{color:#8a837b;font-size:11px}
+.kind.active{border-color:var(--accent);background:var(--lavender);box-shadow:inset 0 0 0 1px var(--accent)}
+.kind.active b{color:#6045e8}
+.text-input{width:100%;height:54px;border:1.5px solid #ded9d0;border-radius:14px;outline:none;padding:0 16px;background:#fffdfa;font-size:16px;transition:border-color 160ms,box-shadow 160ms}
+.text-input:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(115,87,255,.1)}
+.items-note{margin:-4px 0 10px;color:#8a837b;font-size:12px}
+.items-empty{border:1.5px dashed #ded9d0;border-radius:14px;padding:18px;color:#9a938a;font-size:13px;text-align:center}
+.item{display:grid;grid-template-columns:1fr auto;align-items:center;gap:6px 10px;border-top:1px dashed #e0d9ce;padding:12px 0}
+.item:first-child{border-top:0;padding-top:2px}
+.item-name{font-size:15px;font-weight:700;letter-spacing:-.03em}
+.item-price{display:flex;align-items:center;gap:4px;grid-column:1;color:#8a837b;font-size:12px}
+.item-price input{width:92px;height:32px;border:1px solid #e0d9ce;border-radius:9px;padding:0 8px;background:#fffdfa;font-size:14px;text-align:right;outline:none}
+.item-price input:focus{border-color:var(--accent)}
+.stepper{display:flex;grid-column:2;grid-row:1/3;align-items:center;gap:4px}
+.stepper button{width:44px;height:44px;border:1.5px solid #ded9d0;border-radius:13px;background:#fff;font-size:22px;line-height:1}
+.stepper button:active{background:var(--lavender)}
+.stepper input{width:44px;height:44px;border:0;background:transparent;font-family:'Black Han Sans',sans-serif;font-size:20px;text-align:center;outline:none}
+.stepper .unit{width:16px;color:#8a837b;font-size:12px}
+.form-summary{display:flex;align-items:center;justify-content:space-between;margin:24px 0 12px;border-top:1px dashed #ccc5ba;padding-top:18px;color:#766f67;font-size:12px}
+.form-summary strong{color:var(--red);font-family:'Black Han Sans',sans-serif;font-size:22px;font-weight:400}
+.primary-button,.secondary-button{display:flex;width:100%;height:58px;align-items:center;justify-content:center;gap:10px;border-radius:16px;font-size:15px;font-weight:700}
+.primary-button{border:2px solid var(--ink);color:#fff;background:var(--accent);box-shadow:0 5px 0 var(--ink)}
+.primary-button:active{transform:translateY(3px);box-shadow:0 2px 0 var(--ink)}
+.secondary-button{border:1.5px solid #cec7bd;color:#504b45;background:#fff}
+.primary-button svg,.secondary-button svg{width:21px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.form-error{min-height:18px;margin:-2px 0 10px;color:#e0485c;font-size:12px;text-align:center}
+.disclaimer{margin-top:15px;color:#999188;text-align:center;font-size:11px}
+
+/* 결과 */
+.result-intro{padding:40px 0 20px}
+.result-intro h1{font-size:48px}
+.result-intro>p:last-child{margin-top:10px;color:#787169;font-size:14px}
+.receipt-img{display:block;width:100%;height:auto;aspect-ratio:9/16;border:1px solid #e3ddd3;border-radius:18px;background:var(--paper);box-shadow:0 22px 45px rgba(55,47,34,.14)}
+.card-tip{margin:10px 0 18px;color:#938b82;font-size:11px;text-align:center}
+.result-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.result-actions .wide{grid-column:1/-1}
+.save-msg{min-height:18px;margin-top:10px;color:#756f68;font-size:12px;text-align:center}
+
+/* 설명 글 */
+.info{max-width:520px;margin:0 auto;padding:30px 20px 10px;line-height:1.75;font-size:15px}
+.info h2{margin:30px 0 10px;font-family:'Black Han Sans',sans-serif;font-size:22px;font-weight:400;letter-spacing:-.02em}
+.info h3{margin:18px 0 4px;font-size:15px}
+.info p{margin-bottom:10px;color:#3d3a36}
+.info ul{margin:0 0 10px 20px;color:#3d3a36}
+.info .ref{color:#8a837b;font-size:13px}
+.price-table{width:100%;margin:6px 0 12px;border-collapse:collapse;font-size:13px;line-height:1.5}
+.price-table th,.price-table td{padding:7px 6px;border-bottom:1px solid #e3ddd3;text-align:left;vertical-align:top}
+.price-table th{background:var(--lavender);font-weight:700}
+.price-table td:last-child,.price-table th:last-child{text-align:right;white-space:nowrap}
+footer.site{padding:24px 20px 40px;text-align:center}
+footer.site a{color:var(--accent);font-size:14px}
+
+@media (max-width:370px){
+  .app-shell{padding-inline:14px}
+  .hero h1{font-size:46px}
+  .fan-form{padding-inline:12px}
+  .stepper button{width:40px;height:40px}
+  .stepper input{width:36px}
+}
+</style>
+</head>
+<body>
+<main class="app-shell" id="app">
+  <section id="inputPage">
+    <div class="topbar">
+      <div class="brand"><span class="brand-mark">P</span><strong>PickTool</strong></div>
+      <span class="step-pill"><b>#10</b> · 연말 결산</span>
+    </div>
+    <header class="hero">
+      <span class="spark s1" aria-hidden="true">✦</span><span class="spark s2" aria-hidden="true">✦</span><span class="spark s3" aria-hidden="true">✦</span>
+      <p class="eyebrow">FANDOM RECEIPT</p>
+      <h1>덕질 영수증</h1>
+      <p>올해 최애에게 쓴 돈, 영수증으로 뽑아 드려요</p>
+    </header>
+
+    <div class="preview" aria-label="결과 예시">
+      <p class="preview-label">✦ 이런 결과가 나와요</p>
+      <div class="mini-receipt" aria-hidden="true">
+        <p class="mr-title">PICKTOOL 덕질마트</p>
+        <p class="mr-sub">2026 덕질 영수증 · 아이돌</p>
+        <hr>
+        <p class="mr-fav">최애: 우리 막내</p>
+        <hr>
+        <div class="mr-row"><span>앨범 ×6</span><span>120,000</span></div>
+        <div class="mr-row"><span>콘서트 티켓 ×2</span><span>300,000</span></div>
+        <div class="mr-row"><span>포토카드 ×30</span><span>150,000</span></div>
+        <hr>
+        <div class="mr-total"><span>합계</span><b>570,000원</b></div>
+        <p class="mr-chicken">= 치킨 28마리</p>
+        <p class="mr-verdict">판정: 성실한 팬. 후회 없음</p>
+      </div>
+    </div>
+
+    <form class="fan-form" id="form" novalidate>
+      <section class="form-section">
+        <div class="field-label"><span>01</span><strong>어떤 덕질을 하나요?</strong></div>
+        <div class="kinds" id="kinds"></div>
+      </section>
+      <section class="form-section">
+        <div class="field-label"><span>02</span><strong>최애 이름은?</strong></div>
+        <input class="text-input" id="fav" aria-label="최애 이름" placeholder="예: 우리 막내" maxlength="14" autocomplete="off">
+      </section>
+      <section class="form-section">
+        <div class="field-label"><span>03</span><strong>올해 몇 개나 샀나요?</strong></div>
+        <p class="items-note" id="itemsNote" hidden>단가는 예시 금액이에요. 내가 실제로 낸 값으로 바꿔 주세요.</p>
+        <div id="items"><p class="items-empty">01에서 덕질 종류를 고르면 항목이 나와요</p></div>
+      </section>
+      <div class="form-summary"><span>지금까지 합계</span><strong id="liveTotal">0원</strong></div>
+      <p class="form-error" id="formError"></p>
+      <button class="primary-button" type="submit">영수증 뽑기 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5"/></svg></button>
+      <p class="disclaimer">입력한 내용은 이 휴대폰 안에서만 계산돼요.</p>
+    </form>
+  </section>
+
+  <section id="resultPage" hidden>
+    <div class="topbar">
+      <button class="brand" type="button" id="brandBack" aria-label="입력 화면으로 돌아가기"><span class="brand-mark">P</span><strong>PickTool</strong></button>
+      <span class="step-pill"><b>#10</b> · 결제 완료</span>
+    </div>
+    <div class="result-intro">
+      <p class="eyebrow">PAYMENT COMPLETE</p>
+      <h1 id="resHead">영수증이<br>나왔습니다.</h1>
+      <p id="resSub"></p>
+    </div>
+    <img class="receipt-img" id="cardImg" alt="덕질 영수증">
+    <p class="card-tip">이미지를 길게 눌러도 저장돼요 · 1080×1920</p>
+    <div class="result-actions">
+      <button class="primary-button" id="saveBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 20h14"/></svg> 영수증 저장</button>
+      <button class="secondary-button" id="againBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4m0 0h5M4 4l4 4a7 7 0 1 1-1 8"/></svg> 다시 하기</button>
+      <button class="secondary-button wide" id="shareImgBtn" type="button" hidden>인스타·카톡으로 공유하기</button>
+    </div>
+    <p class="save-msg" id="saveMsg"></p>
+  </section>
+</main>
+
+<article class="info">
+  <h2>덕질 영수증은 이렇게 계산해요</h2>
+  <p>항목마다 단가에 개수를 곱하고, 전부 더해서 합계를 내요. 합계를 치킨 1마리 20,000원으로 나눠서 치킨 몇 마리인지도 보여 줘요. 1마리가 안 되면 "치킨 1마리 미만"으로 나와요.</p>
+  <p>단가 칸에 처음 들어 있는 숫자는 계산을 쉽게 하려고 넣어 둔 예시 금액이에요. 평균값이나 공식 가격이 아니에요. 앨범 버전, 좌석 등급, 사는 곳에 따라 값이 많이 다르니까 실제로 낸 값으로 바꿔서 넣어 주세요.</p>
+
+  <h2>처음 들어 있는 예시 금액</h2>
+  <table class="price-table">
+    <thead><tr><th>종류</th><th>항목</th><th>예시 단가</th></tr></thead>
+    <tbody id="priceTable"></tbody>
+  </table>
+
+  <h2>판정 기준</h2>
+  <ul>
+    <li>30만 원 이하: 입덕 새내기</li>
+    <li>30만 원 넘고 100만 원 이하: 성실한 팬</li>
+    <li>100만 원 넘고 300만 원 이하: VIP 고객</li>
+    <li>300만 원 넘음: 전설의 큰손</li>
+  </ul>
+  <p>예를 들어 아이돌 팬이 앨범 6장(12만 원), 콘서트 2번(30만 원), 포토카드 30장(15만 원)을 샀다면 합계 57만 원, 치킨 28마리, 판정은 성실한 팬이에요.</p>
+
+  <h2>자주 묻는 질문</h2>
+  <h3>최애가 여러 명이면요?</h3>
+  <p>최애 이름 칸에 "○○, △△"처럼 같이 적거나, 한 명씩 따로 뽑아 보세요. 따로 뽑으면 누구에게 제일 많이 썼는지 비교할 수 있어요.</p>
+  <h3>목록에 없는 걸 샀어요.</h3>
+  <p>제일 비슷한 항목의 단가를 바꿔서 넣어 주세요. 예를 들어 팬사인회 응모용 앨범은 앨범 칸에, 생일 카페 굿즈는 굿즈 칸에 넣으면 돼요.</p>
+  <h3>왜 치킨 1마리가 20,000원이에요?</h3>
+  <p>배달 치킨 한 마리 값을 대충 잡은 숫자예요. 브랜드마다 다르니까 비교용으로만 봐 주세요.</p>
+  <h3>입력한 내용이 어딘가에 저장되나요?</h3>
+  <p>아니요. 계산과 영수증 이미지는 모두 지금 보고 있는 휴대폰 안에서 만들어져요. 서버로 보내지 않아요.</p>
+  <h3>가수 사진이나 로고를 넣을 수 있나요?</h3>
+  <p>넣지 않아요. 사진과 로고는 저작권이 있어서, 영수증에는 직접 적은 최애 이름만 들어가요.</p>
+  <p class="ref">재미로 보는 계산이에요. 예시 금액은 2026년 11월에 정한 값이에요.</p>
+</article>
+<footer class="site"><a href="../">다른 웹툴 보기</a></footer>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const KINDS=[
+ {key:"idol",label:"아이돌",sub:"앨범·콘서트·포카",next:"다음 컴백도",items:[
+   ["앨범",20000,"장"],["콘서트 티켓",150000,"회"],["굿즈",30000,"개"],["포토카드",5000,"장"],["팬 멤버십",30000,"개"],["원정 교통·숙박",100000,"회"]]},
+ {key:"baseball",label:"야구 직관",sub:"티켓·유니폼·먹거리",next:"다음 시즌도",items:[
+   ["직관 티켓",20000,"회"],["유니폼",120000,"벌"],["응원 굿즈",30000,"개"],["구장 먹거리",20000,"회"],["원정 교통",50000,"회"]]},
+ {key:"anime",label:"애니·게임",sub:"과금·피규어·팝업",next:"다음 픽업도",items:[
+   ["게임 과금 (한 달)",50000,"달"],["피규어",100000,"개"],["굿즈",20000,"개"],["팝업스토어",30000,"회"],["극장판 관람",15000,"회"]]},
+ {key:"stage",label:"뮤지컬·공연",sub:"티켓·MD·프로그램북",next:"다음 회차도",items:[
+   ["공연 티켓",150000,"회"],["MD 굿즈",30000,"개"],["프로그램북",15000,"권"],["공연장 교통",30000,"회"]]}
+];
+const TIERS=[
+ {max:300000,title:"입덕 새내기",line:()=>"통장이 아직 웃고 있음",head:"아직은<br>가벼워요.",sub:"통장이 아직 웃고 있어요."},
+ {max:1000000,title:"성실한 팬",line:k=>"후회 없음. "+k.next+" 기다리는 중",head:"성실하게<br>사랑했네요.",sub:"쓴 만큼 행복했으면 후회 없어요."},
+ {max:3000000,title:"VIP 고객",line:k=>"후회 없음. "+k.next+" 결제 예정",head:"VIP 고객님<br>감사합니다.",sub:"덕질마트가 VIP로 모십니다."},
+ {max:Infinity,title:"전설의 큰손",line:()=>"카드사가 감사 인사 보냄",head:"전설의<br>큰손 등장.",sub:"카드사가 감사 인사를 보낼 거예요."}
+];
+let kind=null,rows=[],res=null,lastBlob=null,cardUrl=null,shareFile=null;
+const num=v=>Number(String(v).replace(/\D/g,""))||0;
+const won=v=>Math.round(v).toLocaleString("ko-KR");
+
+// 설명 글 예시 금액 표
+$("priceTable").innerHTML=KINDS.map(k=>k.items.map((it,i)=>`<tr>${i===0?`<td rowspan="${k.items.length}">${k.label}</td>`:""}<td>${it[0]}</td><td>${won(it[1])}원</td></tr>`).join("")).join("");
+
+// 01 종류
+KINDS.forEach((k,i)=>{const b=document.createElement("button");b.type="button";b.className="kind";b.setAttribute("aria-pressed","false");
+  b.innerHTML=`<b>${k.label}</b><small>${k.sub}</small>`;
+  b.onclick=()=>{[...$("kinds").children].forEach(c=>{c.classList.remove("active");c.setAttribute("aria-pressed","false")});b.classList.add("active");b.setAttribute("aria-pressed","true");pickKind(i);};
+  $("kinds").appendChild(b);});
+
+function pickKind(i){
+  kind=KINDS[i];rows=kind.items.map(it=>({name:it[0],price:it[1],unit:it[2],qty:0}));
+  $("itemsNote").hidden=false;
+  const box=$("items");box.innerHTML="";
+  rows.forEach((r,ri)=>{
+    const d=document.createElement("div");d.className="item";
+    d.innerHTML=`<div class="item-name">${r.name}</div>
+      <label class="item-price">1${r.unit}에 <input inputmode="numeric" aria-label="${r.name} 단가" value="${won(r.price)}">원</label>
+      <div class="stepper"><button type="button" aria-label="${r.name} 하나 빼기">−</button><input inputmode="numeric" aria-label="${r.name} 개수" value="0"><span class="unit">${r.unit}</span><button type="button" aria-label="${r.name} 하나 더하기">+</button></div>`;
+    const [pIn]=d.querySelectorAll(".item-price input"),[minus,plus]=d.querySelectorAll(".stepper button"),qIn=d.querySelector(".stepper input");
+    pIn.addEventListener("input",()=>{const n=num(pIn.value);pIn.value=n?won(n):"";r.price=n;live();});
+    const setQ=q=>{r.qty=Math.max(0,Math.min(999,q));qIn.value=r.qty;live();};
+    minus.onclick=()=>setQ(r.qty-1);plus.onclick=()=>setQ(r.qty+1);
+    qIn.addEventListener("input",()=>{r.qty=Math.min(999,num(qIn.value));qIn.value=qIn.value===""?"":r.qty;live();});
+    qIn.addEventListener("blur",()=>{qIn.value=r.qty;});
+    qIn.addEventListener("focus",()=>{if(r.qty===0)qIn.select();});
+    box.appendChild(d);
+  });
+  live();
+}
+const total=()=>rows.reduce((a,r)=>a+r.price*r.qty,0);
+function live(){$("liveTotal").textContent=won(total())+"원";$("formError").textContent="";}
+
+function check(){
+  if(!kind)return "덕질 종류를 골라 주세요";
+  const fav=$("fav").value.trim();
+  if(!fav)return "최애 이름을 적어 주세요";
+  const bought=rows.filter(r=>r.qty>0&&r.price>0);
+  if(!bought.length)return "산 것을 하나 이상 넣어 주세요";
+  const sum=bought.reduce((a,r)=>a+r.price*r.qty,0);
+  const tier=TIERS.find(t=>sum<=t.max);
+  const d=new Date(),pad=n=>String(n).padStart(2,"0");
+  res={kind,fav,bought,sum,tier,chicken:Math.floor(sum/20000),year:d.getFullYear(),
+    date:`${d.getFullYear()}.${pad(d.getMonth()+1)}.${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`,
+    no:`${d.getFullYear()}-${pad(d.getMonth()+1)}${pad(d.getDate())}-${String(Math.floor(Math.random()*9000)+1000)}`};
+  return null;
+}
+
+$("form").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const err=check();if(err){$("formError").textContent=err;return;}
+  $("resHead").innerHTML=res.tier.head;$("resSub").textContent=`${res.fav}에게 ${won(res.sum)}원. ${res.tier.sub}`;
+  $("saveMsg").textContent="";
+  $("inputPage").hidden=true;$("resultPage").hidden=false;window.scrollTo(0,0);
+  await makeCard();
+});
+function back(){$("resultPage").hidden=true;$("inputPage").hidden=false;window.scrollTo(0,0);}
+$("againBtn").onclick=back;$("brandBack").onclick=back;
+
+// ---------- 영수증 이미지 (1080×1920) ----------
+const BH='"Black Han Sans", sans-serif',GD='"Gowun Dodum", sans-serif';
+function spaced(x,text,cx,y,gap){const ch=[...text];const w=ch.reduce((a,c)=>a+x.measureText(c).width,0)+gap*(ch.length-1);let p=cx-w/2;const al=x.textAlign;x.textAlign="left";ch.forEach(c=>{x.fillText(c,p,y);p+=x.measureText(c).width+gap;});x.textAlign=al;}
+function fit(x,text,maxW,size,min,family){let s=size;x.font=`${s}px ${family}`;while(x.measureText(text).width>maxW&&s>min){s-=2;x.font=`${s}px ${family}`;}return s;}
+function dashed(x,L,R,y){x.save();x.strokeStyle="#BDB5AA";x.lineWidth=3;x.setLineDash([12,10]);x.beginPath();x.moveTo(L,y);x.lineTo(R,y);x.stroke();x.restore();}
+function star(x,cx,cy,r,color){x.save();x.fillStyle=color;x.beginPath();for(let i=0;i<8;i++){const a=i*Math.PI/4-Math.PI/2,rr=i%2?r*.28:r;x.lineTo(cx+Math.cos(a)*rr,cy+Math.sin(a)*rr);}x.closePath();x.fill();x.restore();}
+function seeded(s){let h=0;for(const c of s)h=(h*31+c.charCodeAt(0))>>>0;return()=>{h=(h*1103515245+12345)>>>0;return h/4294967296;};}
+
+function drawCard(){
+  const W=1080,H=1920,c=document.createElement("canvas");c.width=W;c.height=H;
+  const x=c.getContext("2d"),INK="#252321",GREY="#8A837B",ACC="#7357FF",RED="#FF5F73";
+  // 바탕
+  x.fillStyle="#FFFDF7";x.fillRect(0,0,W,H);
+  x.fillStyle="#EEE9FF";x.beginPath();x.arc(980,150,230,0,Math.PI*2);x.fill();
+  x.beginPath();x.arc(70,1560,150,0,Math.PI*2);x.fill();
+  star(x,150,170,46,"#FFCF4A");star(x,920,1690,40,ACC);star(x,965,1470,20,RED);star(x,105,330,18,ACC);
+
+  // 영수증 높이 계산
+  const n=res.bought.length,rowH=n<=3?118:n===4?100:n===5?88:80;
+  const PW=840,PL=(W-PW)/2,L=PL+64,R=PL+PW-64;
+  const PH=562+n*rowH+630;
+  const PT=Math.round((1780-PH)/2)+10;
+  // 종이 (위아래 톱니)
+  const tooth=20;
+  x.save();x.shadowColor="rgba(60,45,120,.16)";x.shadowBlur=40;x.shadowOffsetY=16;x.fillStyle="#FFFFFF";
+  x.beginPath();x.moveTo(PL,PT);
+  for(let px=PL;px<PL+PW;px+=tooth*2){x.lineTo(px+tooth,PT+tooth);x.lineTo(px+tooth*2,PT);}
+  x.lineTo(PL+PW,PT+PH);
+  for(let px=PL+PW;px>PL;px-=tooth*2){x.lineTo(px-tooth,PT+PH-tooth);x.lineTo(px-tooth*2,PT+PH);}
+  x.closePath();x.fill();x.restore();
+
+  x.textBaseline="alphabetic";x.textAlign="center";
+  let y=PT+112;
+  x.fillStyle=INK;x.font=`66px ${BH}`;x.fillText("PICKTOOL 덕질마트",540,y);
+  star(x,L+6,y-24,16,ACC);star(x,R-6,y-24,16,ACC);
+  y+=50;x.fillStyle=GREY;x.font=`bold 21px Arial, sans-serif`;spaced(x,"FANDOM RECEIPT",540,y,9);
+  y+=54;x.fillStyle=INK;x.font=`32px ${GD}`;x.fillText(`${res.year} 덕질 영수증 · ${res.kind.label}`,540,y);
+  y+=40;dashed(x,L,R,y);
+  y+=50;x.font=`26px ${GD}`;x.fillStyle=GREY;x.textAlign="left";x.fillText("일시",L,y);x.textAlign="right";x.fillStyle=INK;x.fillText(res.date,R,y);
+  y+=42;x.textAlign="left";x.fillStyle=GREY;x.fillText("영수증 번호",L,y);x.textAlign="right";x.fillStyle=INK;x.fillText(res.no,R,y);
+  y+=36;dashed(x,L,R,y);
+  // 최애
+  y+=66;x.textAlign="left";x.fillStyle=ACC;x.font=`30px ${BH}`;x.fillText("최애",L,y);
+  const fs=fit(x,res.fav,R-L-110,66,34,BH);x.fillStyle=INK;x.fillText(res.fav,L+100,y+(fs-30)*0.25);
+  y+=48;dashed(x,L,R,y);
+  // 머리줄
+  y+=50;x.font=`bold 24px ${GD}`;x.fillStyle=GREY;x.textAlign="left";x.fillText("품목",L,y);
+  x.textAlign="center";x.fillText("수량",L+470,y);x.textAlign="right";x.fillText("금액",R,y);
+  y+=14;
+  // 품목
+  res.bought.forEach(r=>{
+    const base=y+rowH/2+4;
+    x.textAlign="left";x.fillStyle=INK;fit(x,r.name,400,38,26,GD);x.font=x.font.replace(/^(\d+px)/,"bold $1");x.fillText(r.name,L,base-6);
+    x.fillStyle=GREY;x.font=`24px ${GD}`;x.fillText(`@${won(r.price)}`,L,base+30);
+    x.fillStyle=INK;x.textAlign="center";x.font=`36px ${GD}`;x.fillText(`${r.qty}${r.unit}`,L+470,base+8);
+    x.textAlign="right";x.font=`bold 36px ${GD}`;x.fillText(won(r.price*r.qty),R,base+8);
+    y+=rowH;
+  });
+  y+=20;x.fillStyle=INK;x.fillRect(L,y,R-L,4);
+  // 합계
+  y+=88;x.textAlign="left";x.font=`48px ${BH}`;x.fillText("합계",L,y);
+  x.textAlign="right";x.fillStyle=RED;fit(x,won(res.sum)+"원",R-L-170,76,48,BH);x.fillText(won(res.sum)+"원",R,y+4);
+  y+=60;x.fillStyle=ACC;x.font=`34px ${GD}`;x.font=`bold 34px ${GD}`;
+  x.fillText(res.chicken>=1?`= 치킨 ${won(res.chicken)}마리`:"= 치킨 1마리 미만",R,y);
+  y+=44;dashed(x,L,R,y);
+  // 판정
+  y+=30;const bh=180;
+  x.fillStyle="#EEE9FF";x.beginPath();x.roundRect(L,y,R-L,bh,22);x.fill();
+  x.textAlign="center";x.fillStyle=ACC;x.font=`bold 22px Arial, sans-serif`;spaced(x,"판정",540,y+46,14);
+  x.fillStyle=INK;x.font=`64px ${BH}`;x.fillText(res.tier.title,540,y+114);
+  x.fillStyle="#5A5550";fit(x,res.tier.line(res.kind),R-L-60,32,24,GD);x.fillText(res.tier.line(res.kind),540,y+158);
+  y+=bh;
+  // 바코드
+  y+=40;const rnd=seeded(res.no+res.fav),bw=440,bx=540-bw/2;let px=bx;x.fillStyle=INK;
+  while(px<bx+bw){const w=[3,3,5,7][Math.floor(rnd()*4)];x.fillRect(px,y,w,80);px+=w+[4,5,7][Math.floor(rnd()*3)];}
+  y+=116;x.fillStyle=GREY;x.font=`24px ${GD}`;x.fillText(`${res.fav} 덕분에 행복했습니다. 또 오세요`,540,y);
+
+  // 워터마크
+  x.fillStyle="#E3DDD3";x.fillRect(96,1800,W-192,3);
+  x.textAlign="left";x.fillStyle=INK;x.font=`bold 32px Arial, sans-serif`;x.fillText("PickTool",96,1856);
+  x.textAlign="right";x.fillStyle=GREY;x.font=`26px Arial, sans-serif`;x.fillText("#10 · tools.irukabloom.com",W-96,1854);
+  return c;
+}
+async function makeCard(){
+  const txt="PICKTOOL덕질마트영수증일시번호최애품목수량금액합계치킨마리미만판정덕분에행복했습니다또오세요원@,.:·=-0123456789 "+res.fav+res.kind.label+res.tier.title+res.tier.line(res.kind)+res.bought.map(r=>r.name+r.unit).join("");
+  try{await Promise.all([document.fonts.load(`400 66px "Black Han Sans"`,txt),document.fonts.load(`400 32px "Gowun Dodum"`,txt)]);}catch(e){}
+  const c=drawCard();
+  lastBlob=await new Promise(r=>c.toBlob(r,"image/png"));
+  if(cardUrl)URL.revokeObjectURL(cardUrl);
+  cardUrl=URL.createObjectURL(lastBlob);$("cardImg").src=cardUrl;
+  shareFile=null;$("shareImgBtn").hidden=true;
+  if(navigator.canShare){const f=new File([lastBlob],fileName(),{type:"image/png"});try{if(navigator.canShare({files:[f]})){shareFile=f;$("shareImgBtn").hidden=false;}}catch(e){}}
+}
+function fileName(){return `덕질영수증-${res.year}.png`;}
+$("saveBtn").onclick=()=>{
+  if(!lastBlob)return;
+  try{const u=URL.createObjectURL(lastBlob),a=document.createElement("a");a.href=u;a.download=fileName();
+    document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),3000);
+    $("saveMsg").textContent="저장했어요. 안 보이면 이미지를 길게 눌러 저장하세요";
+  }catch(e){$("saveMsg").textContent="저장이 안 되면 이미지를 길게 눌러 저장하세요";}
+};
+$("shareImgBtn").onclick=async()=>{if(!shareFile)return;try{await navigator.share({files:[shareFile],title:"덕질 영수증"});}catch(e){}};
+})();
+</script>
+
+<!-- 블로그 글 안에 끼워 넣을 때(?embed=1): 높이를 글에 알려 줌 -->
+<style>.is-embed footer.site{display:none}</style>
+<script>(function(){if(!/[?&]embed=1/.test(location.search)||window.parent===window)return;document.documentElement.classList.add("is-embed");function s(){parent.postMessage({type:"iruka-tool-height",height:Math.ceil(document.documentElement.scrollHeight)},"*")}addEventListener("load",s);if(window.ResizeObserver)new ResizeObserver(s).observe(document.body);setTimeout(s,300)})();</script>
+</body>
+</html>
