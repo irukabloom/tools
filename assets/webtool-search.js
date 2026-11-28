@@ -1,5 +1,5 @@
 /* 픽툴 웹툴 번호·키워드 검색창
-   - 해민로그(category/life-webtools) 상단에 번호(#01~#09)·키워드 즉시 검색창을 붙임
+   - 해민로그(category/life-webtools) 상단에 번호(#01~#10)·키워드 즉시 검색창을 붙임
    - 번호는 01/#01/1, 공휴일 달력은 02-2 로도 찾힘
    - 다른 페이지에서는 아무것도 하지 않음
 */
@@ -19,9 +19,10 @@
     { n: '06', t: '물가 감각 테스트', d: '요즘 가격 10개 맞히면 내 물가 감각이 몇 년도인지', u: 'https://haeminlog.com/webtool-06-mulga/', k: '물가 감각 테스트 요즘 가격 김밥 짜장면 지하철 냉면 외식비 몇년도 심리테스트' },
     { n: '07', t: '오늘의 오미쿠지', d: '하루 한 번 종이운세 뽑기와 일본 오미쿠지 한자 해석', u: 'https://haeminlog.com/webtool-07-omikuji/', k: '오미쿠지 종이운세 운세 뽑기 일본 신사 한자 해석 대길 흉 길흉' },
     { n: '08', t: '월급날까지 생존 계산기', d: '통장 잔액과 월급날로 하루 예산과 생존 등급 계산', u: 'https://haeminlog.com/webtool-08-payday/', k: '월급날 생존 계산기 통장 잔액 하루 예산 월세 카드값 비상벨 태평성대 구내식당' },
-    { n: '09', t: '지름 판결문', d: '살까 말까 고민될 때 노동시간과 점수로 사도 되는지 판결', u: 'https://haeminlog.com/webtool-09-jireum/', k: '지름 판결문 살까 말까 노동시간 계산기 지름신 장바구니 소비 습관 구매 허가 조건부 허가 집행유예 기각 판결문' }
+    { n: '09', t: '지름 판결문', d: '살까 말까 고민될 때 노동시간과 점수로 사도 되는지 판결', u: 'https://haeminlog.com/webtool-09-jireum/', k: '지름 판결문 살까 말까 노동시간 계산기 지름신 장바구니 소비 습관 구매 허가 조건부 허가 집행유예 기각 판결문' },
+    { n: '10', t: '덕질 영수증', d: '최애에게 올해 쓴 돈을 영수증 모양으로, 치킨 몇 마리인지까지', u: 'https://haeminlog.com/webtool-10-deokjil/', k: '덕질 영수증 덕질 비용 최애 지출 치킨 몇 마리 아이돌 앨범 콘서트 포토카드 야구 직관 유니폼 애니 게임 과금 피규어 뮤지컬 공연 티켓 굿즈 연말 결산 입덕 새내기 성실한 팬 VIP 고객 전설의 큰손' }
   ];
-  var CH = [['#01', '알바 벽', 0], ['#02', '연차', 1], ['#02', '공휴일', 2], ['#03', '축의금', 3], ['#04', '상장', 4], ['#05', '빙고', 5], ['#06', '물가', 6], ['#07', '오미쿠지', 7], ['#08', '월급날', 8], ['#09', '지름 판결문', 9]];
+  var CH = [['#01', '알바 벽', 0], ['#02', '연차', 1], ['#02', '공휴일', 2], ['#03', '축의금', 3], ['#04', '상장', 4], ['#05', '빙고', 5], ['#06', '물가', 6], ['#07', '오미쿠지', 7], ['#08', '월급날', 8], ['#09', '지름 판결문', 9], ['#10', '덕질 영수증', 10]];
 
   for (var i = 0; i < D.length; i++) {
     D[i].h = ('#' + D[i].n + ' ' + D[i].n + ' ' + (D[i].a || '') + ' ' + D[i].t + ' ' + D[i].d + ' ' + D[i].k).toLowerCase();
@@ -62,11 +63,11 @@
   w.id = 'wtb-widget';
   w.className = 'wtb';
   w.innerHTML = ''
-    + '<p class="wtb-kick">PICKTOOL · #01–#09</p>'
+    + '<p class="wtb-kick">PICKTOOL · #01–#10</p>'
     + '<p class="wtb-h">번호로 바로 찾기</p>'
     + '<p class="wtb-p">번호(예: 05)나 이름을 넣으면 바로 나와요. 아래 칩을 누르면 한 번에 이동합니다.</p>'
     + '<label class="wtb-sr" for="wtb-q">웹툴 번호나 이름으로 찾기</label>'
-    + '<input id="wtb-q" class="wtb-q" type="search" placeholder="번호(#09)나 이름으로 찾기" autocomplete="off" enterkeyhint="search" aria-controls="wtb-list">'
+    + '<input id="wtb-q" class="wtb-q" type="search" placeholder="번호(#10)나 이름으로 찾기" autocomplete="off" enterkeyhint="search" aria-controls="wtb-list">'
     + '<p class="wtb-tip" id="wtb-tip" aria-live="polite"></p>'
     + '<div class="wtb-chips" id="wtb-chips"></div>'
     + '<ul class="wtb-list" id="wtb-list"></ul>';
@@ -138,14 +139,14 @@
   function render() {
     var q = norm(inp.value);
     list.innerHTML = '';
-    if (!q) { tip.textContent = '#01~#09 중에 고르거나, 이름 한 글자만 넣어 보세요.'; return; }
+    if (!q) { tip.textContent = '#01~#10 중에 고르거나, 이름 한 글자만 넣어 보세요.'; return; }
     var toks = q.split(' '), res = [];
     for (var i = 0; i < D.length; i++) {
       var ok = true;
       for (var j = 0; j < toks.length; j++) if (!hit(D[i], toks[j])) { ok = false; break; }
       if (ok) res.push(D[i]);
     }
-    if (!res.length) { tip.textContent = '그 번호나 이름은 아직 없어요. #01~#09을 눌러 보세요.'; return; }
+    if (!res.length) { tip.textContent = '그 번호나 이름은 아직 없어요. #01~#10을 눌러 보세요.'; return; }
     tip.textContent = res.length + '개 찾았어요. 누르면 바로 이동해요.';
     for (var r = 0; r < res.length; r++) list.appendChild(row(res[r]));
   }
