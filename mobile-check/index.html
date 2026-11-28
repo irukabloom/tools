@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>가로 흔들림 임시 점검</title>
+<style>
+body{font:13px/1.5 -apple-system,sans-serif;padding:16px}
+#out{white-space:pre-wrap;font-family:ui-monospace,monospace;font-size:12px}
+.ok{color:#0a7d3f}.bad{color:#c0223a}
+iframe{display:none}
+</style>
+</head>
+<body>
+<h1>임시 점검 페이지</h1>
+<div id="out">loading…</div>
+<script>
+const TOOLS = ['2027-holidays','yeoncha-2027','chukuigeum','sangjang','bingo-2027','arubaito-kabe','mulga','omikuji','payday','jireum','deokjil'];
+const WIDTHS = [293, 308, 375];
+const out = document.getElementById('out');
+const lines = [];
+
+function clippingAncestor(el, doc){
+  for (let p = el.parentElement; p && p !== doc.documentElement; p = p.parentElement){
+    const ox = getComputedStyle(p).overflowX;
+    if (ox === 'hidden' || ox === 'clip' || ox === 'auto' || ox === 'scroll') return p;
+  }
+  return null;
+}
+
+function load(url, width){
+  return new Promise(resolve => {
+    const f = document.createElement('iframe');
+    f.style.width = width + 'px';
+    f.style.height = '900px';
+    f.src = url;
+    f.onload = () => setTimeout(() => {
+      const d = f.contentDocument, w = f.contentWindow;
+      const docW = d.documentElement.clientWidth;
+      const res = {width, docClient: docW, htmlSW: d.documentElement.scrollWidth, bodySW: d.body.scrollWidth,
+                   innerW: w.innerWidth, offenders: []};
+      const all = d.querySelectorAll('*');
+      for (const el of all){
+        const r = el.getBoundingClientRect();
+        if (r.width === 0) continue;
+        if (r.right > docW + 0.5 && !clippingAncestor(el, d)){
+          res.offenders.push((el.tagName.toLowerCase()) + (el.className && typeof el.className === 'string' ? '.' + el.className.trim().split(/\s+/).join('.') : '') + ' right=' + Math.round(r.right));
+        }
+      }
+      res.offenders = res.offenders.slice(0, 4);
+      f.remove();
+      resolve(res);
+    }, 900);
+    document.body.appendChild(f);
+  });
+}
+
+(async () => {
+  for (const t of TOOLS){
+    for (const w of WIDTHS){
+      const r = await load('/' + t + '/?embed=1', w);
+      const bad = Math.max(r.htmlSW, r.bodySW) > r.docClient;
+      lines.push((bad ? '❌ ' : '✅ ') + t + ' @' + w + 'px  clientW=' + r.docClient + ' html.scrollW=' + r.htmlSW + ' body.scrollW=' + r.bodySW + (r.offenders.length ? '  넘친요소: ' + r.offenders.join(' , ') : ''));
+    }
+  }
+  out.textContent = lines.join('\n');
+  out.className = 'ok';
+  document.title = 'DONE';
+})();
+</script>
+</body>
+</html>
